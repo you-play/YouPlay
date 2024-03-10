@@ -38,6 +38,7 @@ When submitting a Pull Request:
 2. Rebase your branch if necessary to incorporate the latest changes: `git rebase develop`
 3. Submit your Pull Request targeting the `develop` branch
 4. Provide a clear description of the changes made and any relevant information for reviewers
+5. When merging a Pull Request, please do `Merge and Squash`
 
 To learn more about Git, check out [Learn Git Branching](https://learngitbranching.js.org/).
 
