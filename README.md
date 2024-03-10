@@ -131,7 +131,8 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 ## Wireframes
 
-![Wireframe](Codepath Final Project Wireframe.png)
+![Screenshot 2024-03-09 at 10 52 56 PM](https://github.com/ios-102/YouPlay/assets/83348928/a315059b-b9ea-4975-bfd9-54f8e22d0653)
+
 
 ### [BONUS] Digital Wireframes & Mockups
 
