@@ -126,6 +126,8 @@ Upon opening the app, users select their mood, and a curated playlist that match
   * Leads to `Song/Playback` (bottom sheet) for it
 - [ ] `Song/Playback` (after dismissing a `Song` _bottom sheet_)
   * Leads to `Home`
+- [ ] `Song/Playback` (after hitting "Add to Playlist" button`)
+  * Leads to `PlaylistSelection` _bottom sheet_
 
 ## Wireframes
 
