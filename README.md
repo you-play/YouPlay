@@ -131,7 +131,7 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 ## Wireframes
 
-[Add picture of your hand sketched wireframes in this section]
+![Wireframe](Codepath Final Project Wireframe.png)
 
 ### [BONUS] Digital Wireframes & Mockups
 
