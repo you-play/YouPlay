@@ -135,7 +135,7 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 ### [BONUS] Digital Wireframes & Mockups
 
-### [BONUS] Interactive Prototype
+<img width="612" alt="image" src="https://github.com/ios-102/YouPlay/assets/45319275/29c28f40-d564-4dac-af25-9d52c891cf6f">
 
 ## Schema 
 
