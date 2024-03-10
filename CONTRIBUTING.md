@@ -26,7 +26,7 @@ We follow a [Feature Branch Workflow](https://www.atlassian.com/git/tutorials/co
 
 When working on a new feature or bug fix:
 
-1. Ensure you are on the `dev` branch: `git checkout dev`
+1. Ensure you are on the `develop` branch: `git checkout develop`
 2. Create a new branch: `git checkout -b feature/your-feature-name`
 3. Implement your changes in this branch
 
@@ -34,9 +34,9 @@ When working on a new feature or bug fix:
 
 When submitting a Pull Request:
 
-1. Ensure your branch is up to date with `dev`: `git pull origin dev`
-2. Rebase your branch if necessary to incorporate the latest changes: `git rebase dev`
-3. Submit your Pull Request targeting the `dev` branch
+1. Ensure your branch is up to date with `develop`: `git pull origin develop`
+2. Rebase your branch if necessary to incorporate the latest changes: `git rebase develop`
+3. Submit your Pull Request targeting the `develop` branch
 4. Provide a clear description of the changes made and any relevant information for reviewers
 
 To learn more about Git, check out [Learn Git Branching](https://learngitbranching.js.org/).
