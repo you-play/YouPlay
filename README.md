@@ -12,7 +12,7 @@
 - [2. Screen Archetypes](#2-screen-archetypes)
   - [3. Navigation](#3-navigation)
 - [Wireframes](#wireframes)
-  - [\[BONUS\] Digital Wireframes \& Mockups](#bonus-digital-wireframes--mockups)
+  - [Digital Wireframes](#digital-wireframes)
 - [Schema](#schema)
   - [Models](#models)
   - [Networking](#networking)
@@ -39,9 +39,9 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 #### Required Must-have Stories
 
-**As a user,
+**As a** user,
 **I want** to select my current mood from a _select_ list of songs (based on energy, and dance-ability...)
-**so I can\*\* quickly receive a playlist that matches how I'm feeling.
+**so I can** quickly receive a playlist that matches how I'm feeling.
 
 **As a** user,
 **I want** to be able to play, pause, and skip songs (no shuffle, forward and backward) in the playlist
@@ -86,8 +86,8 @@ Upon opening the app, users select their mood, and a curated playlist that match
 **so I can** wake up or be reminded with music that fits how I want to feel.
 
 **As a** user,
-**I want** to see visualizations or artwork that match the mood of the current playlist
-**enhancing my listening experience.**
+**I want** to see visualizations or artwork that match the mood of the current playlist **so I can**
+enhance my listening experience.
 
 **As a** user,
 **I want** the option to filter songs by language or genre within a mood category
@@ -142,7 +142,7 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 ![Screenshot 2024-03-09 at 10 52 56 PM](https://github.com/ios-102/YouPlay/assets/83348928/a315059b-b9ea-4975-bfd9-54f8e22d0653)
 
-### [BONUS] Digital Wireframes & Mockups
+### Digital Wireframes
 
 ![Hand-made wire-frames](https://github.com/ios-102/YouPlay/assets/45319275/29c28f40-d564-4dac-af25-9d52c891cf6f)
 
