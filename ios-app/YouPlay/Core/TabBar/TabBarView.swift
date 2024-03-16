@@ -25,13 +25,13 @@ struct TabBarView: View {
                     Label("Playlists", systemImage: "music.note.list")
                 }
         }
+        .tint(.green)
         .onAppear {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
 
             UITabBar.appearance().standardAppearance = appearance
         }
-        .tint(.green)
     }
 }
 
