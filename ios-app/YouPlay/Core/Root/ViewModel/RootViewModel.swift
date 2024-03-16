@@ -11,7 +11,7 @@ import FirebaseAuth
 import Foundation
 
 class RootViewModel: ObservableObject {
-    @Published var userSession: FirebaseAuth.User?
+    @Published var currentUser: User?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -20,8 +20,8 @@ class RootViewModel: ObservableObject {
     }
 
     private func setupSubscribers() {
-        AuthServiceImpl.shared.$userSession.sink { [weak self] userSession in
-            self?.userSession = userSession
+        UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
+            self?.currentUser = currentUser
         }
         .store(in: &cancellables)
     }
