@@ -24,12 +24,12 @@ struct LoginView: View {
             // text fields
             VStack(spacing: 16) {
                 TextField("Enter your email", text: $viewModel.email)
-                    .padding(12)
+                    .padding(15)
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
 
                 SecureField("Enter your password", text: $viewModel.password)
-                    .padding(12)
+                    .padding(15)
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
             }
@@ -71,14 +71,14 @@ struct LoginView: View {
             // divider
             HStack {
                 Rectangle()
-                    .frame(height: 0.3)
+                    .frame(height: 0.5)
 
                 Text("OR")
                     .font(.footnote)
                     .fontWeight(.semibold)
 
                 Rectangle()
-                    .frame(height: 0.3)
+                    .frame(height: 0.5)
             }
             .foregroundStyle(.gray)
             .padding()

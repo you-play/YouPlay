@@ -25,12 +25,12 @@ struct SignUpView: View {
             // text fields
             VStack(spacing: 16) {
                 TextField("Enter your email", text: $viewModel.email)
-                    .padding(12)
+                    .padding(15)
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
                     
                 SecureField("Enter your password", text: $viewModel.password)
-                    .padding(12)
+                    .padding(15)
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
             }
