@@ -5,6 +5,7 @@
 - [Overview](#overview)
   - [Description](#description)
   - [App Evaluation](#app-evaluation)
+- [Running Locally](#running-locally)
 - [Product Spec](#product-spec)
   - [User Stories](#user-stories)
     - [Required Must-have Stories](#required-must-have-stories)
@@ -32,6 +33,12 @@ Upon opening the app, users select their mood, and a curated playlist that match
 - **Market:** Individuals who own an iOS device and are willing to stream music.
 - **Habit:** Users are meant to use the app throughout their day.
 - **Scope:** Our goal is to develop an MVP with a short scope of features and work from there. Focused on making the app functional and user-friendly.
+
+## Running Locally
+
+1. Clone the repo: `git clone https://github.com/ios-102/YouPlay`
+2. Add the `GoogleService-Info.plist` into `/ios-app/YouPlay/` folder
+3. Start the app in `Xcode`
 
 ## Product Spec
 

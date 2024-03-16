@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject var viewModel = ProfileViewModel(userService: UserServiceImpl.shared)
+    @StateObject private var viewModel = ProfileViewModel(userService: UserServiceImpl.shared)
 
     var body: some View {
         VStack(spacing: 16) {
@@ -17,7 +17,7 @@ struct ProfileView: View {
                 .fontWeight(.bold)
 
             if let user = viewModel.user {
-                Text("User: \(user.firstName) \(user.lastName)")
+                Text("User: \(user.username)")
             } else {
                 Text("No user found.")
             }
@@ -26,5 +26,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(viewModel: ProfileViewModel(userService: MockUserService()))
+    ProfileView()
 }

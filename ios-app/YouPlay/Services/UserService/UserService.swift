@@ -9,6 +9,8 @@ import Foundation
 
 /// The `UserService` manages all internal user metadata.
 protocol UserService {
-    /// The currently logged-in user.
     var currentUser: User? { get set }
+
+    func getUserMetadata(uid: String) async throws
+    func updateUserMetadata(uid: String, user: User) async throws
 }
