@@ -5,14 +5,31 @@
 //  Created by Sebastian on 3/10/24.
 //
 
+import FirebaseFirestoreSwift
 import Foundation
 
-struct User: Identifiable {
-    var id: Int
-    var firstName: String
-    var lastName: String
+struct User: Identifiable, Codable, Hashable {
+    // Firestore ID
+    @DocumentID var uid: String?
+
+    let username: String
+    let email: String
+    var profileImageUrl: String?
+
+    var id: String {
+        return uid ?? NSUUID().uuidString
+    }
+
+    var age: Int?
+    var gender: Gender?
 }
 
 extension User {
-    static let mock = User(id: 1, firstName: "John", lastName: "Doe")
+    static let mock = User(username: "johndoe", email: "jdoe@gmail.com", age: 28, gender: .male)
+}
+
+enum Gender: String, Codable {
+    case male
+    case female
+    case other
 }
