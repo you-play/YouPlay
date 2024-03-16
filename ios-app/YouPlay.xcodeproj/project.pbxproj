@@ -65,6 +65,7 @@
 		9EE687892BA63FE800A3B9F2 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE687882BA63FE800A3B9F2 /* RootViewModel.swift */; };
 		9EE6878B2BA6413200A3B9F2 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6878A2BA6413200A3B9F2 /* AuthView.swift */; };
 		9EE6878D2BA6418E00A3B9F2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6878C2BA6418E00A3B9F2 /* AuthViewModel.swift */; };
+		9EE687902BA645C600A3B9F2 /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6878F2BA645C600A3B9F2 /* CircularProfileImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +96,7 @@
 		9EE687882BA63FE800A3B9F2 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		9EE6878A2BA6413200A3B9F2 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9EE6878C2BA6418E00A3B9F2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		9EE6878F2BA645C600A3B9F2 /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 		9E3306A62B9E457E00456572 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9EE6878E2BA645AE00A3B9F2 /* CircularProfileImage */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -461,6 +464,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		9EE6878E2BA645AE00A3B9F2 /* CircularProfileImage */ = {
+			isa = PBXGroup;
+			children = (
+				9EE6878F2BA645C600A3B9F2 /* CircularProfileImageView.swift */,
+			);
+			path = CircularProfileImage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -582,6 +593,7 @@
 				9EE687832BA63CF800A3B9F2 /* SignUpView.swift in Sources */,
 				9E3306932B9E454700456572 /* YouPlayApp.swift in Sources */,
 				9EE687252BA1697A00A3B9F2 /* PlaylistsViewModel.swift in Sources */,
+				9EE687902BA645C600A3B9F2 /* CircularProfileImageView.swift in Sources */,
 				9EE6878B2BA6413200A3B9F2 /* AuthView.swift in Sources */,
 				9EE6871F2BA1690100A3B9F2 /* HomeViewModel.swift in Sources */,
 				9E3306B12B9E471B00456572 /* ProfileViewModel.swift in Sources */,

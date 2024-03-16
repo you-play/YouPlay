@@ -14,7 +14,6 @@ struct User: Identifiable, Codable, Hashable {
 
     let username: String
     let email: String
-    var profileImageUrl: String?
 
     var id: String {
         return uid ?? NSUUID().uuidString
@@ -22,10 +21,17 @@ struct User: Identifiable, Codable, Hashable {
 
     var age: Int?
     var gender: Gender?
+    var profileImageUrl: String?
 }
 
 extension User {
-    static let mock = User(username: "johndoe", email: "jdoe@gmail.com", age: 28, gender: .male)
+    static let mock = User(
+        username: "johndoe",
+        email: "jdoe@gmail.com",
+        age: 28,
+        gender: .male,
+        profileImageUrl: "https://static.vecteezy.com/system/resources/thumbnails/005/346/410/small_2x/close-up-portrait-of-smiling-handsome-young-caucasian-man-face-looking-at-camera-on-isolated-light-gray-studio-background-photo.jpg"
+    )
 }
 
 enum Gender: String, Codable {
