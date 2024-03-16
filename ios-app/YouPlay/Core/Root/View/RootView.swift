@@ -12,10 +12,25 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if viewModel.userSession == nil {
+            if viewModel.currentUser == nil {
                 AuthView()
             } else {
-                TabBarView()
+                NavigationStack {
+                    TabBarView()
+                        .toolbar { // Global toolbar
+                            ToolbarItem(placement: .topBarLeading) {
+                                if let user = viewModel.currentUser {
+                                    NavigationLink(
+                                        destination: ProfileView(user: user),
+                                        label: {
+                                            CircularProfileImageView(user: user)
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                }
+                .tint(.green)
             }
         }
     }

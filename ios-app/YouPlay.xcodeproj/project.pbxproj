@@ -66,6 +66,7 @@
 		9EE6878B2BA6413200A3B9F2 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6878A2BA6413200A3B9F2 /* AuthView.swift */; };
 		9EE6878D2BA6418E00A3B9F2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6878C2BA6418E00A3B9F2 /* AuthViewModel.swift */; };
 		9EE687902BA645C600A3B9F2 /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6878F2BA645C600A3B9F2 /* CircularProfileImageView.swift */; };
+		9EE687922BA64D9600A3B9F2 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE687912BA64D9600A3B9F2 /* Routes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 		9EE6878A2BA6413200A3B9F2 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9EE6878C2BA6418E00A3B9F2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		9EE6878F2BA645C600A3B9F2 /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
+		9EE687912BA64D9600A3B9F2 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 		9E3306A32B9E457B00456572 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				9EE687912BA64D9600A3B9F2 /* Routes.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				9EE6878B2BA6413200A3B9F2 /* AuthView.swift in Sources */,
 				9EE6871F2BA1690100A3B9F2 /* HomeViewModel.swift in Sources */,
 				9E3306B12B9E471B00456572 /* ProfileViewModel.swift in Sources */,
+				9EE687922BA64D9600A3B9F2 /* Routes.swift in Sources */,
 				9EE687232BA1694400A3B9F2 /* PlaylistsView.swift in Sources */,
 				9EE6871D2BA168E200A3B9F2 /* HomeView.swift in Sources */,
 				9EE6873A2BA504D100A3B9F2 /* AuthService.swift in Sources */,
