@@ -9,6 +9,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 
+@MainActor
 class ProfileViewModel: ObservableObject {
     @Published var profileImage: Image?
     @Published var selectedItem: PhotosPickerItem? {
