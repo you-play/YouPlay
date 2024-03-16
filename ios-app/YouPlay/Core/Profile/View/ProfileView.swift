@@ -12,6 +12,8 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     var user: User
 
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         VStack {
             VStack {
@@ -37,6 +39,7 @@ struct ProfileView: View {
                     Button("Log Out") {
                         print("DEBUG: logging out")
                         AuthServiceImpl.shared.logout()
+                        dismiss()
                     }
                     .tint(.red)
                 }
