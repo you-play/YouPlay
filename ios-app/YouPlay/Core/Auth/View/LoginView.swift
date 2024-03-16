@@ -11,7 +11,7 @@ struct LoginView: View {
     @State var viewModel: AuthViewModel
 
     var body: some View {
-        VStack {
+        VStack(spacing: 12) {
             Spacer()
 
             // logo
@@ -47,6 +47,7 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.horizontal)
+            .tint(.green)
 
             .padding(.top, -8)
 
@@ -114,6 +115,7 @@ struct LoginView: View {
                         .fontWeight(.semibold)
                 }
                 .font(.subheadline)
+                .foregroundStyle(.green)
             }
             .padding(.vertical)
         }
