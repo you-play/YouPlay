@@ -10,14 +10,13 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
-    var user: User
 
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         VStack {
             VStack {
-                PhotosPicker(selection: $viewModel.selectedItem) {
+                PhotosPicker(selection: $viewModel.selectedImage) {
                     if let profileImage = viewModel.profileImage {
                         profileImage
                             .resizable()
@@ -25,11 +24,11 @@ struct ProfileView: View {
                             .frame(width: ProfileImageSize.xxLarge.dimension, height: ProfileImageSize.xxLarge.dimension)
                             .clipShape(Circle())
                     } else {
-                        CircularProfileImageView(user: user, size: .xxLarge)
+                        CircularProfileImageView(user: viewModel.currentUser, size: .xxLarge)
                     }
                 }
 
-                Text(user.username)
+                Text(viewModel.currentUser?.username ?? "Username unavailable")
                     .font(.title2)
                     .fontWeight(.semibold)
             }
@@ -45,9 +44,19 @@ struct ProfileView: View {
                 }
             }
         }
+        .toolbar {
+            if viewModel.selectedImage != nil {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("\(viewModel.isSaving ? "Saving..." : "Save")") {
+                        viewModel.saveSelectedImage()
+                    }
+                    .disabled(viewModel.isSaving)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    ProfileView(user: User.mock)
+    ProfileView()
 }
