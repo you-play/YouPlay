@@ -13,6 +13,7 @@ protocol AuthService {
     var userSession: FirebaseAuth.User? { get }
 
     func login(email: String, password: String) async throws
+    func loginWithGoogle() async throws
     func createUser(email: String, password: String) async throws
     func logout()
     func resetPassword(email: String) async throws

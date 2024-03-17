@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E3134E12BA781030085F9B0 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3134E02BA781030085F9B0 /* GoogleSignIn */; };
+		9E3134E32BA781030085F9B0 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3134E22BA781030085F9B0 /* GoogleSignInSwift */; };
 		9E3306932B9E454700456572 /* YouPlayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3306922B9E454700456572 /* YouPlayApp.swift */; };
 		9E3306952B9E454700456572 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3306942B9E454700456572 /* RootView.swift */; };
 		9E3306972B9E454900456572 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3306962B9E454900456572 /* Assets.xcassets */; };
@@ -73,6 +75,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E3134E42BA7812A0085F9B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E33068F2B9E454700456572 /* YouPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3306922B9E454700456572 /* YouPlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouPlayApp.swift; sourceTree = "<group>"; };
 		9E3306942B9E454700456572 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -114,12 +117,14 @@
 			files = (
 				9EE687682BA5133800A3B9F2 /* FirebaseMessaging in Frameworks */,
 				9EE687582BA5133800A3B9F2 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				9E3134E12BA781030085F9B0 /* GoogleSignIn in Frameworks */,
 				9EE687502BA5133800A3B9F2 /* FirebaseDatabase in Frameworks */,
 				9EE687302BA5027000A3B9F2 /* FirebaseAnalyticsSwift in Frameworks */,
 				9EE687702BA5133800A3B9F2 /* FirebaseStorage in Frameworks */,
 				9EE6872C2BA5027000A3B9F2 /* FirebaseAnalytics in Frameworks */,
 				9EE6873E2BA5133800A3B9F2 /* FirebaseAnalytics in Frameworks */,
 				9EE6874E2BA5133800A3B9F2 /* FirebaseCrashlytics in Frameworks */,
+				9E3134E32BA781030085F9B0 /* GoogleSignInSwift in Frameworks */,
 				9EE687562BA5133800A3B9F2 /* FirebaseFirestore in Frameworks */,
 				9EE687542BA5133800A3B9F2 /* FirebaseDynamicLinks in Frameworks */,
 				9EE687722BA5133800A3B9F2 /* FirebaseStorageCombine-Community in Frameworks */,
@@ -179,6 +184,7 @@
 				9E3306A12B9E457900456572 /* Models */,
 				9E3306A02B9E457800456572 /* Utils */,
 				9E3306962B9E454900456572 /* Assets.xcassets */,
+				9E3134E42BA7812A0085F9B0 /* Info.plist */,
 				9EE687732BA519AC00A3B9F2 /* GoogleService-Info.plist */,
 				9E3306982B9E454900456572 /* Preview Content */,
 			);
@@ -549,6 +555,8 @@
 				9EE6876D2BA5133800A3B9F2 /* FirebaseRemoteConfigSwift */,
 				9EE6876F2BA5133800A3B9F2 /* FirebaseStorage */,
 				9EE687712BA5133800A3B9F2 /* FirebaseStorageCombine-Community */,
+				9E3134E02BA781030085F9B0 /* GoogleSignIn */,
+				9E3134E22BA781030085F9B0 /* GoogleSignInSwift */,
 			);
 			productName = YouPlay;
 			productReference = 9E33068F2B9E454700456572 /* YouPlay.app */;
@@ -580,6 +588,7 @@
 			mainGroup = 9E3306862B9E454700456572;
 			packageReferences = (
 				9EE6872A2BA5027000A3B9F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9E3134DF2BA781020085F9B0 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 9E3306902B9E454700456572 /* Products */;
 			projectDirPath = "";
@@ -772,6 +781,7 @@
 				DEVELOPMENT_TEAM = NT3V622V8B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YouPlay/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -802,6 +812,7 @@
 				DEVELOPMENT_TEAM = NT3V622V8B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YouPlay/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -845,6 +856,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9E3134DF2BA781020085F9B0 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		9EE6872A2BA5027000A3B9F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -856,6 +875,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E3134E02BA781030085F9B0 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E3134DF2BA781020085F9B0 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		9E3134E22BA781030085F9B0 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E3134DF2BA781020085F9B0 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		9EE6872B2BA5027000A3B9F2 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9EE6872A2BA5027000A3B9F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -17,13 +17,18 @@ class UserServiceImpl: UserService {
     @Published var currentUser: User?
 
     @MainActor
-    func getUserMetadata(uid: String) async throws -> User {
-        let snapshot = try await FirestoreConstants.UsersCollection.document(uid).getDocument()
-        let user = try snapshot.data(as: User.self)
+    func getUserMetadata(uid: String) async throws -> User? {
+        do {
+            let snapshot = try await FirestoreConstants.UsersCollection.document(uid).getDocument()
+            let user = try snapshot.data(as: User.self)
+            currentUser = user
 
-        currentUser = user
-        print("DEBUG: retrieved data for user with email \(user.email)")
-        return user
+            print("DEBUG: retrieved data for user with email \(user.email)")
+            return user
+        } catch {
+            print("DEBUG: unable to find metadata for ui \(uid)", error.localizedDescription)
+            return nil
+        }
     }
 
     @MainActor
@@ -44,7 +49,10 @@ class UserServiceImpl: UserService {
             imageData: imageData
         )
 
-        var user = try await getUserMetadata(uid: uid)
+        guard var user = try await getUserMetadata(uid: uid) else {
+            print("DEBUG: no metadata found for user with uid \(uid), unable to update profile image")
+            return
+        }
         user.profileImageUrl = imageUrl
 
         try await updateUserMetadata(uid: uid, user: user)
