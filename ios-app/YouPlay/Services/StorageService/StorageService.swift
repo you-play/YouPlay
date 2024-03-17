@@ -9,6 +9,6 @@ import Foundation
 
 /// The `StorageService` manages all communication between the app and our Object Storage.
 protocol StorageService {
-    func uploadImage(bucket: StorageBucket, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
+    func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
         async throws -> String
 }

@@ -37,8 +37,8 @@ struct LoginView: View {
             .padding(.horizontal)
 
             // forgot password
-            Button {
-                print("Forgot password") // TODO: password reset
+            NavigationLink {
+                ResetPasswordView(viewModel: viewModel)
             } label: {
                 Text("Forgot password?")
                     .font(.footnote)
@@ -55,6 +55,7 @@ struct LoginView: View {
             Button {
                 Task {
                     try await viewModel.login()
+                    viewModel.reset()
                 }
             } label: {
                 Text("Login")

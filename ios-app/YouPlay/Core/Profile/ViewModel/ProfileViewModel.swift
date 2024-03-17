@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Combine
 import Foundation
 import PhotosUI
 import SwiftUI
@@ -15,6 +16,7 @@ class ProfileViewModel: ObservableObject {
     @Published var isSaving = false
     @Published var currentUser: User?
     @Published var profileImage: Image?
+    @Published var selectedImage: PhotosPickerItem? {
     @Published var selectedImage: PhotosPickerItem? {
         didSet {
             Task {
@@ -46,12 +48,12 @@ class ProfileViewModel: ObservableObject {
 
         Task {
             try await UserServiceImpl.shared.updateProfileImage(uid: uid, imageData: imageData)
+
+            // reset
+            selectedImage = nil
+            selectedImageData = nil
+            isSaving = false
         }
-        
-        // reset
-        selectedImage = nil
-        selectedImageData = nil
-        isSaving = false
     }
 
     private func loadImage() async throws {

@@ -41,6 +41,7 @@ struct SignUpView: View {
             Button {
                 Task {
                     try await viewModel.signUp()
+                    viewModel.reset()
                 }
             } label: {
                 Text("Sign up")

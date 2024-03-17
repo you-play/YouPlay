@@ -69,6 +69,7 @@
 		9EE687922BA64D9600A3B9F2 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE687912BA64D9600A3B9F2 /* Routes.swift */; };
 		9EE687952BA6854200A3B9F2 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE687942BA6854200A3B9F2 /* StorageService.swift */; };
 		9EE687982BA6856200A3B9F2 /* StorageServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE687972BA6856200A3B9F2 /* StorageServiceImpl.swift */; };
+		9EE6879A2BA6938300A3B9F2 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE687992BA6938300A3B9F2 /* ResetPasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		9EE687912BA64D9600A3B9F2 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		9EE687942BA6854200A3B9F2 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		9EE687972BA6856200A3B9F2 /* StorageServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceImpl.swift; sourceTree = "<group>"; };
+		9EE687992BA6938300A3B9F2 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +454,7 @@
 				9EE6878A2BA6413200A3B9F2 /* AuthView.swift */,
 				9EE6877E2BA63C0500A3B9F2 /* LoginView.swift */,
 				9EE687822BA63CF800A3B9F2 /* SignUpView.swift */,
+				9EE687992BA6938300A3B9F2 /* ResetPasswordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				9EE687192BA1686700A3B9F2 /* SearchViewModel.swift in Sources */,
 				9EE6873C2BA5126400A3B9F2 /* AuthServiceImpl.swift in Sources */,
 				9EE687892BA63FE800A3B9F2 /* RootViewModel.swift in Sources */,
+				9EE6879A2BA6938300A3B9F2 /* ResetPasswordView.swift in Sources */,
 				9EE687152BA1683100A3B9F2 /* SearchView.swift in Sources */,
 				9EE687272BA169F300A3B9F2 /* TabBarView.swift in Sources */,
 				9EE687772BA51BF200A3B9F2 /* ValidationUtil.swift in Sources */,
