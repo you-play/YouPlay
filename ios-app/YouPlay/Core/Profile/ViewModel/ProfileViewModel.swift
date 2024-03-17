@@ -46,12 +46,12 @@ class ProfileViewModel: ObservableObject {
 
         Task {
             try await UserServiceImpl.shared.updateProfileImage(uid: uid, imageData: imageData)
+
+            // reset
+            selectedImage = nil
+            selectedImageData = nil
+            isSaving = false
         }
-        
-        // reset
-        selectedImage = nil
-        selectedImageData = nil
-        isSaving = false
     }
 
     private func loadImage() async throws {

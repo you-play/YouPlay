@@ -17,16 +17,23 @@ class AuthViewModel: ObservableObject {
     func login() async throws {
         print("DEBUG: attemping to login user with email \(email)")
         try await AuthServiceImpl.shared.login(email: email, password: password)
-        reset()
     }
 
     func signUp() async throws {
         print("DEBUG: attemping to create user with email \(email)")
         try await AuthServiceImpl.shared.createUser(email: email, password: password)
-        reset()
     }
 
-    private func reset() {
+    func resetPassword() async throws {
+        if !ValidationUtil.isEmail(email) {
+            print("DEBUG: unable to reset password with an invalid email")
+            return
+        }
+
+        try await AuthServiceImpl.shared.resetPassword(email: email)
+    }
+
+    func reset() {
         email = ""
         password = ""
     }
