@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State var viewModel: AuthViewModel
+    @ObservedObject var viewModel: AuthViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {

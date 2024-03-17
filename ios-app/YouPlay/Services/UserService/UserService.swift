@@ -11,6 +11,7 @@ import Foundation
 protocol UserService {
     var currentUser: User? { get set }
 
-    func getUserMetadata(uid: String) async throws
+    func getUserMetadata(uid: String) async throws -> User
     func updateUserMetadata(uid: String, user: User) async throws
+    func updateProfileImage(uid: String, imageData: Data) async throws
 }

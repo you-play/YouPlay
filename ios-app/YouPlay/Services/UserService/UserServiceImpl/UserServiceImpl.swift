@@ -17,12 +17,13 @@ class UserServiceImpl: UserService {
     @Published var currentUser: User?
 
     @MainActor
-    func getUserMetadata(uid: String) async throws {
+    func getUserMetadata(uid: String) async throws -> User {
         let snapshot = try await FirestoreConstants.UsersCollection.document(uid).getDocument()
         let user = try snapshot.data(as: User.self)
 
-        self.currentUser = user
+        currentUser = user
         print("DEBUG: retrieved data for user with email \(user.email)")
+        return user
     }
 
     @MainActor
@@ -33,6 +34,19 @@ class UserServiceImpl: UserService {
         }
 
         try await FirestoreConstants.UsersCollection.document(uid).setData(encodedUser)
-        print("DEBUG: saved user metadata with email \(user.email)")
+        print("DEBUG: updated user metadata with email \(user.email)")
+    }
+
+    func updateProfileImage(uid: String, imageData: Data) async throws {
+        let imageUrl = try await StorageServiceImpl.shared.uploadImage(
+            bucket: .ProfileImages,
+            fileName: uid,
+            imageData: imageData
+        )
+
+        var user = try await getUserMetadata(uid: uid)
+        user.profileImageUrl = imageUrl
+
+        try await updateUserMetadata(uid: uid, user: user)
     }
 }
