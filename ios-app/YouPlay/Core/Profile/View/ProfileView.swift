@@ -5,26 +5,49 @@
 //  Created by Sebastian on 3/10/24.
 //
 
+import PhotosUI
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject private var viewModel = ProfileViewModel(userService: UserServiceImpl.shared)
+    @StateObject private var viewModel = ProfileViewModel()
+    var user: User
+
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Welcome to YouPlay!")
-                .font(.title)
-                .fontWeight(.bold)
+        VStack {
+            VStack {
+                PhotosPicker(selection: $viewModel.selectedItem) {
+                    if let profileImage = viewModel.profileImage {
+                        profileImage
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: ProfileImageSize.xxLarge.dimension, height: ProfileImageSize.xxLarge.dimension)
+                            .clipShape(Circle())
+                    } else {
+                        CircularProfileImageView(user: user, size: .xxLarge)
+                    }
+                }
 
-            if let user = viewModel.user {
-                Text("User: \(user.username)")
-            } else {
-                Text("No user found.")
+                Text(user.username)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+            }
+
+            List {
+                Section {
+                    Button("Log Out") {
+                        print("DEBUG: logging out")
+                        AuthServiceImpl.shared.logout()
+                        dismiss()
+                    }
+                    .tint(.red)
+                }
             }
         }
     }
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(user: User.mock)
 }
