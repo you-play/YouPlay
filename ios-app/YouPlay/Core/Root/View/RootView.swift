@@ -21,9 +21,9 @@ struct RootView: View {
                             ToolbarItem(placement: .topBarLeading) {
                                 if let user = viewModel.currentUser {
                                     NavigationLink(
-                                        destination: ProfileView(user: user),
+                                        destination: ProfileView(),
                                         label: {
-                                            CircularProfileImageView(user: user)
+                                            CircularProfileImageView(user: user, size: .small)
                                         }
                                     )
                                 }
