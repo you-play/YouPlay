@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Combine
 import Foundation
 import PhotosUI
 import SwiftUI
@@ -16,7 +15,6 @@ class ProfileViewModel: ObservableObject {
     @Published var isSaving = false
     @Published var currentUser: User?
     @Published var profileImage: Image?
-    @Published var selectedImage: PhotosPickerItem? {
     @Published var selectedImage: PhotosPickerItem? {
         didSet {
             Task {
