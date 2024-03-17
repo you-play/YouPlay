@@ -54,7 +54,7 @@ enum ProfileImageSize {
         case .medium: 56
         case .large: 64
         case .xLarge: 80
-        case .xxLarge: 120
+        case .xxLarge: 130
         }
     }
 }
