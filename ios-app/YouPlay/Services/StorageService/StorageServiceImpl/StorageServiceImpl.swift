@@ -29,7 +29,7 @@ class StorageServiceImpl: StorageService {
         metadata.contentType = "image/\(fileExtension.fullName)"
 
         do {
-            imageRef.putData(imageData, metadata: metadata)
+            _ = try await imageRef.putDataAsync(imageData, metadata: metadata)
             print("DEBUG: successfully uploaded image with name \(fileNameWithExtension)")
 
             let downloadURL = try await imageRef.downloadURL()

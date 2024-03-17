@@ -86,7 +86,9 @@ struct LoginView: View {
 
             // Google login
             Button {
-                print("Login with Google") // TODO: Google login
+                Task {
+                    try await AuthServiceImpl.shared.loginWithGoogle()
+                }
             } label: {
                 HStack {
                     Image("GoogleLogo")
