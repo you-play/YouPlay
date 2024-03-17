@@ -55,9 +55,9 @@ class AuthServiceImpl: AuthService {
 
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            userSession = result.user
+            let uid = result.user.uid
 
-            uploadUserMetadata(uid: result.user.uid, user: newUser)
+            uploadUserMetadata(uid: uid, user: newUser)
             print("DEBUG: created user \(result.user.uid)")
         } catch {
             print("DEBUG: unable to create user with email \(email) and error: \(error.localizedDescription)")
@@ -78,6 +78,16 @@ class AuthServiceImpl: AuthService {
             print("DEBUG: logged out user")
         } catch {
             print("DEBUG: unable to log out user with email \(userSession?.email ?? "NO EMAIL") with error \(error.localizedDescription)")
+        }
+    }
+
+    func resetPassword(email: String) async throws {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+            print("DEBUG: Password reset email sent to \(email)")
+        } catch {
+            print("DEBUG: Failed to send password reset email to \(email): \(error.localizedDescription)")
+            throw error
         }
     }
 
