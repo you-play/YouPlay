@@ -5,13 +5,17 @@
 - [Overview](#overview)
   - [Description](#description)
   - [App Evaluation](#app-evaluation)
+- [Technologies](#technologies)
 - [Running Locally](#running-locally)
+- [Project Board](#project-board)
+- [Demos](#demos)
+  - [Auth Flow](#auth-flow)
 - [Product Spec](#product-spec)
   - [User Stories](#user-stories)
     - [Required Must-have Stories](#required-must-have-stories)
     - [Optional (Nice-to-have Stories)](#optional-nice-to-have-stories)
-- [2. Screen Archetypes](#2-screen-archetypes)
-  - [3. Navigation](#3-navigation)
+- [Screen Archetypes](#screen-archetypes)
+  - [Navigation](#navigation)
 - [Wireframes](#wireframes)
   - [Digital Wireframes](#digital-wireframes)
 - [Schema](#schema)
@@ -34,11 +38,36 @@ Upon opening the app, users select their mood, and a curated playlist that match
 - **Habit:** Users are meant to use the app throughout their day.
 - **Scope:** Our goal is to develop an MVP with a short scope of features and work from there. Focused on making the app functional and user-friendly.
 
+## Technologies
+
+- **Language:** Swift
+- **iOS Framework:** SwiftUI
+- **Auth:** Firebase Auth
+- **Database**
+  - **NoSQL:** Firebase Firestore
+  - **Object Storage:** Firebase Storage
+
 ## Running Locally
 
 1. Clone the repo: `git clone https://github.com/ios-102/YouPlay`
 2. Add the `GoogleService-Info.plist` into `/ios-app/YouPlay/` folder
 3. Start the app in `Xcode`
+
+## Project Board
+
+![project board 1](./assets//screenshots/project-board-1.png)
+
+## Demos
+
+### Auth Flow
+
+- Complete auth flow (log in, sign up, logout) using email and password alongside Google OAuth.
+
+- Users are able to update their profile picture and have it uploaded directly to Firebase Storage.
+
+- Password reset available via email.
+
+![auth flow demo](./assets/demos/demo-auth-flow.gif)
 
 ## Product Spec
 
@@ -100,7 +129,7 @@ enhance my listening experience.
 **I want** the option to filter songs by language or genre within a mood category
 **so I can** tailor the music even further to my
 
-## 2. Screen Archetypes
+## Screen Archetypes
 
 - Login Screen
   - As a user, I must be able to log in
@@ -122,7 +151,7 @@ enhance my listening experience.
 - Search bar
   - As a logged-in user, I should be able to search for songs.
 
-### 3. Navigation
+### Navigation
 
 **Tab Navigation** (Tab to Screen)
 

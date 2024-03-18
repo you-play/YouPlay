@@ -20,7 +20,7 @@ We follow a [Feature Branch Workflow](https://www.atlassian.com/git/tutorials/co
 - **Development Branch:** The `develop` branch serves as the main integration branch. All feature branches are merged into this branch for testing before being merged into `main`.
 - **Feature Branches:** For each new feature or bug fix, create a new branch off `develop`. Use descriptive branch names that reflect the nature of the work being done.
 
-![GitHub branching strategy](./images/github_branching.png)
+![GitHub branching strategy](./assets/docs/github_branching.png)
 
 ### Creating a Feature Branch
 
