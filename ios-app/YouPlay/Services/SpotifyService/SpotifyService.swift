@@ -6,7 +6,9 @@
 //
 
 import Foundation
-protocol SpotifyService{
-    func loadSpotifyCredentials() -> (clientId: String?, clientSecret: String?)
+
+/// The `SpotifyService` is in charge of all communication with the Spotify API.
+protocol SpotifyService {
+    func loadSpotifyCredentials() throws -> (clientId: String?, clientSecret: String?)
     func authenticateWithSpotify(clientId: String, clientSecret: String)
 }

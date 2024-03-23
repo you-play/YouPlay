@@ -8,79 +8,101 @@
 import SwiftUI
 
 struct SongDetailView: View {
-    @State private var songProgress: Double = 0.0
+    // TODO: eventually it will make more sense to simply pass in a `Song` and `Artist` models to have all relevant info
+    let songName: String
+    let artistNames: [String]
+    
+    // @State private var songProgress: Double = 0.33
     @State private var isLiked: Bool = false
-    @State private var isPaused: Bool = false
+    @State private var isPaused: Bool = true
     
     var body: some View {
-        VStack{
+        VStack {
             Image("testSpotifyImage")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width:350 , height: 350)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .frame(maxWidth: .infinity, maxHeight: 350)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
                 .clipped()
+                .padding(.bottom, 20)
             
-            HStack{
-                VStack(alignment:.leading){
-                    Text("Song Name")
-                        .font(.system(size: 18,weight: .bold))
-                    Text("Arist")
-                }
-                Spacer()
-                //Like button
-                Button(action:{
-                    isLiked.toggle()
-                }){
-                    Image(systemName: isLiked ? "heart.fill" : "heart")
-                        .foregroundColor(isLiked ? .green : .white)
-                        .imageScale(.large)
-                }
-            }
-            .padding()
-            
-            Slider(value: $songProgress, in: 0...1,step: 0.01)
-                .accentColor(.green)
-            
-            //Playback controlls
-            
-            HStack{
-                //Prev
-                Button(action:{
-                    //Go to prev song
-                }){
-                    Image(systemName: "backward.end")
-                        .foregroundColor(.green)
-                        .font(.system(size: 40))
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(songName)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .lineLimit(1)
+                    
+                    Text(artistNames.joined(separator: ", "))
+                        .foregroundStyle(.gray)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
                 }
                 
-                //play/pause
-                 Button(action:{
-                    //pause or play song
-                     isPaused.toggle()
-                }){
-                    Image(systemName: isPaused ? "play.circle" : "pause.circle")
-                        .foregroundColor(.green)
+                Spacer()
+                
+                // Like button
+                Button(action: {
+                    isLiked.toggle()
+                    // TODO: add like functionality
+                    print(isLiked ? "Liked song" : "Unliked song")
+                }) {
+                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(isLiked ? .green : .white)
+                        .padding(.horizontal)
+                }
+            }
+            .padding(.vertical)
+            
+            // Slider(value: $songProgress, in: 0 ... 1, step: 0.01)
+            //     .accentColor(.green)
+            
+            // playback controlls
+            HStack(spacing: 50) {
+                // prev
+                Button(action: {
+                    // TODO: go to prev song
+                    print("Previous song")
+                }) {
+                    Image(systemName: "backward.end.fill")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 30))
+                }
+                
+                // play/pause
+                Button(action: {
+                    isPaused.toggle()
+                    // TODO: play/pause song
+                    print(isPaused ? "Pause song" : "Play song")
+                }) {
+                    Image(systemName: isPaused ? "play.circle.fill" : "pause.circle.fill")
+                        .foregroundColor(.primary)
                         .font(.system(size: 60))
                 }
                 
-                //next song
-                Button(action:{
-                    //pause or play song
-                }){
-                    Image(systemName: "forward.end")
-                        .foregroundColor(.green)
-                        .font(.system(size:40))
+                // next song
+                Button(action: {
+                    // TODO: skip song
+                    print("Next song")
+                }) {
+                    Image(systemName: "forward.end.fill")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 30))
                 }
-                
             }
             .font(.title)
-            .padding(.top,20)
+            .padding(.top, 20)
         }
         .padding()
     }
 }
 
 #Preview {
-    SongDetailView()
+    SongDetailView(
+        songName: "Some super super long song name",
+        artistNames: ["Artist 1", "Artist 2"]
+    )
 }
