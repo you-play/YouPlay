@@ -23,3 +23,6 @@ enum StorageBuckets: String {
 
 let MIN_PASSWORD_LENGTH = 6
 let EMAIL_REGEX = #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#
+
+let spotifyTokenURL = "https://accounts.spotify.com/api/token"
+

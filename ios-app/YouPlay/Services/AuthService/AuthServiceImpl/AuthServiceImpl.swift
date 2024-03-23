@@ -78,7 +78,7 @@ class AuthServiceImpl: AuthService {
             let result = try await Auth.auth().signIn(with: credential)
             userSession = result.user
             let uid = result.user.uid
-            
+
             let existingUserMetadata = try await fetchUserMetadata(uid: uid)
             if existingUserMetadata == nil {
                 let email = result.user.email ?? ""
