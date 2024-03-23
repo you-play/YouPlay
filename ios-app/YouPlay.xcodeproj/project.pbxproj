@@ -10,6 +10,9 @@
 		372C7BE52BAE5C7E00DCD41E /* SongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */; };
 		372C7BEA2BAE614900DCD41E /* SpotifyServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BE92BAE614900DCD41E /* SpotifyServiceImpl.swift */; };
 		372C7BEC2BAE615600DCD41E /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BEB2BAE615600DCD41E /* SpotifyService.swift */; };
+		372C7BF02BAE62AA00DCD41E /* SpotifyService.plist in Resources */ = {isa = PBXBuildFile; fileRef = 372C7BEF2BAE62AA00DCD41E /* SpotifyService.plist */; };
+		372C7BF22BAE755200DCD41E /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BF12BAE755200DCD41E /* Song.swift */; };
+		372C7BF62BAE773E00DCD41E /* ScrollableSongsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BF52BAE773E00DCD41E /* ScrollableSongsView.swift */; };
 		9E3134E12BA781030085F9B0 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3134E02BA781030085F9B0 /* GoogleSignIn */; };
 		9E3134E32BA781030085F9B0 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3134E22BA781030085F9B0 /* GoogleSignInSwift */; };
 		9E3306932B9E454700456572 /* YouPlayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3306922B9E454700456572 /* YouPlayApp.swift */; };
@@ -82,6 +85,9 @@
 		372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailView.swift; sourceTree = "<group>"; };
 		372C7BE92BAE614900DCD41E /* SpotifyServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyServiceImpl.swift; sourceTree = "<group>"; };
 		372C7BEB2BAE615600DCD41E /* SpotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
+		372C7BEF2BAE62AA00DCD41E /* SpotifyService.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SpotifyService.plist; path = ../../../SpotifyService.plist; sourceTree = "<group>"; };
+		372C7BF12BAE755200DCD41E /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		372C7BF52BAE773E00DCD41E /* ScrollableSongsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableSongsView.swift; sourceTree = "<group>"; };
 		9E3134E42BA7812A0085F9B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E33068F2B9E454700456572 /* YouPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3306922B9E454700456572 /* YouPlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouPlayApp.swift; sourceTree = "<group>"; };
@@ -180,6 +186,22 @@
 			path = SpotifyServiceImpl;
 			sourceTree = "<group>";
 		};
+		372C7BF32BAE76AD00DCD41E /* ScrollableSongs */ = {
+			isa = PBXGroup;
+			children = (
+				372C7BF52BAE773E00DCD41E /* ScrollableSongsView.swift */,
+			);
+			path = ScrollableSongs;
+			sourceTree = "<group>";
+		};
+		372C7BF42BAE770D00DCD41E /* SongDetails */ = {
+			isa = PBXGroup;
+			children = (
+				372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */,
+			);
+			path = SongDetails;
+			sourceTree = "<group>";
+		};
 		9E3306862B9E454700456572 = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				9E3306AB2B9E467F00456572 /* User.swift */,
+				372C7BF12BAE755200DCD41E /* Song.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,6 +308,8 @@
 		9E3306A62B9E457E00456572 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				372C7BF42BAE770D00DCD41E /* SongDetails */,
+				372C7BF32BAE76AD00DCD41E /* ScrollableSongs */,
 				9EE6878E2BA645AE00A3B9F2 /* CircularProfileImage */,
 				9E6B0A442BAF3EA100836A50 /* SongDetailView */,
 			);
@@ -677,11 +702,13 @@
 				9E3306B12B9E471B00456572 /* ProfileViewModel.swift in Sources */,
 				9EE687922BA64D9600A3B9F2 /* Routes.swift in Sources */,
 				9EE687232BA1694400A3B9F2 /* PlaylistsView.swift in Sources */,
+				372C7BF62BAE773E00DCD41E /* ScrollableSongsView.swift in Sources */,
 				9EE6871D2BA168E200A3B9F2 /* HomeView.swift in Sources */,
 				9EE6873A2BA504D100A3B9F2 /* AuthService.swift in Sources */,
 				9EE6878D2BA6418E00A3B9F2 /* AuthViewModel.swift in Sources */,
 				9EE6877F2BA63C0500A3B9F2 /* LoginView.swift in Sources */,
 				9E3306B92B9E4AAB00456572 /* ProfileView.swift in Sources */,
+				372C7BF22BAE755200DCD41E /* Song.swift in Sources */,
 				9EE687982BA6856200A3B9F2 /* StorageServiceImpl.swift in Sources */,
 				372C7BE52BAE5C7E00DCD41E /* SongDetailView.swift in Sources */,
 				9E3306AC2B9E467F00456572 /* User.swift in Sources */,
