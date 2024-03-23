@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372C7BE52BAE5C7E00DCD41E /* SongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */; };
+		372C7BEA2BAE614900DCD41E /* SpotifyServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BE92BAE614900DCD41E /* SpotifyServiceImpl.swift */; };
+		372C7BEC2BAE615600DCD41E /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BEB2BAE615600DCD41E /* SpotifyService.swift */; };
+		372C7BF02BAE62AA00DCD41E /* SpotifyService.plist in Resources */ = {isa = PBXBuildFile; fileRef = 372C7BEF2BAE62AA00DCD41E /* SpotifyService.plist */; };
 		9E3134E12BA781030085F9B0 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3134E02BA781030085F9B0 /* GoogleSignIn */; };
 		9E3134E32BA781030085F9B0 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3134E22BA781030085F9B0 /* GoogleSignInSwift */; };
 		9E3306932B9E454700456572 /* YouPlayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3306922B9E454700456572 /* YouPlayApp.swift */; };
@@ -75,6 +79,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailView.swift; sourceTree = "<group>"; };
+		372C7BE92BAE614900DCD41E /* SpotifyServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyServiceImpl.swift; sourceTree = "<group>"; };
+		372C7BEB2BAE615600DCD41E /* SpotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
+		372C7BEF2BAE62AA00DCD41E /* SpotifyService.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SpotifyService.plist; path = ../../../SpotifyService.plist; sourceTree = "<group>"; };
 		9E3134E42BA7812A0085F9B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E33068F2B9E454700456572 /* YouPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3306922B9E454700456572 /* YouPlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouPlayApp.swift; sourceTree = "<group>"; };
@@ -155,6 +163,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		372C7BE62BAE60D500DCD41E /* SpotifyService */ = {
+			isa = PBXGroup;
+			children = (
+				372C7BE82BAE612800DCD41E /* SpotifyServiceImpl */,
+				372C7BEB2BAE615600DCD41E /* SpotifyService.swift */,
+			);
+			path = SpotifyService;
+			sourceTree = "<group>";
+		};
+		372C7BE82BAE612800DCD41E /* SpotifyServiceImpl */ = {
+			isa = PBXGroup;
+			children = (
+				372C7BE92BAE614900DCD41E /* SpotifyServiceImpl.swift */,
+			);
+			path = SpotifyServiceImpl;
+			sourceTree = "<group>";
+		};
 		9E3306862B9E454700456572 = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +210,7 @@
 				9E3306A02B9E457800456572 /* Utils */,
 				9E3306962B9E454900456572 /* Assets.xcassets */,
 				9E3134E42BA7812A0085F9B0 /* Info.plist */,
+				372C7BEF2BAE62AA00DCD41E /* SpotifyService.plist */,
 				9EE687732BA519AC00A3B9F2 /* GoogleService-Info.plist */,
 				9E3306982B9E454900456572 /* Preview Content */,
 			);
@@ -219,6 +245,7 @@
 		9E3306A22B9E457A00456572 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				372C7BE62BAE60D500DCD41E /* SpotifyService */,
 				9EE687372BA504BF00A3B9F2 /* AuthService */,
 				9EE687932BA6852300A3B9F2 /* StorageService */,
 				9E3306B22B9E477900456572 /* UserService */,
@@ -259,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				9EE6878E2BA645AE00A3B9F2 /* CircularProfileImage */,
+				372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -605,6 +633,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E33069A2B9E454900456572 /* Preview Assets.xcassets in Resources */,
+				372C7BF02BAE62AA00DCD41E /* SpotifyService.plist in Resources */,
 				9E3306972B9E454900456572 /* Assets.xcassets in Resources */,
 				9EE687742BA519AC00A3B9F2 /* GoogleService-Info.plist in Resources */,
 			);
@@ -632,7 +661,9 @@
 				9EE687832BA63CF800A3B9F2 /* SignUpView.swift in Sources */,
 				9E3306932B9E454700456572 /* YouPlayApp.swift in Sources */,
 				9EE687252BA1697A00A3B9F2 /* PlaylistsViewModel.swift in Sources */,
+				372C7BEC2BAE615600DCD41E /* SpotifyService.swift in Sources */,
 				9EE687902BA645C600A3B9F2 /* CircularProfileImageView.swift in Sources */,
+				372C7BEA2BAE614900DCD41E /* SpotifyServiceImpl.swift in Sources */,
 				9EE6878B2BA6413200A3B9F2 /* AuthView.swift in Sources */,
 				9EE6871F2BA1690100A3B9F2 /* HomeViewModel.swift in Sources */,
 				9E3306B12B9E471B00456572 /* ProfileViewModel.swift in Sources */,
@@ -644,6 +675,7 @@
 				9EE6877F2BA63C0500A3B9F2 /* LoginView.swift in Sources */,
 				9E3306B92B9E4AAB00456572 /* ProfileView.swift in Sources */,
 				9EE687982BA6856200A3B9F2 /* StorageServiceImpl.swift in Sources */,
+				372C7BE52BAE5C7E00DCD41E /* SongDetailView.swift in Sources */,
 				9E3306AC2B9E467F00456572 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
