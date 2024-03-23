@@ -286,7 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				9EE6878E2BA645AE00A3B9F2 /* CircularProfileImage */,
-				372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */,
+				9E6B0A442BAF3EA100836A50 /* SongDetailView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -355,6 +355,14 @@
 				9E3306BA2B9E52B500456572 /* UserServiceImpl.swift */,
 			);
 			path = UserServiceImpl;
+			sourceTree = "<group>";
+		};
+		9E6B0A442BAF3EA100836A50 /* SongDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */,
+			);
+			path = SongDetailView;
 			sourceTree = "<group>";
 		};
 		9EE6870C2BA1677600A3B9F2 /* TabBar */ = {
