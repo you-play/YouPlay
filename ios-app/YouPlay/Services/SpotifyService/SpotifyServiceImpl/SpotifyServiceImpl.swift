@@ -8,10 +8,25 @@
 import Foundation
 
 class SpotifyServiceImpl: SpotifyService {
-    private init() {}
     static let shared = SpotifyServiceImpl()
+    private init() {}
 
-    func loadSpotifyCredentials() throws -> (clientId: String?, clientSecret: String?) {
+    /// `getAccessToken` retrieves a valid Spotify access token (Bearer) to make API requests with.
+    func getAccessToken() async -> String? {
+        do {
+            let (clientId, clientSecret) = try loadSpotifyCredentials()
+            let accessToken = try await authenticateWithSpotify(clientId: clientId, clientSecret: clientSecret)
+
+            return accessToken
+        } catch {
+            print("DEBUG: unable to retrieve access token", error)
+        }
+
+        return nil
+    }
+
+    /// `loadSpotifyCredentials` retrives relevant Spotify credentials from a `SpotifyService.plist` file.
+    private func loadSpotifyCredentials() throws -> (clientId: String, clientSecret: String) {
         guard let path = Bundle.main.path(forResource: "SpotifyService", ofType: "plist"),
               let xml = FileManager.default.contents(atPath: path)
         else {
@@ -21,19 +36,27 @@ class SpotifyServiceImpl: SpotifyService {
         do {
             let plistData = try PropertyListSerialization.propertyList(from: xml, options: .mutableContainers, format: nil) as? [String: String]
 
-            let clientId = plistData?["CLIENT_ID"]
-            let clientSecret = plistData?["CLIENT_Secret"]
+            guard let clientId = plistData?["CLIENT_ID"],
+                  let clientSecret = plistData?["CLIENT_SECRET"]
+            else {
+                throw CredentialError.missingCredentials(message: "CLIENT_ID or CLIENT_SECRET was not found!")
+            }
+
             return (clientId, clientSecret)
         } catch {
             throw CredentialError.invalidCredentials(message: "Unable to read Spotify credentials from plist \(error)")
         }
     }
 
-    func authenticateWithSpotify(clientId: String, clientSecret: String) {
+    /// `authenticateWithSpotify` fetches an Bearer access token to interact with API endpoints.
+    private func authenticateWithSpotify(clientId: String, clientSecret: String) async throws -> String? {
         let bodyParameters = "grant_type=client_credentials"
         let postData = bodyParameters.data(using: .utf8)
 
-        guard let url = URL(string: spotifyTokenURL) else { return }
+        guard let url = URL(string: SPOTIFY_TOKEN_URL) else {
+            print("DEBUG: invalid SPOTIFY_TOKEN_URL found.")
+            return nil
+        }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -43,24 +66,20 @@ class SpotifyServiceImpl: SpotifyService {
         request.addValue("Basic \(credentials)", forHTTPHeaderField: "Authorization")
         request.httpBody = postData
 
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil else {
-                print(error ?? "Unknown error")
-                return
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+
+            guard let accessToken = json?["access_token"] as? String else {
+                print("DEBUG: access_token not found within JSON response.")
+                return nil
             }
 
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let accessToken = json["access_token"] as? String
-                {
-                    print("Access Token: \(accessToken)")
-                }
-            } catch {
-                print(error)
-            }
+            return accessToken
+        } catch {
+            print("DEBUG: error retrieving access token", error)
+            throw error
         }
-
-        task.resume()
     }
 }
 
