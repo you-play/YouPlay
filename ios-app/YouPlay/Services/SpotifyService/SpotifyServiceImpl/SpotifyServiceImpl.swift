@@ -7,9 +7,18 @@
 
 import Foundation
 
+enum CredentialError: Error {
+    case missingCredentials(message: String)
+    case invalidCredentials(message: String)
+}
+
 class SpotifyServiceImpl: SpotifyService {
+    private var networkService: NetworkService
+
     static let shared = SpotifyServiceImpl()
-    private init() {}
+    private init() {
+        networkService = NetworkServiceImpl(baseUrl: SPOTIFY_BASE_API_URL)
+    }
 
     /// `getAccessToken` retrieves a valid Spotify access token (Bearer) to make API requests with.
     func getAccessToken() async -> String? {
@@ -20,6 +29,32 @@ class SpotifyServiceImpl: SpotifyService {
             return accessToken
         } catch {
             print("DEBUG: unable to retrieve access token", error)
+        }
+
+        return nil
+    }
+
+    /// `search` searches for songs based on some input text.
+    ///
+    /// Note: for now, we are only searching for songs by name.
+    func search(text: String) async -> SpotifySearchResponse? {
+        let queryParams: [String: String] = [
+            "type": "track", // comma separated list (ex. "artist,track")
+            "q": text
+        ]
+
+        do {
+            let accessToken = await getAccessToken()
+            let data = try await networkService.request(method: .get,
+                                                        endpoint: "/search",
+                                                        queryParams: queryParams,
+                                                        body: nil,
+                                                        bearerToken: accessToken)
+
+            let results = try JSONDecoder().decode(SpotifySearchResponse.self, from: data)
+            return results
+        } catch {
+            print("DEBUG: error while searching for song", error)
         }
 
         return nil
@@ -81,9 +116,4 @@ class SpotifyServiceImpl: SpotifyService {
             throw error
         }
     }
-}
-
-enum CredentialError: Error {
-    case missingCredentials(message: String)
-    case invalidCredentials(message: String)
 }
