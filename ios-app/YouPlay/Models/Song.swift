@@ -22,8 +22,8 @@ struct Song: Identifiable, Hashable {
 
 extension Song {
     static let mock = Song(
-        title: "Title",
-        artists: ["Artist"],
-        imageName: "testSpotifyImage"
+        title: "Blank Space",
+        artists: ["Taylor Swift"],
+        imageName: "testSpotifyImage.png"
     )
 }
