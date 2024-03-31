@@ -33,7 +33,7 @@ struct SearchView: View {
                 .padding(.horizontal, 10)
             }
             .padding()
-            .onChange(of: viewModel.searchQuery) { newValue in
+            .onChange(of: viewModel.searchQuery) { _, newValue in
                 Task {
                     await viewModel.searchSongs(query: newValue)
                 }
