@@ -9,8 +9,6 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject var viewModel = SearchViewModel()
-    @State private var searchQuery = ""
-    @State private var searchResults: SpotifySearchResponse? = nil
 
     var body: some View {
         VStack {
@@ -25,7 +23,7 @@ struct SearchView: View {
                         .foregroundColor(.white)
                         .padding(.leading, 5)
                         .imageScale(.large)
-                    TextField("Search...", text: self.$searchQuery)
+                    TextField("Search...", text: $viewModel.searchQuery)
                         .padding(.vertical, 10)
                         .padding(.leading, 10)
                         .foregroundColor(.white)
@@ -35,15 +33,14 @@ struct SearchView: View {
                 .padding(.horizontal, 10)
             }
             .padding()
-            .onChange(of: self.searchQuery) { newValue in
+            .onChange(of: viewModel.searchQuery) { newValue in
                 Task {
-                    await self.searchSongs(query: newValue)
+                    await viewModel.searchSongs(query: newValue)
                 }
             }
 
-            List(self.searchResults?.tracks?.items ?? [], id: \.id) { item in
+            List(viewModel.searchResults?.tracks?.items ?? [], id: \.id) { item in
                 HStack {
-                    // Your song row goes here
                     HorizontalSongView(
                         songTitle: item.name,
                         songArtists: item.artists.map { $0.name },
@@ -53,22 +50,6 @@ struct SearchView: View {
             }
         }
         .navigationBarTitle(Text("Search"), displayMode: .inline)
-    }
-
-    private func searchSongs(query: String) async {
-        guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            self.searchResults = nil
-            return
-        }
-        if let results = await SpotifyServiceImpl.shared.search(text: query) {
-            DispatchQueue.main.async { [self] in
-                self.searchResults = results
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.searchResults = nil
-            }
-        }
     }
 }
 
