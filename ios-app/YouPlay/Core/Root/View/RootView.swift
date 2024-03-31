@@ -5,11 +5,14 @@
 //  Created by Sebastian on 3/10/24.
 //
 
+import Combine
 import SwiftUI
 
 struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
     @State private var isShowingSongDetail = false
+    @State private var keyboardHeight: CGFloat = 0.0
+    private let bgOpacity = 0.90
 
     var body: some View {
         Group {
@@ -33,7 +36,8 @@ struct RootView: View {
                             }
 
                         if let song = viewModel.song,
-                           viewModel.currentUser != nil
+                           viewModel.currentUser != nil,
+                           keyboardHeight == 0.0 // hide when keyboard is open
                         {
                             VStack {
                                 Spacer()
@@ -82,14 +86,18 @@ struct RootView: View {
                                         .padding(.trailing, 8)
                                     }
                                     .padding(8)
-                                    .background(Color.gray.opacity(0.15))
+                                    .background(Color.black.opacity(bgOpacity))
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                     .padding(.horizontal, 6)
                                 }
                                 .tint(.white)
 
                                 Spacer()
-                                    .frame(height: 60)
+                                    .frame(width: UIScreen.main.bounds.width, height: 5)
+                                    .background(Color.black.opacity(bgOpacity))
+
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width, height: 45)
                             }
                         }
                     }
@@ -99,6 +107,9 @@ struct RootView: View {
         }
         .sheet(isPresented: $isShowingSongDetail) {
             SongDetailView(viewModel: viewModel)
+        }
+        .onReceive(Publishers.keyboardHeight) { keyboardHeight in
+            self.keyboardHeight = keyboardHeight
         }
     }
 }
