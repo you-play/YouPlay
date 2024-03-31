@@ -8,29 +8,29 @@
 import SwiftUI
 
 struct HorizontalSongView: View {
-    let songTitle: String
-    let songArtists: [String]
-    let imageUrl: String
+    let song: SongResponse
+
+    private let imageSizePx = 45.0
+    private let imageBorderRadius = 5.0
 
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
-            if let url = URL(string: imageUrl) {
-                AsyncImage(url: url) { phase in
+        HStack(alignment: .top, spacing: 12) {
+            if let displayImage = song.album.images.first, let imageUrl = URL(string: displayImage.url) {
+                AsyncImage(url: imageUrl) { phase in
                     switch phase {
                     case .empty:
-                        // While the image is loading, you can display a placeholder
                         ProgressView()
                     case .success(let image):
                         image.resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(8)
+                            .frame(width: imageSizePx, height: imageSizePx)
+                            .cornerRadius(imageBorderRadius)
                     case .failure:
                         Image(systemName: "testSpotifyImage")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(8)
+                            .frame(width: imageSizePx, height: imageSizePx)
+                            .cornerRadius(imageBorderRadius)
                     @unknown default:
                         // Handle future cases
                         EmptyView()
@@ -41,25 +41,30 @@ struct HorizontalSongView: View {
                 Image(systemName: "testSpotifyImage")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 60)
-                    .cornerRadius(8)
+                    .frame(width: imageSizePx, height: imageSizePx)
+                    .cornerRadius(imageBorderRadius)
             }
-            VStack(alignment: .leading, spacing: 4) {
-                Text(songTitle)
-                    .font(.headline)
-                    .foregroundColor(.primary)
 
-                Text(songArtists.joined(separator: ", "))
+            VStack(alignment: .leading) {
+                Text(song.name)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                    .lineLimit(1)
+
+                Text(song.artists.compactMap { artist in
+                    artist.name
+                }.joined(separator: ", "))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
             }
 
-            Spacer() // Pushes everything to the left
+            Spacer()
         }
-        .padding(.all, 10)
     }
 }
 
 #Preview {
-    HorizontalSongView(songTitle: Song.mock.title, songArtists: Song.mock.artists, imageUrl: "")
+    HorizontalSongView(song: SongResponse.mock)
 }
