@@ -21,7 +21,7 @@ struct Actions: Hashable {
     let togglingRepeatTrack, transferringPlayback: Bool
 }
 
-extension Player{
+extension Player {
     static let mock = Player(
         repeatState: "loop",
         shuffleState: false,

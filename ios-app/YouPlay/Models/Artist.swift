@@ -7,14 +7,10 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Artist: Codable, Hashable {
-    let href, id, name: String
+struct Artist: Identifiable, Codable, Hashable {
+    let id, name: String
 }
-extension Artist {
-    static let mock = Artist(
-        href: "swiftPage",
-        id: "artist123456",
-        name: "Swift"
 
-    )
+extension Artist {
+    static let mock = Artist(id: "1", name: "Taylor Swift")
 }

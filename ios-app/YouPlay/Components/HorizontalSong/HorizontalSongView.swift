@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HorizontalSongView: View {
-    let song: SongResponse
+    let song: Song
 
     private let imageSizePx = 45.0
     private let imageBorderRadius = 5.0
@@ -66,5 +66,5 @@ struct HorizontalSongView: View {
 }
 
 #Preview {
-    HorizontalSongView(song: SongResponse.mock)
+    HorizontalSongView(song: Song.mock)
 }
