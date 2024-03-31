@@ -40,14 +40,9 @@ struct SearchView: View {
             }
 
             List(viewModel.searchResults?.tracks?.items ?? [], id: \.id) { item in
-                HStack {
-                    HorizontalSongView(
-                        songTitle: item.name,
-                        songArtists: item.artists.map { $0.name },
-                        imageUrl: item.album.images.first?.url ?? ""
-                    )
-                }
+                HorizontalSongView(song: item)
             }
+            .listStyle(PlainListStyle())
         }
         .navigationBarTitle(Text("Search"), displayMode: .inline)
     }
