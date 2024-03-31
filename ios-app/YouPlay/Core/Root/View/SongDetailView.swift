@@ -12,25 +12,28 @@ struct SongDetailView: View {
 
     var body: some View {
         VStack {
-            Image(viewModel.song?.imageName ?? "testSpotifyImage")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(maxWidth: .infinity, maxHeight: 400)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .clipped()
-                .padding(.bottom, 20)
-            
+            AlbumImageView(
+                image: viewModel.song?.album.images.first,
+                width: 400.0,
+                height: 400.0,
+                borderRadius: .large
+            )
+            .padding(.bottom, 20)
+        
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(viewModel.song?.title ?? "Song title unavailable")
+                    Text(viewModel.song?.name ?? "Song title unavailable")
                         .font(.title2)
                         .fontWeight(.bold)
                         .lineLimit(1)
                     
-                    Text(viewModel.song?.artists.joined(separator: ", ") ?? "Artist(s) unavailable")
-                        .foregroundStyle(.gray)
-                        .fontWeight(.semibold)
-                        .lineLimit(1)
+                    Text(viewModel.song?.artists
+                        .compactMap { artist in artist.name }
+                        .joined(separator: ", ") ?? "Artist(s) unavailable"
+                    )
+                    .foregroundStyle(.gray)
+                    .fontWeight(.semibold)
+                    .lineLimit(1)
                 }
                 
                 Spacer()

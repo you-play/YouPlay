@@ -22,32 +22,48 @@ struct ScrollableSongsView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
                     ForEach(songs) { song in
-                        // TODO: we have to convert each of these into a Link and open the song they clicked on
-                        VStack(alignment: .leading) {
-                            Image(song.imageName) // TODO: update to open image from URL
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 120, height: 120)
-                                .clipped()
-                                .cornerRadius(6)
-                                .padding(.bottom, 5)
-
-                            Text(song.title)
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .lineLimit(1)
-
-                            Text(song.artists.joined(separator: ", "))
-                                .font(.caption2)
-                                .foregroundStyle(.gray)
-                                .lineLimit(1)
+                        Button {
+                            // TODO: set the playing to song
+                            print("Now playing: \(song.name)")
+                        } label: {
+                            SongRowView(song: song)
                         }
+                        .tint(.white)
                     }
                 }
                 .padding(.horizontal)
             }
         }
         .frame(maxHeight: 200)
+    }
+}
+
+struct SongRowView: View {
+    let song: Song
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            AlbumImageView(
+                image: song.album.images.first,
+                width: 120.0,
+                height: 120.0,
+                borderRadius: .small
+            )
+            .padding(.bottom, 5)
+
+            Text(song.name)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .lineLimit(1)
+
+            Text(song.artists
+                .compactMap { artist in artist.name }
+                .joined(separator: ", ")
+            )
+            .font(.caption2)
+            .foregroundStyle(.gray)
+            .lineLimit(1)
+        }
     }
 }
 

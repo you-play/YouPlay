@@ -35,6 +35,7 @@ struct RootView: View {
                                 }
                             }
 
+                        // Song player crumbar
                         if let song = viewModel.song,
                            viewModel.currentUser != nil,
                            keyboardHeight == 0.0 // hide when keyboard is open
@@ -48,37 +49,36 @@ struct RootView: View {
                                     HStack {
                                         // song info
                                         HStack(spacing: 12) {
-                                            // image
-                                            Image(song.imageName)
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(maxWidth: 42, maxHeight: 42)
-                                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                                .clipped()
+                                            AlbumImageView(
+                                                image: song.album.images.first,
+                                                width: 42.0,
+                                                height: 42.0
+                                            )
 
                                             VStack(alignment: .leading) {
-                                                // song title
-                                                Text(song.title)
+                                                Text(song.name)
                                                     .font(.callout)
                                                     .fontWeight(.semibold)
                                                     .lineLimit(1)
 
-                                                // artist name
-                                                Text(song.artists.joined(separator: ", "))
-                                                    .font(.caption)
-                                                    .foregroundStyle(.gray)
-                                                    .lineLimit(1)
+                                                Text(song.artists
+                                                    .compactMap { artist in artist.name }
+                                                    .joined(separator: ", ")
+                                                )
+                                                .font(.caption)
+                                                .foregroundStyle(.gray)
+                                                .lineLimit(1)
                                             }
                                         }
 
                                         Spacer()
 
                                         // play/pause button
-                                        Button(action: {
+                                        Button {
                                             viewModel.isPaused.toggle()
                                             // TODO: play/pause song
                                             print(viewModel.isPaused ? "Pause song" : "Play song")
-                                        }) {
+                                        } label: {
                                             Image(systemName: viewModel.isPaused ? "play.circle.fill" : "pause.circle.fill")
                                                 .foregroundColor(.primary)
                                                 .font(.system(size: 30))
