@@ -13,6 +13,7 @@ class SearchViewModel: ObservableObject {
 
     init() {}
 
+    @MainActor
     func searchSongs(query: String) async {
         guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
             self.searchResults = nil
