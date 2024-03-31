@@ -24,6 +24,6 @@ extension Song {
     static let mock = Song(
         title: "Blank Space",
         artists: ["Taylor Swift"],
-        imageName: "testSpotifyImage.png"
+        imageName: "testSpotifyImage"
     )
 }
