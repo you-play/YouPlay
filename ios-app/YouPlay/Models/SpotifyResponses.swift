@@ -65,3 +65,37 @@ struct SpotifyImage: Codable {
     let height: Int
     let width: Int
 }
+
+extension SongResponse {
+    static let mock = SongResponse(
+        id: "1",
+        name: "Blank Space",
+        artists: [
+            ArtistResponse.mock,
+        ],
+        album: AlbumResponse.mock,
+        explicit: false,
+        popularity: 90,
+        previewURL: nil)
+}
+
+extension ArtistResponse {
+    static let mock = ArtistResponse(id: "1", name: "Taylor Swift")
+}
+
+extension AlbumResponse {
+    static let mock = AlbumResponse(
+        id: "1",
+        name: "1989",
+        artists: [ArtistResponse.mock],
+        images: [SpotifyImage.mock],
+        releaseDate: "2020",
+        totalTracks: 30)
+}
+
+extension SpotifyImage {
+    static let mock = SpotifyImage(
+        url: "https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac",
+        height: 640,
+        width: 640)
+}
