@@ -8,32 +8,26 @@
 import SwiftUI
 
 struct SongDetailView: View {
-    // TODO: eventually it will make more sense to simply pass in a `Song` and `Artist` models to have all relevant info
-    let songName: String
-    let artistNames: [String]
-    
-    // @State private var songProgress: Double = 0.33
-    @State private var isLiked: Bool = false
-    @State private var isPaused: Bool = true
-    
+    @ObservedObject var viewModel: RootViewModel
+
     var body: some View {
         VStack {
-            Image("testSpotifyImage")
+            Image(viewModel.song?.imageName ?? "spotifyTestImage")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(maxWidth: .infinity, maxHeight: 350)
+                .frame(maxWidth: .infinity, maxHeight: 400)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .clipped()
                 .padding(.bottom, 20)
             
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(songName)
+                    Text(viewModel.song?.title ?? "Song title unavailable")
                         .font(.title2)
                         .fontWeight(.bold)
                         .lineLimit(1)
                     
-                    Text(artistNames.joined(separator: ", "))
+                    Text(viewModel.song?.artists.joined(separator: ", ") ?? "Artist(s) unavailable")
                         .foregroundStyle(.gray)
                         .fontWeight(.semibold)
                         .lineLimit(1)
@@ -43,22 +37,19 @@ struct SongDetailView: View {
                 
                 // Like button
                 Button(action: {
-                    isLiked.toggle()
+                    viewModel.isLiked.toggle()
                     // TODO: add like functionality
-                    print(isLiked ? "Liked song" : "Unliked song")
+                    print(viewModel.isLiked ? "Liked song" : "Unliked song")
                 }) {
-                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                    Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 25, height: 25)
-                        .foregroundColor(isLiked ? .green : .white)
+                        .foregroundColor(viewModel.isLiked ? .green : .white)
                         .padding(.horizontal)
                 }
             }
             .padding(.vertical)
-            
-            // Slider(value: $songProgress, in: 0 ... 1, step: 0.01)
-            //     .accentColor(.green)
             
             // playback controlls
             HStack(spacing: 50) {
@@ -74,11 +65,11 @@ struct SongDetailView: View {
                 
                 // play/pause
                 Button(action: {
-                    isPaused.toggle()
+                    viewModel.isPaused.toggle()
                     // TODO: play/pause song
-                    print(isPaused ? "Pause song" : "Play song")
+                    print(viewModel.isPaused ? "Pause song" : "Play song")
                 }) {
-                    Image(systemName: isPaused ? "play.circle.fill" : "pause.circle.fill")
+                    Image(systemName: viewModel.isPaused ? "play.circle.fill" : "pause.circle.fill")
                         .foregroundColor(.primary)
                         .font(.system(size: 60))
                 }
@@ -101,8 +92,5 @@ struct SongDetailView: View {
 }
 
 #Preview {
-    SongDetailView(
-        songName: "Some super super long song name",
-        artistNames: ["Artist 1", "Artist 2"]
-    )
+    SongDetailView(viewModel: RootViewModel())
 }
