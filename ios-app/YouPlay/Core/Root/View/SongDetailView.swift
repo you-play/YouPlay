@@ -12,7 +12,7 @@ struct SongDetailView: View {
 
     var body: some View {
         VStack {
-            Image(viewModel.song?.imageName ?? "spotifyTestImage")
+            Image(viewModel.song?.imageName ?? "testSpotifyImage")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(maxWidth: .infinity, maxHeight: 400)
