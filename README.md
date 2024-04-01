@@ -203,142 +203,112 @@ enhance my listening experience.
 
 `User` model
 
-| Property         | Type    | Description                               |
-|------------------|---------|-------------------------------------------|
-| uid              | String? | Firestore ID                              |
-| username         | String  | Username of the user                      |
-| email            | String  | Email of the user                         |
-| id               | String  | Unique identifier (fallback to UUID if `uid` is nil) |
-| age              | Int?    | Age of the user (optional)                |
-| gender           | Gender? | Gender of the user (enum or optional string) |
-| profileImageUrl  | String? | URL of the user's profile image (optional) |
+| Property        | Type    | Description                                          |
+| --------------- | ------- | ---------------------------------------------------- |
+| uid             | String? | Firestore ID                                         |
+| username        | String  | Username of the user                                 |
+| email           | String  | Email of the user                                    |
+| id              | String  | Unique identifier (fallback to UUID if `uid` is nil) |
+| age             | Int?    | Age of the user (optional)                           |
+| gender          | Gender? | Gender of the user (enum or optional string)         |
+| profileImageUrl | String? | URL of the user's profile image (optional)           |
 
 `Player` model:
 
-| Property      | Type    | Description                               |
-|---------------|---------|-------------------------------------------|
-| repeatState   | String  | State of repeat functionality             |
-| shuffleState  | Bool    | State of shuffle functionality            |
-| isPlaying     | Bool    | Indicates if a song is currently playing  |
-| song          | Song    | Information about the currently playing song |
-| actions       | Actions | Actions that can be performed on the player |
+| Property     | Type    | Description                                  |
+| ------------ | ------- | -------------------------------------------- |
+| repeatState  | String  | State of repeat functionality                |
+| shuffleState | Bool    | State of shuffle functionality               |
+| isPlaying    | Bool    | Indicates if a song is currently playing     |
+| song         | Song    | Information about the currently playing song |
+| actions      | Actions | Actions that can be performed on the player  |
 
 `Actions` model:
 
-| Property                  | Type | Description                                             |
-|---------------------------|------|---------------------------------------------------------|
-| interruptingPlayback      | Bool | Indicates if playback is being interrupted              |
-| pausing                   | Bool | Indicates if playback is being paused                   |
-| resuming                  | Bool | Indicates if playback is being resumed                  |
-| seeking                   | Bool | Indicates if seeking within the playback                |
-| skippingNext              | Bool | Indicates if skipping to the next track                  |
-| skippingPrev              | Bool | Indicates if skipping to the previous track              |
-| togglingRepeatContext     | Bool | Indicates toggling repeat for the current context        |
-| togglingShuffle           | Bool | Indicates toggling shuffle mode                          |
-| togglingRepeatTrack       | Bool | Indicates toggling repeat for the current track           |
-| transferringPlayback     | Bool | Indicates if playback is being transferred               |
+| Property              | Type | Description                                       |
+| --------------------- | ---- | ------------------------------------------------- |
+| interruptingPlayback  | Bool | Indicates if playback is being interrupted        |
+| pausing               | Bool | Indicates if playback is being paused             |
+| resuming              | Bool | Indicates if playback is being resumed            |
+| seeking               | Bool | Indicates if seeking within the playback          |
+| skippingNext          | Bool | Indicates if skipping to the next track           |
+| skippingPrev          | Bool | Indicates if skipping to the previous track       |
+| togglingRepeatContext | Bool | Indicates toggling repeat for the current context |
+| togglingShuffle       | Bool | Indicates toggling shuffle mode                   |
+| togglingRepeatTrack   | Bool | Indicates toggling repeat for the current track   |
+| transferringPlayback  | Bool | Indicates if playback is being transferred        |
 
 `Album` model
 
-| Property      | Type         | Description                                           |
-|---------------|--------------|-------------------------------------------------------|
-| albumType     | String       | Type of the album (e.g., "album", "single")           |
-| totalTracks   | Int          | Total number of tracks in the album                    |
-| href          | String       | URL of the album                                      |
-| id            | String       | Unique identifier of the album                         |
-| images        | [AlbumImage] | Array of images representing the album                 |
-| name          | String       | Name of the album                                      |
-| uri           | String       | Spotify URI of the album                               |
-| artists       | [Artist]     | Array of artists who contributed to the album          |
-| tracks        | Tracks       | Information about the tracks in the album              |
-| popularity    | Int          | Popularity score of the album                          |
+| Property    | Type         | Description                                   |
+| ----------- | ------------ | --------------------------------------------- |
+| albumType   | String       | Type of the album (e.g., "album", "single")   |
+| totalTracks | Int          | Total number of tracks in the album           |
+| href        | String       | URL of the album                              |
+| id          | String       | Unique identifier of the album                |
+| images      | [AlbumImage] | Array of images representing the album        |
+| name        | String       | Name of the album                             |
+| uri         | String       | Spotify URI of the album                      |
+| artists     | [Artist]     | Array of artists who contributed to the album |
+| tracks      | Tracks       | Information about the tracks in the album     |
+| popularity  | Int          | Popularity score of the album                 |
 
-`AlbumImage` model
+`SpotifyImage` model
 
-| Property | Type   | Description                            |
-|----------|--------|----------------------------------------|
-| url      | String | URL of the album image                 |
-| height   | Int    | Height of the album image in pixels    |
-| width    | Int    | Width of the album image in pixels     |
+| Property | Type   | Description                         |
+| -------- | ------ | ----------------------------------- |
+| url      | String | URL of the album image              |
+| height   | Int    | Height of the album image in pixels |
+| width    | Int    | Width of the album image in pixels  |
 
 `Tracks` model
 
-| Property | Type    | Description                             |
-|----------|---------|-----------------------------------------|
-| href     | String? | URL of the current page of tracks       |
-| next     | String? | URL of the next page of tracks          |
-| previous | String? | URL of the previous page of tracks      |
+| Property | Type    | Description                        |
+| -------- | ------- | ---------------------------------- |
+| next     | String? | URL of the next page of tracks     |
+| previous | String? | URL of the previous page of tracks |
 
 `Artist`model
 
-| Property | Type   | Description                            |
-|----------|--------|----------------------------------------|
-| href     | String | URL of the artist                      |
-| id       | String | Unique identifier of the artist        |
-| name     | String | Name of the artist                     |
+| Property | Type   | Description                     |
+| -------- | ------ | ------------------------------- |
+| id       | String | Unique identifier of the artist |
+| name     | String | Name of the artist              |
 
 `Song` model
 
-| Property   | Type    | Description                              |
-|------------|---------|------------------------------------------|
-| documentID | String? | Firestore document ID                     |
-| title      | String  | Title of the song                         |
-| artists    | [String]| Array of artist names contributing to the song |
-| imageURL   | String  | URL of the image representing the song   |
-| id         | String  | Unique identifier for the song            |
+| Property   | Type     | Description                                    |
+| ---------- | -------- | ---------------------------------------------- |
+| documentID | String?  | Firestore document ID                          |
+| title      | String   | Title of the song                              |
+| artists    | [String] | Array of artist names contributing to the song |
+| imageURL   | String   | URL of the image representing the song         |
+| id         | String   | Unique identifier for the song                 |
 
 `TracksResponse` model
 
-| Property | Type         | Description                                    |
-|----------|--------------|------------------------------------------------|
-| items    | [SongResponse] | Array of song responses representing tracks   |
-| limit    | Int          | Maximum number of items returned in the response |
-| offset   | Int          | Offset for the paginated response              |
-| total    | Int          | Total number of items available                |
+| Property | Type   | Description                                      |
+| -------- | ------ | ------------------------------------------------ |
+| items    | [Song] | Array of song responses representing tracks      |
+| limit    | Int    | Maximum number of items returned in the response |
+| offset   | Int    | Offset for the paginated response                |
+| total    | Int    | Total number of items available                  |
 
-`SongResponse` model
+`SpotifyImage` model
 
-| Property   | Type              | Description                                           |
-|------------|-------------------|-------------------------------------------------------|
-| id         | String            | Unique identifier of the song                          |
-| name       | String            | Name of the song                                       |
-| artists    | [ArtistResponse]  | Array of artist responses representing contributors to the song |
-| album      | AlbumResponse     | Response representing the album containing the song   |
-| explicit   | Bool              | Indicates if the song contains explicit content       |
-| popularity | Int               | Popularity score of the song                           |
-| previewURL | String?           | URL of the song preview                                |
-
-`ArtistResponse` model
-
-| Property | Type   | Description                           |
-|----------|--------|---------------------------------------|
-| id       | String | Unique identifier of the artist       |
-| name     | String | Name of the artist                    |
-
-`AlbumResponse`model
-
-| Property    | Type             | Description                                           |
-|-------------|------------------|-------------------------------------------------------|
-| id          | String           | Unique identifier of the album                        |
-| name        | String           | Name of the album                                     |
-| artists     | [ArtistResponse] | Array of artist responses representing contributors to the album |
-| images      | [SpotifyImage]   | Array of images representing the album                |
-| releaseDate | String           | Release date of the album (formatted as a string)     |
-| totalTracks | Int              | Total number of tracks in the album                   |
-
-`SporifyImage` model
-
-| Property | Type   | Description                            |
-|----------|--------|----------------------------------------|
-| url      | String | URL of the image                       |
-| height   | Int    | Height of the image in pixels          |
-| width    | Int    | Width of the image in pixels           |
+| Property | Type   | Description                   |
+| -------- | ------ | ----------------------------- |
+| url      | String | URL of the image              |
+| height   | Int    | Height of the image in pixels |
+| width    | Int    | Width of the image in pixels  |
 
 ### Networking
+
 #### Spotify Service
 
 - func getAccessToken() async -> String?
 - func search(text: String) async -> SpotifySearchResponse?
+
 #### Authorization Service
 
 - func login(email: String, password: String) async throws
@@ -348,10 +318,12 @@ enhance my listening experience.
 - func resetPassword(email: String) async throws
 
 #### Storage Service
+
 - func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
-        async throws -> String
-        
-#### UserService 
+  async throws -> String
+
+#### UserService
+
 - func getUserMetadata(uid: String) async throws -> User?
 - func updateUserMetadata(uid: String, user: User) async throws
 - func updateProfileImage(uid: String, imageData: Data) async throws
