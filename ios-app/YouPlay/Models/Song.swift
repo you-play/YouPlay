@@ -40,4 +40,57 @@ extension Song {
         explicit: false,
         popularity: 90,
         previewURL: nil)
+
+    static let mocks = [
+        Song(
+            id: "1",
+            name: "Blank Space 1",
+            artists: [
+                Artist.mock,
+            ],
+            album: Album.mock,
+            explicit: false,
+            popularity: 90,
+            previewURL: nil),
+        Song(
+            id: "2",
+            name: "Blank Space 2",
+            artists: [
+                Artist.mock,
+            ],
+            album: Album.mock,
+            explicit: false,
+            popularity: 90,
+            previewURL: nil),
+        Song(
+            id: "3",
+            name: "Blank Space 3",
+            artists: [
+                Artist.mock,
+            ],
+            album: Album.mock,
+            explicit: false,
+            popularity: 90,
+            previewURL: nil),
+        Song(
+            id: "4",
+            name: "Blank Space 4",
+            artists: [
+                Artist.mock,
+            ],
+            album: Album.mock,
+            explicit: false,
+            popularity: 90,
+            previewURL: nil),
+        Song(
+            id: "5",
+            name: "Blank Space 5",
+            artists: [
+                Artist.mock,
+            ],
+            album: Album.mock,
+            explicit: false,
+            popularity: 90,
+            previewURL: nil),
+    ]
 }

@@ -12,9 +12,9 @@ struct ScrollableSongsView: View {
     let songs: [Song]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 3) {
+        VStack(alignment: .leading) {
             Text(title)
-                .font(.headline)
+                .font(.title2)
                 .fontWeight(.bold)
                 .padding(.leading, 16)
                 .padding(.top, 5)
@@ -34,7 +34,7 @@ struct ScrollableSongsView: View {
                 .padding(.horizontal)
             }
         }
-        .frame(maxHeight: 200)
+        .frame(maxHeight: 210)
     }
 }
 
@@ -70,6 +70,6 @@ struct SongRowView: View {
 #Preview {
     ScrollableSongsView(
         title: "Recommended",
-        songs: [Song.mock, Song.mock, Song.mock, Song.mock]
+        songs: Song.mocks
     )
 }
