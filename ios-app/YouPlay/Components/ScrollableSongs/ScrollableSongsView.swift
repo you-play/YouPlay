@@ -20,7 +20,7 @@ struct ScrollableSongsView: View {
                 .padding(.top, 5)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 20) {
+                LazyHStack(spacing: 16) {
                     ForEach(songs) { song in
                         Button {
                             // TODO: set the playing to song
@@ -34,7 +34,7 @@ struct ScrollableSongsView: View {
                 .padding(.horizontal)
             }
         }
-        .frame(maxHeight: 210)
+        .frame(maxHeight: 190)
     }
 }
 
@@ -45,8 +45,8 @@ struct SongRowView: View {
         VStack(alignment: .leading) {
             AlbumImageView(
                 image: song.album.images.first,
-                width: 120.0,
-                height: 120.0,
+                width: 100.0,
+                height: 100.0,
                 borderRadius: .small
             )
             .padding(.bottom, 5)
