@@ -11,8 +11,21 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
 
     var body: some View {
-        Text("Home view!")
-            .font(.title)
+        NavigationStack {
+            ScrollView(.vertical) {
+                VStack(spacing: 16) {
+                    ScrollableSongsView(
+                        title: "Recommended",
+                        songs: Song.mocks
+                    )
+
+                    ScrollableSongsView(
+                        title: "Latest",
+                        songs: Song.mocks
+                    )
+                }
+            }
+        }
     }
 }
 

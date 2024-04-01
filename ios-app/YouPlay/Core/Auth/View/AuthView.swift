@@ -9,10 +9,17 @@ import SwiftUI
 
 struct AuthView: View {
     @StateObject private var viewModel = AuthViewModel()
-    
+
     var body: some View {
         NavigationStack {
-            LoginView(viewModel: viewModel)
+            ZStack {
+                LoginView(viewModel: viewModel)
+
+                if viewModel.isLoading {
+                    Color.black.opacity(0.5).ignoresSafeArea()
+                    ProgressView()
+                }
+            }
         }
         .tint(.green)
     }

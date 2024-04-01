@@ -10,6 +10,8 @@
 - [Project Board](#project-board)
 - [Demos](#demos)
   - [Auth Flow](#auth-flow)
+  - [Player Crumb-bar](#player-crumb-bar)
+  - [Search Bar](#search-bar)
 - [Product Spec](#product-spec)
   - [User Stories](#user-stories)
     - [Required Must-have Stories](#required-must-have-stories)
@@ -68,6 +70,19 @@ Upon opening the app, users select their mood, and a curated playlist that match
 - Password reset available via email.
 
 ![auth flow demo](./assets/demos/demo-auth-flow.gif)
+
+### Player Crumb-bar
+
+- Users able to view the song that's currently playing
+- Users can click on the crumb-bar and open the details for that specific song
+
+![player crumbar](./assets/demos/demo-player-crumbar.gif)
+
+### Search Bar
+
+- Users able to search for songs
+
+![search bar](./assets/demos/demo-search-bar.gif)
 
 ## Product Spec
 
@@ -156,20 +171,20 @@ enhance my listening experience.
 **Tab Navigation** (Tab to Screen)
 
 - [ ] Home
-- [ ] Search
+- [x] Search
 - [ ] Playlists
 
 **Flow Navigation** (Screen to Screen)
 
-- [ ] `Login/Sign-up`
+- [x] `Login/Sign-up`
   - Leads to `Home`
-- [ ] `Profile` (after clicking "Log out")
+- [x] `Profile` (after clicking "Log out")
   - Leads to `Login/Sign-up`
 - [ ] `Home` (after clicking a `Playlist`)
       Leads to the `Playlist` screen for it
 - [ ] `Home` (after clicking a `Song`)
   - Leads to `Song/Playback` (bottom sheet) for it
-- [ ] `Song/Playback` (after dismissing a `Song` _bottom sheet_)
+- [x] `Song/Playback` (after dismissing a `Song` _bottom sheet_)
   - Leads to `Home`
 - [ ] `Song/Playback` (after hitting the "Add to Playlist" button)
   - Leads to `PlaylistSelection` _bottom sheet_
@@ -186,17 +201,129 @@ enhance my listening experience.
 
 ### Models
 
-[Model Name, e.g., User]
-| Property | Type | Description |
-|----------|--------|----------------------------------------------|
-| username | String | unique id for the user post (default field) |
-| password | String | user's password for login authentication |
-| ... | ... | ...|
+`User` model
+
+| Property        | Type    | Description                                          |
+| --------------- | ------- | ---------------------------------------------------- |
+| uid             | String? | Firestore ID                                         |
+| username        | String  | Username of the user                                 |
+| email           | String  | Email of the user                                    |
+| id              | String  | Unique identifier (fallback to UUID if `uid` is nil) |
+| age             | Int?    | Age of the user (optional)                           |
+| gender          | Gender? | Gender of the user (enum or optional string)         |
+| profileImageUrl | String? | URL of the user's profile image (optional)           |
+
+`Player` model:
+
+| Property     | Type    | Description                                  |
+| ------------ | ------- | -------------------------------------------- |
+| repeatState  | String  | State of repeat functionality                |
+| shuffleState | Bool    | State of shuffle functionality               |
+| isPlaying    | Bool    | Indicates if a song is currently playing     |
+| song         | Song    | Information about the currently playing song |
+| actions      | Actions | Actions that can be performed on the player  |
+
+`Actions` model:
+
+| Property              | Type | Description                                       |
+| --------------------- | ---- | ------------------------------------------------- |
+| interruptingPlayback  | Bool | Indicates if playback is being interrupted        |
+| pausing               | Bool | Indicates if playback is being paused             |
+| resuming              | Bool | Indicates if playback is being resumed            |
+| seeking               | Bool | Indicates if seeking within the playback          |
+| skippingNext          | Bool | Indicates if skipping to the next track           |
+| skippingPrev          | Bool | Indicates if skipping to the previous track       |
+| togglingRepeatContext | Bool | Indicates toggling repeat for the current context |
+| togglingShuffle       | Bool | Indicates toggling shuffle mode                   |
+| togglingRepeatTrack   | Bool | Indicates toggling repeat for the current track   |
+| transferringPlayback  | Bool | Indicates if playback is being transferred        |
+
+`Album` model
+
+| Property    | Type         | Description                                   |
+| ----------- | ------------ | --------------------------------------------- |
+| albumType   | String       | Type of the album (e.g., "album", "single")   |
+| totalTracks | Int          | Total number of tracks in the album           |
+| href        | String       | URL of the album                              |
+| id          | String       | Unique identifier of the album                |
+| images      | [AlbumImage] | Array of images representing the album        |
+| name        | String       | Name of the album                             |
+| uri         | String       | Spotify URI of the album                      |
+| artists     | [Artist]     | Array of artists who contributed to the album |
+| tracks      | Tracks       | Information about the tracks in the album     |
+| popularity  | Int          | Popularity score of the album                 |
+
+`SpotifyImage` model
+
+| Property | Type   | Description                         |
+| -------- | ------ | ----------------------------------- |
+| url      | String | URL of the album image              |
+| height   | Int    | Height of the album image in pixels |
+| width    | Int    | Width of the album image in pixels  |
+
+`Tracks` model
+
+| Property | Type    | Description                        |
+| -------- | ------- | ---------------------------------- |
+| next     | String? | URL of the next page of tracks     |
+| previous | String? | URL of the previous page of tracks |
+
+`Artist`model
+
+| Property | Type   | Description                     |
+| -------- | ------ | ------------------------------- |
+| id       | String | Unique identifier of the artist |
+| name     | String | Name of the artist              |
+
+`Song` model
+
+| Property   | Type     | Description                                    |
+| ---------- | -------- | ---------------------------------------------- |
+| documentID | String?  | Firestore document ID                          |
+| title      | String   | Title of the song                              |
+| artists    | [String] | Array of artist names contributing to the song |
+| imageURL   | String   | URL of the image representing the song         |
+| id         | String   | Unique identifier for the song                 |
+
+`TracksResponse` model
+
+| Property | Type   | Description                                      |
+| -------- | ------ | ------------------------------------------------ |
+| items    | [Song] | Array of song responses representing tracks      |
+| limit    | Int    | Maximum number of items returned in the response |
+| offset   | Int    | Offset for the paginated response                |
+| total    | Int    | Total number of items available                  |
+
+`SpotifyImage` model
+
+| Property | Type   | Description                   |
+| -------- | ------ | ----------------------------- |
+| url      | String | URL of the image              |
+| height   | Int    | Height of the image in pixels |
+| width    | Int    | Width of the image in pixels  |
 
 ### Networking
-- [Example: `[GET] /users` - to retrieve user data]
--  func getAccessToken() async -> String?
--  func search(text: String) async -> SpotifySearchResponse?
-  Add a list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+#### Spotify Service
+
+- func getAccessToken() async -> String?
+- func search(text: String) async -> SpotifySearchResponse?
+
+#### Authorization Service
+
+- func login(email: String, password: String) async throws
+- func loginWithGoogle() async throws
+- func createUser(email: String, password: String) async throws
+- func logout()
+- func resetPassword(email: String) async throws
+
+#### Storage Service
+
+- func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
+  async throws -> String
+
+#### UserService
+
+- func getUserMetadata(uid: String) async throws -> User?
+- func updateUserMetadata(uid: String, user: User) async throws
+- func updateProfileImage(uid: String, imageData: Data) async throws

@@ -5,6 +5,9 @@
 ## Firebase
 GoogleService-Info.plist
 
+## Spotify
+SpotifyService.plist
+
 ## User settings
 xcuserdata/
 .DS_Store
