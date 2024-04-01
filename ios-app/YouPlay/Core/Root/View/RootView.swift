@@ -12,7 +12,6 @@ struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
     @State private var isShowingSongDetail = false
     @State private var keyboardHeight: CGFloat = 0.0
-    private let bgOpacity = 0.90
 
     var body: some View {
         Group {
@@ -86,15 +85,16 @@ struct RootView: View {
                                         .padding(.trailing, 8)
                                     }
                                     .padding(8)
-                                    .background(Color.black.opacity(bgOpacity))
+                                    .background(Color(.systemGray6))
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                     .padding(.horizontal, 6)
                                 }
                                 .tint(.white)
 
+                                // the following spacers account for the TabBar
                                 Spacer()
-                                    .frame(width: UIScreen.main.bounds.width, height: 5)
-                                    .background(Color.black.opacity(bgOpacity))
+                                    .frame(width: UIScreen.main.bounds.width, height: 10)
+                                    .background(Color.black)
 
                                 Spacer()
                                     .frame(width: UIScreen.main.bounds.width, height: 45)
