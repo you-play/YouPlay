@@ -194,23 +194,9 @@ enhance my listening experience.
 | ... | ... | ...|
 
 ### Networking
-#### Spotify Service
-
-- func getAccessToken() async -> String?
-- func search(text: String) async -> SpotifySearchResponse?
-#### Authorization Service
-
-- func login(email: String, password: String) async throws
-- func loginWithGoogle() async throws
-- func createUser(email: String, password: String) async throws
-- func logout()
-- func resetPassword(email: String) async throws
-
-#### Storage Service
-- func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
-        async throws -> String
-        
-#### UserService 
-- func getUserMetadata(uid: String) async throws -> User?
-- func updateUserMetadata(uid: String, user: User) async throws
-- func updateProfileImage(uid: String, imageData: Data) async throws
+- [Example: `[GET] /users` - to retrieve user data]
+-  func getAccessToken() async -> String?
+-  func search(text: String) async -> SpotifySearchResponse?
+  Add a list of network requests by screen ]
+- [Create basic snippets for each Parse network request]
+- [OPTIONAL: List endpoints if using existing API such as Yelp]
