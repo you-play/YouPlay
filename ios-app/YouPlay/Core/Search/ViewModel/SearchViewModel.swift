@@ -16,7 +16,7 @@ class SearchViewModel: ObservableObject {
     @MainActor
     func searchSongs(query: String) async {
         guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            self.searchResults = nil
+            searchResults = nil
             return
         }
         if let results = await SpotifyServiceImpl.shared.search(text: query) {
@@ -28,5 +28,10 @@ class SearchViewModel: ObservableObject {
                 self.searchResults = nil
             }
         }
+    }
+
+    func clear() {
+        searchQuery = ""
+        searchResults = nil
     }
 }
