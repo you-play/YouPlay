@@ -5,11 +5,13 @@
 //  Created by Sebastian on 3/10/24.
 //
 
+import Combine
 import SwiftUI
 
 struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
     @State private var isShowingSongDetail = false
+    @State private var keyboardHeight: CGFloat = 0.0
 
     var body: some View {
         Group {
@@ -32,8 +34,10 @@ struct RootView: View {
                                 }
                             }
 
+                        // Song player crumbar
                         if let song = viewModel.song,
-                           viewModel.currentUser != nil
+                           viewModel.currentUser != nil,
+                           keyboardHeight == 0.0 // hide when keyboard is open
                         {
                             VStack {
                                 Spacer()
@@ -44,37 +48,36 @@ struct RootView: View {
                                     HStack {
                                         // song info
                                         HStack(spacing: 12) {
-                                            // image
-                                            Image(song.imageName)
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(maxWidth: 42, maxHeight: 42)
-                                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                                .clipped()
+                                            AlbumImageView(
+                                                image: song.album.images.first,
+                                                width: 42.0,
+                                                height: 42.0
+                                            )
 
                                             VStack(alignment: .leading) {
-                                                // song title
-                                                Text(song.title)
+                                                Text(song.name)
                                                     .font(.callout)
                                                     .fontWeight(.semibold)
                                                     .lineLimit(1)
 
-                                                // artist name
-                                                Text(song.artists.joined(separator: ", "))
-                                                    .font(.caption)
-                                                    .foregroundStyle(.gray)
-                                                    .lineLimit(1)
+                                                Text(song.artists
+                                                    .compactMap { artist in artist.name }
+                                                    .joined(separator: ", ")
+                                                )
+                                                .font(.caption)
+                                                .foregroundStyle(.gray)
+                                                .lineLimit(1)
                                             }
                                         }
 
                                         Spacer()
 
                                         // play/pause button
-                                        Button(action: {
+                                        Button {
                                             viewModel.isPaused.toggle()
                                             // TODO: play/pause song
                                             print(viewModel.isPaused ? "Pause song" : "Play song")
-                                        }) {
+                                        } label: {
                                             Image(systemName: viewModel.isPaused ? "play.circle.fill" : "pause.circle.fill")
                                                 .foregroundColor(.primary)
                                                 .font(.system(size: 30))
@@ -82,14 +85,19 @@ struct RootView: View {
                                         .padding(.trailing, 8)
                                     }
                                     .padding(8)
-                                    .background(Color.gray.opacity(0.15))
+                                    .background(Color(.systemGray6))
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                     .padding(.horizontal, 6)
                                 }
                                 .tint(.white)
 
+                                // the following spacers account for the TabBar
                                 Spacer()
-                                    .frame(height: 60)
+                                    .frame(width: UIScreen.main.bounds.width, height: 10)
+                                    .background(Color.black)
+
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width, height: 45)
                             }
                         }
                     }
@@ -99,6 +107,9 @@ struct RootView: View {
         }
         .sheet(isPresented: $isShowingSongDetail) {
             SongDetailView(viewModel: viewModel)
+        }
+        .onReceive(Publishers.keyboardHeight) { keyboardHeight in
+            self.keyboardHeight = keyboardHeight
         }
     }
 }
