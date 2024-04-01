@@ -10,40 +10,14 @@ import SwiftUI
 struct HorizontalSongView: View {
     let song: Song
 
-    private let imageSizePx = 45.0
-    private let imageBorderRadius = 5.0
-
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            if let displayImage = song.album.images.first, let imageUrl = URL(string: displayImage.url) {
-                AsyncImage(url: imageUrl) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image.resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: imageSizePx, height: imageSizePx)
-                            .cornerRadius(imageBorderRadius)
-                    case .failure:
-                        Image(systemName: "testSpotifyImage")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: imageSizePx, height: imageSizePx)
-                            .cornerRadius(imageBorderRadius)
-                    @unknown default:
-                        // Handle future cases
-                        EmptyView()
-                    }
-                }
-            } else {
-                // If the imageUrl is not valid, display a default placeholder
-                Image(systemName: "testSpotifyImage")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: imageSizePx, height: imageSizePx)
-                    .cornerRadius(imageBorderRadius)
-            }
+            AlbumImageView(
+                image: song.album.images.first,
+                width: 45.0,
+                height: 45.0,
+                borderRadius: .small
+            )
 
             VStack(alignment: .leading) {
                 Text(song.name)
