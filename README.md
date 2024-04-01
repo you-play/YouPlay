@@ -10,6 +10,8 @@
 - [Project Board](#project-board)
 - [Demos](#demos)
   - [Auth Flow](#auth-flow)
+  - [Player Crumb-bar](#player-crumb-bar)
+  - [Search Bar](#search-bar)
 - [Product Spec](#product-spec)
   - [User Stories](#user-stories)
     - [Required Must-have Stories](#required-must-have-stories)
@@ -68,6 +70,19 @@ Upon opening the app, users select their mood, and a curated playlist that match
 - Password reset available via email.
 
 ![auth flow demo](./assets/demos/demo-auth-flow.gif)
+
+### Player Crumb-bar
+
+- Users able to view the song that's currently playing
+- Users can click on the crumb-bar and open the details for that specific song
+
+![player crumbar](./assets/demos/demo-player-crumbar.gif)
+
+### Search Bar
+
+- Users able to search for songs
+
+![search bar](./assets/demos/demo-search-bar.gif)
 
 ## Product Spec
 
@@ -156,20 +171,20 @@ enhance my listening experience.
 **Tab Navigation** (Tab to Screen)
 
 - [ ] Home
-- [ ] Search
+- [x] Search
 - [ ] Playlists
 
 **Flow Navigation** (Screen to Screen)
 
-- [ ] `Login/Sign-up`
+- [x] `Login/Sign-up`
   - Leads to `Home`
-- [ ] `Profile` (after clicking "Log out")
+- [x] `Profile` (after clicking "Log out")
   - Leads to `Login/Sign-up`
 - [ ] `Home` (after clicking a `Playlist`)
       Leads to the `Playlist` screen for it
 - [ ] `Home` (after clicking a `Song`)
   - Leads to `Song/Playback` (bottom sheet) for it
-- [ ] `Song/Playback` (after dismissing a `Song` _bottom sheet_)
+- [x] `Song/Playback` (after dismissing a `Song` _bottom sheet_)
   - Leads to `Home`
 - [ ] `Song/Playback` (after hitting the "Add to Playlist" button)
   - Leads to `PlaylistSelection` _bottom sheet_
