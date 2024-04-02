@@ -106,7 +106,10 @@ struct RootView: View {
             }
         }
         .sheet(isPresented: $isShowingSongDetail) {
-            SongDetailView(viewModel: viewModel)
+            NavigationStack {
+                SongDetailView(viewModel: viewModel)
+            }
+            .tint(.green)
         }
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
