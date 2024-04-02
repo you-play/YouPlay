@@ -5,6 +5,7 @@
 //  Created by Sebastian on 4/1/24.
 //
 
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
@@ -17,6 +18,7 @@ struct Playlist: Identifiable, Codable, Hashable {
     var title: String
     var imageUrl: String
     var songs: [Song]
+    var lastModified: Timestamp?
 }
 
 extension Playlist {

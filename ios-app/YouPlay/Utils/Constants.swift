@@ -35,6 +35,7 @@ let DEFAULT_PLAYLISTS: [Playlist] = [
     .init(
         title: "Liked Songs",
         imageUrl: "https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1",
-        songs: []
+        songs: [],
+        lastModified: FirebaseFirestore.Timestamp()
     ),
 ]
