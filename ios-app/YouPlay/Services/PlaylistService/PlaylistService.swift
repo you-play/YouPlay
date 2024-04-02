@@ -11,5 +11,6 @@ import Foundation
 protocol PlaylistService {
     func setupDefaultPlaylists(uid: String) async -> Void
     func getPlaylists(uid: String) async -> [Playlist]
+    func getPlaylist(uid: String, playlistId: String) async -> Playlist?
     func getTopPlaylists(uid: String, limit: Int) async -> [Playlist]
 }

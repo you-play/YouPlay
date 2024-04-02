@@ -53,6 +53,22 @@ class PlaylistServiceImpl: PlaylistService {
         return playlists
     }
 
+    /// Retrieves an individual playlist and its data for a given user.
+    ///
+    /// Note: returns `nil` is the playlist was not found.
+    func getPlaylist(uid: String, playlistId: String) async -> Playlist? {
+        let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+
+        var playlist: Playlist? = nil
+        do {
+            playlist = try await playlistsRef.document(playlistId).getDocument(as: Playlist.self)
+        } catch {
+            print("DEBUG: unable to get playlists for user \(uid)", error.localizedDescription)
+        }
+
+        return playlist
+    }
+
     /// Retrieves the top X (`limit`) playlists in descending order by `lastModified` for a given user.
     func getTopPlaylists(uid: String, limit: Int) async -> [Playlist] {
         let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
