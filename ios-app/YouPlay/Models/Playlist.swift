@@ -5,11 +5,13 @@
 //  Created by Sebastian on 4/1/24.
 //
 
+import FirebaseFirestoreSwift
 import Foundation
 
 struct Playlist: Identifiable, Codable, Hashable {
+    @DocumentID var uid: String?
     var id: String {
-        UUID().uuidString
+        return uid ?? NSUUID().uuidString
     }
 
     var title: String
