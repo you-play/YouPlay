@@ -26,7 +26,7 @@ class UserServiceImpl: UserService {
             print("DEBUG: retrieved data for user with email \(user.email)")
             return user
         } catch {
-            print("DEBUG: unable to find metadata for ui \(uid)", error.localizedDescription)
+            print("DEBUG: unable to find metadata for uid \(uid)", error.localizedDescription)
             return nil
         }
     }
