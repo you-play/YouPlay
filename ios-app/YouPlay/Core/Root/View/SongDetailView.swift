@@ -107,14 +107,20 @@ struct SongDetailView: View {
                                     description: Text("Head over to Playlists to start adding songs")
                                 )
                             } else {
-                                PlaylistListView(playlists: currentUser.playlists) { playlist in
-                                    Task {
-                                        viewModel.addSongToPlaylist(
-                                            user: currentUser,
-                                            playlist: playlist,
-                                            song: song
-                                        )
+                                ForEach(currentUser.playlists) { playlist in
+                                    Button {
+                                        Task {
+                                            viewModel.addSongToPlaylist(
+                                                user: currentUser,
+                                                playlist: playlist,
+                                                song: song
+                                            )
+                                        }
+                                    } label: {
+                                        // TODO: replace with playlist row stuff
+                                        Text(playlist.title)
                                     }
+                                    .tint(.white)
                                 }
                             }
 
