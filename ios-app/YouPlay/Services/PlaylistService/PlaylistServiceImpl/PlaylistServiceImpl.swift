@@ -37,14 +37,15 @@ class PlaylistServiceImpl: PlaylistService {
 
         var playlists: [Playlist] = []
         do {
-            let snapshot = try await playlistsRef.getDocuments()
+            let snapshot = try await playlistsRef
+                .order(by: "title", descending: false)
+                .getDocuments()
+
             playlists = snapshot.documents
                 .compactMap { document in
                     try? document.data(as: Playlist.self)
                 }
-                .sorted(by: { p1, p2 in
-                    p1.title < p2.title
-                })
+
         } catch {
             print("DEBUG: unable to get playlists for user \(uid)", error.localizedDescription)
         }
