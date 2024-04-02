@@ -11,13 +11,12 @@ import Foundation
 struct User: Identifiable, Codable, Hashable {
     // Firestore ID
     @DocumentID var uid: String?
-
-    let username: String
-    let email: String
-
     var id: String {
         return uid ?? NSUUID().uuidString
     }
+
+    let username: String
+    let email: String
 
     var age: Int?
     var gender: Gender?

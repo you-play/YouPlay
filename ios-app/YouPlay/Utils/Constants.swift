@@ -12,6 +12,10 @@ import Foundation
 /// Firestore collection names and paths.
 enum FirestoreConstants {
     static let UsersCollection = Firestore.firestore().collection("users")
+
+    static func PlaylistsCollection(uid: String) -> CollectionReference {
+        FirestoreConstants.UsersCollection.document(uid).collection("playlists")
+    }
 }
 
 /// Storage bucket names for Firebase Storage.
@@ -26,3 +30,11 @@ let EMAIL_REGEX = #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#
 
 let SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 let SPOTIFY_BASE_API_URL = "https://api.spotify.com/v1"
+
+let DEFAULT_PLAYLISTS: [Playlist] = [
+    .init(
+        title: "Liked Songs",
+        imageUrl: "https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1",
+        songs: []
+    ),
+]
