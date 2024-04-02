@@ -24,7 +24,7 @@ class PlaylistServiceImpl: PlaylistService {
     }
 
     /// Sets up the default playlists for a given user's id.
-    func setUpDefaultPlaylists(uid: String) async {
+    func setupDefaultPlaylists(uid: String) async {
         let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
 
         do {

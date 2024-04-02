@@ -76,21 +76,21 @@ class AuthServiceImpl: AuthService {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
 
             let result = try await Auth.auth().signIn(with: credential)
-            userSession = result.user
-            let uid = result.user.uid
+            let user = result.user
 
-            let existingUserMetadata = try await fetchUserMetadata(uid: uid)
+            let existingUserMetadata = try await fetchUserMetadata(uid: user.uid)
             if existingUserMetadata == nil,
-               let email = result.user.email
+               let email = user.email
             {
                 print("DEBUG: No metadata found for user with email \(email), creating default data...")
                 let username = getUsernameFromEmail(email)
-                let newUser = getDefaultUser(username: username, email: email)
-                try await uploadUserMetadata(uid: uid, user: newUser)
+                let newUser = User(username: username, email: email)
+
+                try await setupDefaultUserMetadata(uid: user.uid, newUser: newUser)
             }
 
-            _ = try await fetchUserMetadata(uid: uid)
-            print("DEBUG: signed in user with Google using email \(result.user.email ?? "unknown") and uid \(result.user.uid)")
+            _ = try await fetchUserMetadata(uid: user.uid)
+            print("DEBUG: signed in user with Google using email \(user.email ?? "unknown") and uid \(user.uid)")
         } catch {
             print("DEBUG: unable to sign in with Google", error.localizedDescription)
         }
@@ -108,12 +108,13 @@ class AuthServiceImpl: AuthService {
         }
 
         let username = getUsernameFromEmail(email)
-        let newUser = getDefaultUser(username: username, email: email)
+        let newUser = User(username: username, email: email)
 
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             let uid = result.user.uid
-            try await uploadUserMetadata(uid: uid, user: newUser)
+
+            try await setupDefaultUserMetadata(uid: uid, newUser: newUser)
 
             _ = try await fetchUserMetadata(uid: uid)
             print("DEBUG: created user \(result.user.uid)")
@@ -149,21 +150,9 @@ class AuthServiceImpl: AuthService {
         }
     }
 
-    private func getDefaultUser(username: String, email: String) -> User {
-        return User(username: username,
-                    email: email,
-                    likedSongs: [],
-                    playlists: [
-                        .init(
-                            title: "Liked Songs",
-                            imageUrl: "https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1",
-                            songs: []
-                        ),
-                    ])
-    }
-
-    private func uploadUserMetadata(uid: String, user: User) async throws {
-        try await UserServiceImpl.shared.updateUserMetadata(uid: uid, user: user)
+    private func setupDefaultUserMetadata(uid: String, newUser: User) async throws {
+        await PlaylistServiceImpl.shared.setupDefaultPlaylists(uid: uid)
+        try await UserServiceImpl.shared.updateUserMetadata(uid: uid, user: newUser)
     }
 
     private func fetchUserMetadata(uid: String) async throws -> User? {

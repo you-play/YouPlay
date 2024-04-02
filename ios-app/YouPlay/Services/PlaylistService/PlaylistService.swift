@@ -9,6 +9,6 @@ import Foundation
 
 /// The `PlaylistService` manages all playlist manipulation and publishes any playlist changes using combine.
 protocol PlaylistService {
-    func setUpDefaultPlaylists(uid: String) async -> Void
+    func setupDefaultPlaylists(uid: String) async -> Void
     func getPlaylists(uid: String) async -> [Playlist]
 }
