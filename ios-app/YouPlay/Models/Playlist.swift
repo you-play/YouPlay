@@ -9,9 +9,9 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct Playlist: Identifiable, Codable, Hashable {
-    @DocumentID var uid: String?
+    @DocumentID var docId: String?
     var id: String {
-        return uid ?? NSUUID().uuidString
+        return docId ?? NSUUID().uuidString
     }
 
     var title: String

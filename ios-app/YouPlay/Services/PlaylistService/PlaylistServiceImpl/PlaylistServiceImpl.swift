@@ -39,27 +39,7 @@ class PlaylistServiceImpl: PlaylistService {
         }
     }
 
-    /// Retrieves the playlists for a given user.
-    ///
-    /// Usage
-    /// ```swift
-    /// class Consumer: ObservableObject {
-    ///     /// Results are published as they come in
-    ///     @Published var playlists: [Playlist] = []
-    ///     private var cancellables = Set<AnyCancellable>()
-    ///
-    ///     init() {
-    ///         setupSubscribers()
-    ///     }
-    ///
-    ///     private func setupSubscribers() {
-    ///         PlaylistServiceImpl.shared.$playlists.sink { playlists in
-    ///             self.playlists = playlists
-    ///         }
-    ///         .store(in: &cancellables)
-    ///     }
-    /// }
-    /// ```
+    /// Retrieves the playlists in ascending alphabetical order for a given user.
     @MainActor
     func getPlaylists(uid: String) async -> [Playlist] {
         let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
@@ -67,7 +47,13 @@ class PlaylistServiceImpl: PlaylistService {
         var playlists: [Playlist] = []
         do {
             let snapshot = try await playlistsRef.getDocuments()
-            playlists = try Firestore.Decoder().decode([Playlist].self, from: snapshot)
+            playlists = snapshot.documents
+                .compactMap { document in
+                    try? document.data(as: Playlist.self)
+                }
+                .sorted(by: { p1, p2 in
+                    p1.title < p2.title
+                })
         } catch {
             print("DEBUG: unable to get playlists for user \(uid)", error.localizedDescription)
         }

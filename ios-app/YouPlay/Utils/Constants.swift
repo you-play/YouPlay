@@ -12,6 +12,7 @@ import Foundation
 /// Firestore collection names and paths.
 enum FirestoreConstants {
     static let UsersCollection = Firestore.firestore().collection("users")
+
     static func PlaylistsCollection(uid: String) -> CollectionReference {
         FirestoreConstants.UsersCollection.document(uid).collection("playlists")
     }

@@ -130,11 +130,15 @@ struct SongDetailView: View {
                     } label: {
                         Text("Add to playlist")
                     }
-
                 } label: {
                     Image(systemName: "gearshape.fill")
                 }
                 .tint(.white)
+                .onTapGesture {
+                    Task {
+                        await viewModel.fetchPlaylists()
+                    }
+                }
             }
         }
         .tint(.green)
