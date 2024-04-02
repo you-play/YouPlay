@@ -17,6 +17,7 @@ struct User: Identifiable, Codable, Hashable {
 
     let username: String
     let email: String
+    var likedSongs: [Song]
     var playlists: [Playlist]
 
     var age: Int?
@@ -28,6 +29,7 @@ extension User {
     static let mock = User(
         username: "johndoe",
         email: "jdoe@gmail.com",
+        likedSongs: [Song.mock],
         playlists: Playlist.mocks,
         age: 28,
         gender: .male

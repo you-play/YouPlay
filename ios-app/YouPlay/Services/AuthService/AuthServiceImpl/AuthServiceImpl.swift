@@ -80,10 +80,11 @@ class AuthServiceImpl: AuthService {
             let uid = result.user.uid
 
             let existingUserMetadata = try await fetchUserMetadata(uid: uid)
-            if existingUserMetadata == nil {
-                let email = result.user.email ?? ""
+            if existingUserMetadata == nil,
+               let email = result.user.email
+            {
                 let username = getUsernameFromEmail(email)
-                let newUser = User(username: username, email: email, playlists: [])
+                let newUser = getDefaultUser(username: username, email: email)
                 try await uploadUserMetadata(uid: uid, user: newUser)
             }
 
@@ -106,7 +107,7 @@ class AuthServiceImpl: AuthService {
         }
 
         let username = getUsernameFromEmail(email)
-        let newUser = User(username: username, email: email, playlists: [])
+        let newUser = getDefaultUser(username: username, email: email)
 
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -145,6 +146,19 @@ class AuthServiceImpl: AuthService {
             print("DEBUG: Failed to send password reset email to \(email): \(error.localizedDescription)")
             throw error
         }
+    }
+
+    private func getDefaultUser(username: String, email: String) -> User {
+        return User(username: username,
+                    email: email,
+                    likedSongs: [],
+                    playlists: [
+                        .init(
+                            title: "Liked Songs",
+                            imageUrl: "https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1",
+                            songs: []
+                        ),
+                    ])
     }
 
     private func uploadUserMetadata(uid: String, user: User) async throws {

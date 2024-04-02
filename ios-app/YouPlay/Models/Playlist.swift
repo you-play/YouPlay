@@ -8,7 +8,10 @@
 import Foundation
 
 struct Playlist: Identifiable, Codable, Hashable {
-    let id: String
+    var id: String {
+        UUID().uuidString
+    }
+
     var title: String
     var imageUrl: String
     var songs: [Song]
@@ -16,7 +19,6 @@ struct Playlist: Identifiable, Codable, Hashable {
 
 extension Playlist {
     static let mock = Playlist(
-        id: "1",
         title: "Liked Songs",
         imageUrl: Album.mock.images.first!.url,
         songs: Song.mocks
@@ -24,18 +26,15 @@ extension Playlist {
 
     static let mocks = [
         Playlist(
-            id: "1",
             title: "Liked Songs",
             imageUrl: Album.mock.images.first!.url,
             songs: Song.mocks
         ),
         Playlist(
-            id: "2",
             title: "Favorite Songs",
             imageUrl: Album.mock.images.first!.url,
             songs: Song.mocks
         ), Playlist(
-            id: "3",
             title: "2019 Songs",
             imageUrl: Album.mock.images.first!.url,
             songs: Song.mocks
