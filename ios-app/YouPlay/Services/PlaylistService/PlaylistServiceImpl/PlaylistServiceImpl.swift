@@ -5,7 +5,6 @@
 //  Created by Sebastian on 4/1/24.
 //
 
-import Combine
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -14,14 +13,7 @@ import Foundation
 class PlaylistServiceImpl: PlaylistService {
     static let shared = PlaylistServiceImpl()
 
-    @Published var playlists: [Playlist] = []
-
-    private var currentUser: User?
-    private var cancellables = Set<AnyCancellable>()
-
-    private init() {
-        setupSubscribers()
-    }
+    private init() {}
 
     /// Sets up the default playlists for a given user's id.
     func setupDefaultPlaylists(uid: String) async {
@@ -40,7 +32,6 @@ class PlaylistServiceImpl: PlaylistService {
     }
 
     /// Retrieves the playlists in ascending alphabetical order for a given user.
-    @MainActor
     func getPlaylists(uid: String) async -> [Playlist] {
         let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
 
@@ -58,14 +49,6 @@ class PlaylistServiceImpl: PlaylistService {
             print("DEBUG: unable to get playlists for user \(uid)", error.localizedDescription)
         }
 
-        self.playlists = playlists
         return playlists
-    }
-
-    private func setupSubscribers() {
-        UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
-            self?.currentUser = currentUser
-        }
-        .store(in: &cancellables)
     }
 }
