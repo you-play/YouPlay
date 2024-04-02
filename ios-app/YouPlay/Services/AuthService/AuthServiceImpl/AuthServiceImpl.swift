@@ -83,7 +83,7 @@ class AuthServiceImpl: AuthService {
             if existingUserMetadata == nil {
                 let email = result.user.email ?? ""
                 let username = getUsernameFromEmail(email)
-                let newUser = User(username: username, email: email)
+                let newUser = User(username: username, email: email, playlists: [])
                 try await uploadUserMetadata(uid: uid, user: newUser)
             }
 
@@ -106,7 +106,7 @@ class AuthServiceImpl: AuthService {
         }
 
         let username = getUsernameFromEmail(email)
-        let newUser = User(username: username, email: email)
+        let newUser = User(username: username, email: email, playlists: [])
 
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
