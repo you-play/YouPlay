@@ -24,6 +24,11 @@ class RootViewModel: ObservableObject {
         setupSubscribers()
     }
 
+    func addSongToPlaylist(user: User, playlist: Playlist, song: Song) {
+        // TODO: add to playlist
+        print("DEBUG: adding song '\(song.name)' to playlist '\(playlist.title)' for username '\(user.username)'")
+    }
+
     private func setupSubscribers() {
         UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
             self?.currentUser = currentUser
