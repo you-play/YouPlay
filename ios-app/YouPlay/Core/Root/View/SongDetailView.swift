@@ -96,38 +96,41 @@ struct SongDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
-                    if let currentUser = viewModel.currentUser,
-                       let song = viewModel.song
-                    {
-                        NavigationLink {
-                            if currentUser.playlists.isEmpty {
-                                ContentUnavailableView(
-                                    "Don't drop the mic!",
-                                    systemImage: "music.mic.circle.fill",
-                                    description: Text("Head over to Playlists to start adding songs")
-                                )
-                            } else {
-                                ForEach(currentUser.playlists) { playlist in
-                                    Button {
-                                        Task {
+                    NavigationLink {
+                        if viewModel.playlists.isEmpty {
+                            ContentUnavailableView(
+                                "Don't drop the mic!",
+                                systemImage: "music.mic.circle.fill",
+                                description: Text("Head over to Playlists to start adding songs")
+                            )
+                        } else {
+                            ForEach(viewModel.playlists) { playlist in
+                                Button {
+                                    Task {
+                                        if let currentUser = viewModel.currentUser,
+                                           let song = viewModel.song
+                                        {
                                             viewModel.addSongToPlaylist(
                                                 user: currentUser,
                                                 playlist: playlist,
                                                 song: song
                                             )
+                                        } else {
+                                            print("DEBUG: Unable to add to song to playlist without both a currentUser and song")
                                         }
-                                    } label: {
-                                        // TODO: replace with playlist row stuff
-                                        Text(playlist.title)
                                     }
-                                    .tint(.white)
+                                } label: {
+                                    // TODO: replace with playlist row stuff
+                                    Text(playlist.title)
                                 }
+                                .tint(.white)
                             }
-
-                        } label: {
-                            Text("Add to playlist")
                         }
+
+                    } label: {
+                        Text("Add to playlist")
                     }
+
                 } label: {
                     Image(systemName: "gearshape.fill")
                 }

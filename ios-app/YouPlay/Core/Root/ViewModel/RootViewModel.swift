@@ -17,6 +17,7 @@ class RootViewModel: ObservableObject {
     @Published var song: Song? = Song.mock
     @Published var isPaused: Bool = true
     @Published var isLiked: Bool = true
+    @Published var playlists: [Playlist] = []
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -32,6 +33,11 @@ class RootViewModel: ObservableObject {
     private func setupSubscribers() {
         UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
             self?.currentUser = currentUser
+        }
+        .store(in: &cancellables)
+
+        PlaylistServiceImpl.shared.$playlists.sink { playlists in
+            self.playlists = playlists
         }
         .store(in: &cancellables)
     }
