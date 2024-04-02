@@ -52,4 +52,26 @@ class PlaylistServiceImpl: PlaylistService {
 
         return playlists
     }
+
+    /// Retrieves the top X (`limit`) playlists in descending order by `lastModified` for a given user.
+    func getTopPlaylists(uid: String, limit: Int) async -> [Playlist] {
+        let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+
+        var playlists: [Playlist] = []
+        do {
+            let snapshot = try await playlistsRef
+                .order(by: "lastModified", descending: true)
+                .limit(to: limit)
+                .getDocuments()
+
+            playlists = snapshot.documents
+                .compactMap { document in
+                    try? document.data(as: Playlist.self)
+                }
+        } catch {
+            print("DEBUG: unable to get top 6 playlists for user \(uid)", error.localizedDescription)
+        }
+
+        return playlists
+    }
 }
