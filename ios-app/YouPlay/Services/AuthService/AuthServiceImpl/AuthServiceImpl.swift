@@ -83,6 +83,7 @@ class AuthServiceImpl: AuthService {
             if existingUserMetadata == nil,
                let email = result.user.email
             {
+                print("DEBUG: No metadata found for user with email \(email), creating default data...")
                 let username = getUsernameFromEmail(email)
                 let newUser = getDefaultUser(username: username, email: email)
                 try await uploadUserMetadata(uid: uid, user: newUser)
