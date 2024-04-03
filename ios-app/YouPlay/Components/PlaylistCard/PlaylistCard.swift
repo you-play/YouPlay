@@ -11,10 +11,19 @@ struct PlaylistCardView: View {
     let playlist: Playlist
     var maxHeight = 60.0
 
+    // TODO: update to use the image of the first song in the playlist
+    private var image: SpotifyImage? {
+        if let url = playlist.imageUrl {
+            SpotifyImage(url: url)
+        } else {
+            nil
+        }
+    }
+
     var body: some View {
         HStack {
             AlbumImageView(
-                image: SpotifyImage(url: playlist.imageUrl),
+                image: image,
                 width: maxHeight,
                 height: maxHeight,
                 borderRadius: .none

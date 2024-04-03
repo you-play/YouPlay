@@ -32,8 +32,8 @@ struct HomeView: View {
                             }
                             .tint(.white)
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
 
                     ScrollableSongsView(
                         title: "Recommended",
