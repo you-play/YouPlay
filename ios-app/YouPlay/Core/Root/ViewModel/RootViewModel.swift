@@ -25,7 +25,7 @@ class RootViewModel: ObservableObject {
         setupSubscribers()
     }
 
-    func addSongToPlaylist(user: User, playlist: Playlist, song: Song) {
+    func addSongToPlaylist(user: User, playlist: Playlist, song: Song) async {
         // TODO: add to playlist
         print("DEBUG: adding song '\(song.name)' to playlist '\(playlist.title)' for username '\(user.username)'")
     }
