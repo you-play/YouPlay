@@ -34,7 +34,7 @@ struct ScrollableSongsView: View {
                 .padding(.horizontal)
             }
         }
-        .frame(maxHeight: 190)
+        .frame(maxHeight: 215)
     }
 }
 
@@ -45,8 +45,8 @@ struct SongRowView: View {
         VStack(alignment: .leading) {
             AlbumImageView(
                 image: song.album.images.first,
-                width: 100.0,
-                height: 100.0,
+                width: 120.0,
+                height: 120.0,
                 borderRadius: .small
             )
             .padding(.bottom, 5)

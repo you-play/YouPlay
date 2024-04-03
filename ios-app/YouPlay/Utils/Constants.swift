@@ -31,6 +31,7 @@ let EMAIL_REGEX = #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#
 let SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 let SPOTIFY_BASE_API_URL = "https://api.spotify.com/v1"
 
+let TOP_PLAYLISTS_LIMIT = 6
 let DEFAULT_PLAYLISTS: [Playlist] = [
     .init(
         title: "Liked Songs",

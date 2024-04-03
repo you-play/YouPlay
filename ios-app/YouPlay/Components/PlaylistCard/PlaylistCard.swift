@@ -9,8 +9,7 @@ import SwiftUI
 
 struct PlaylistCardView: View {
     let playlist: Playlist
-
-    let maxHeight = 100.0
+    var maxHeight = 60.0
 
     var body: some View {
         HStack {
@@ -22,16 +21,16 @@ struct PlaylistCardView: View {
             )
 
             Text(playlist.title)
-                .font(.title3)
+                .font(.caption)
                 .fontWeight(.semibold)
                 .lineLimit(1)
-                .padding(8)
+                .padding(5)
 
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: maxHeight)
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .background(Color(.systemGray5))
+        .clipShape(RoundedRectangle(cornerRadius: 6))
         .clipped()
     }
 }
