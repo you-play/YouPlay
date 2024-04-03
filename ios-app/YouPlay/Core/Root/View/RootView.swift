@@ -51,7 +51,8 @@ struct RootView: View {
                                             AlbumImageView(
                                                 image: song.album.images.first,
                                                 width: 42.0,
-                                                height: 42.0
+                                                height: 42.0,
+                                                borderRadius: .small
                                             )
 
                                             VStack(alignment: .leading) {

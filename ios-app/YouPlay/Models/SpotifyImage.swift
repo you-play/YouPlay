@@ -9,8 +9,8 @@ import Foundation
 
 struct SpotifyImage: Hashable, Codable {
     let url: String
-    let height: Int
-    let width: Int
+    var height: Int? = nil
+    var width: Int? = nil
 }
 
 extension SpotifyImage {

@@ -26,6 +26,7 @@
 		9E3306BB2B9E52B500456572 /* UserServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3306BA2B9E52B500456572 /* UserServiceImpl.swift */; };
 		9E5ACCC32BBBB2EB003083E0 /* PlaylistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5ACCC22BBBB2EB003083E0 /* PlaylistService.swift */; };
 		9E5ACCC62BBBB32F003083E0 /* PlaylistServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5ACCC52BBBB32F003083E0 /* PlaylistServiceImpl.swift */; };
+		9E5ACCC92BBD0C1F003083E0 /* PlaylistCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5ACCC82BBD0C1F003083E0 /* PlaylistCard.swift */; };
 		9E6B0A482BB0E98300836A50 /* SpotifySearchResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6B0A472BB0E98200836A50 /* SpotifySearchResponses.swift */; };
 		9E6B0A512BB0F4F300836A50 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6B0A502BB0F4F300836A50 /* NetworkService.swift */; };
 		9EA18CA82BBA07E700C8E9C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EA18CA72BBA07E700C8E9C3 /* GoogleService-Info.plist */; };
@@ -113,6 +114,7 @@
 		9E3306BA2B9E52B500456572 /* UserServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceImpl.swift; sourceTree = "<group>"; };
 		9E5ACCC22BBBB2EB003083E0 /* PlaylistService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistService.swift; sourceTree = "<group>"; };
 		9E5ACCC52BBBB32F003083E0 /* PlaylistServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistServiceImpl.swift; sourceTree = "<group>"; };
+		9E5ACCC82BBD0C1F003083E0 /* PlaylistCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCard.swift; sourceTree = "<group>"; };
 		9E6B0A472BB0E98200836A50 /* SpotifySearchResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifySearchResponses.swift; sourceTree = "<group>"; };
 		9E6B0A502BB0F4F300836A50 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9EA18CA72BBA07E700C8E9C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				9EA18CB22BBA25E200C8E9C3 /* AlbumImage */,
 				9EE6878E2BA645AE00A3B9F2 /* CircularProfileImage */,
 				378EE8012BB9E8C600918CC9 /* HorizontalSong */,
+				9E5ACCC72BBD0C06003083E0 /* PlaylistCard */,
 				372C7BF32BAE76AD00DCD41E /* ScrollableSongs */,
 			);
 			path = Components;
@@ -430,6 +433,14 @@
 				9E5ACCC52BBBB32F003083E0 /* PlaylistServiceImpl.swift */,
 			);
 			path = PlaylistServiceImpl;
+			sourceTree = "<group>";
+		};
+		9E5ACCC72BBD0C06003083E0 /* PlaylistCard */ = {
+			isa = PBXGroup;
+			children = (
+				9E5ACCC82BBD0C1F003083E0 /* PlaylistCard.swift */,
+			);
+			path = PlaylistCard;
 			sourceTree = "<group>";
 		};
 		9E6B0A522BB0F4F800836A50 /* NetworkService */ = {
@@ -763,6 +774,7 @@
 				9E5ACCC62BBBB32F003083E0 /* PlaylistServiceImpl.swift in Sources */,
 				372C7BEC2BAE615600DCD41E /* SpotifyService.swift in Sources */,
 				9EE687902BA645C600A3B9F2 /* CircularProfileImageView.swift in Sources */,
+				9E5ACCC92BBD0C1F003083E0 /* PlaylistCard.swift in Sources */,
 				9EA18CB12BBA23F700C8E9C3 /* SpotifyImage.swift in Sources */,
 				9EA18CB62BBB94A900C8E9C3 /* Playlist.swift in Sources */,
 				372C7BEA2BAE614900DCD41E /* SpotifyServiceImpl.swift in Sources */,
