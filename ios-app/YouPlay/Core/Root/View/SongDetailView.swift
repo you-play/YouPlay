@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SongDetailView: View {
     @ObservedObject var viewModel: RootViewModel
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationStack {
@@ -104,29 +105,42 @@ struct SongDetailView: View {
                                 description: Text("Head over to Playlists to start adding songs")
                             )
                         } else {
-                            ForEach(viewModel.playlists) { playlist in
-                                Button {
-                                    Task {
-                                        if let currentUser = viewModel.currentUser,
-                                           let song = viewModel.song
-                                        {
-                                            viewModel.addSongToPlaylist(
-                                                user: currentUser,
-                                                playlist: playlist,
-                                                song: song
-                                            )
-                                        } else {
-                                            print("DEBUG: Unable to add to song to playlist without both a currentUser and song")
+                            ScrollView(.vertical) {
+                                LazyVStack {
+                                    ForEach(viewModel.playlists) { playlist in
+                                        Button {
+                                            Task {
+                                                if let currentUser = viewModel.currentUser,
+                                                   let song = viewModel.song
+                                                {
+                                                    Task {
+                                                        await viewModel.addSongToPlaylist(
+                                                            user: currentUser,
+                                                            playlist: playlist,
+                                                            song: song
+                                                        )
+
+                                                        dismiss()
+                                                    }
+                                                } else {
+                                                    print("DEBUG: Unable to add to song to playlist without both a currentUser and song")
+                                                }
+                                            }
+                                        } label: {
+                                            // TODO: replace with playlist row stuff
+                                            PlaylistCardView(playlist: playlist, maxHeight: 80)
+                                                .padding(.bottom, 8)
                                         }
+                                        .tint(.white)
                                     }
-                                } label: {
-                                    // TODO: replace with playlist row stuff
-                                    Text(playlist.title)
+
+                                    Spacer()
                                 }
-                                .tint(.white)
+                                .padding()
+                                .navigationTitle("Add to playlist")
+                                .navigationBarTitleDisplayMode(.inline)
                             }
                         }
-
                     } label: {
                         Text("Add to playlist")
                     }
