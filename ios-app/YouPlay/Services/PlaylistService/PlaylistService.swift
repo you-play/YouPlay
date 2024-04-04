@@ -13,4 +13,8 @@ protocol PlaylistService {
     func getPlaylists(uid: String) async -> [Playlist]
     func getPlaylist(uid: String, playlistId: String) async -> Playlist?
     func getTopPlaylists(uid: String, limit: Int) async -> [Playlist]
+    func createPlaylist(uid: String, name: String) async
+    func deletePlaylist(uid: String, playlistId: String) async
+    func removeSongFromPlaylist(uid: String, playlistId: String, songId: String) async
+
 }

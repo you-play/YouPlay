@@ -116,4 +116,30 @@ class SpotifyServiceImpl: SpotifyService {
             throw error
         }
     }
+    func fetchSongs(byIds songIds: [String]) async -> [Song]? {
+        guard !songIds.isEmpty else { return nil }
+        
+        let ids = songIds.joined(separator: ",")
+        let queryParams: [String: String] = ["ids": ids]
+        
+        do {
+            let accessToken = await getAccessToken()
+            let data = try await networkService.request(method: .get,
+                                                        endpoint: "/tracks",
+                                                        queryParams: queryParams,
+                                                        body: nil,
+                                                        bearerToken: accessToken)
+            
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(SpotifyTracksResponse.self, from: data)
+            return response.tracks
+        } catch {
+            print("DEBUG: error while fetching songs by ID", error)
+        }
+        
+        return nil
+    }
+    struct SpotifyTracksResponse: Codable {
+        let tracks: [Song]
+    }
 }
