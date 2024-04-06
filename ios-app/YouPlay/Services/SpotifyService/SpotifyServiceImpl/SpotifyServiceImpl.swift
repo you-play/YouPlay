@@ -61,7 +61,7 @@ class SpotifyServiceImpl: SpotifyService {
     }
 
     /// `loadSpotifyCredentials` retrives relevant Spotify credentials from a `SpotifyService.plist` file.
-    private func loadSpotifyCredentials() throws -> (clientId: String, clientSecret: String) {
+    func loadSpotifyCredentials() throws -> (clientId: String, clientSecret: String) {
         guard let path = Bundle.main.path(forResource: "SpotifyService", ofType: "plist"),
               let xml = FileManager.default.contents(atPath: path)
         else {
