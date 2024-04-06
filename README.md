@@ -1,59 +1,85 @@
 # YouPlay <!-- omit from toc -->
 
+## Overview
+
+### Description <!-- omit from toc -->
+
+YouPlay is a streamlined music streaming service that generates playlists based on the user's current mood.
+
+Upon opening the app, users select their mood, and a curated playlist that matches their selection is immediately suggested.
+
+### App Evaluation <!-- omit from toc -->
+
+- **Category:** Music streaming, social
+- **Story:** Tailored for those who seek music to match and amplify their emotions—whether it's for comfort, motivation, relaxation, or energy.
+- **Market:** Individuals who own an iOS device and are willing to stream music.
+- **Habit:** Users are meant to use the app throughout their day.
+- **Scope:** Our goal is to develop an MVP with a short scope of features and work from there. Focused on making the app functional and user-friendly.
+-
+
 ## Table of Contents <!-- omit from toc -->
 
 - [Overview](#overview)
-  - [Description](#description)
-  - [App Evaluation](#app-evaluation)
 - [Technologies](#technologies)
-- [Running Locally](#running-locally)
+- [Getting Started](#getting-started)
 - [Project Board](#project-board)
 - [Demos](#demos)
   - [Auth Flow](#auth-flow)
   - [Player Crumb-bar](#player-crumb-bar)
   - [Search Bar](#search-bar)
 - [Product Spec](#product-spec)
-  - [User Stories](#user-stories)
-    - [Required Must-have Stories](#required-must-have-stories)
-    - [Optional (Nice-to-have Stories)](#optional-nice-to-have-stories)
 - [Screen Archetypes](#screen-archetypes)
   - [Navigation](#navigation)
 - [Wireframes](#wireframes)
-  - [Digital Wireframes](#digital-wireframes)
 - [Schema](#schema)
   - [Models](#models)
   - [Networking](#networking)
-
-## Overview
-
-### Description
-
-This app is a streamlined music streaming service that generates playlists based on the user's current mood.
-Upon opening the app, users select their mood, and a curated playlist that matches their selection is immediately suggested.
-
-### App Evaluation
-
-- **Category:** Music streaming, social
-- **Mobile:** Yes
-- **Story:** Tailored for those who seek music to match and amplify their emotions—whether it's for comfort, motivation, relaxation, or energy.
-- **Market:** Individuals who own an iOS device and are willing to stream music.
-- **Habit:** Users are meant to use the app throughout their day.
-- **Scope:** Our goal is to develop an MVP with a short scope of features and work from there. Focused on making the app functional and user-friendly.
 
 ## Technologies
 
 - **Language:** Swift
 - **iOS Framework:** SwiftUI
 - **Auth:** Firebase Auth
+- **Music Playback:** Spotify iOS SDK
+- **Song Metadata:** Spotify Web API
 - **Database**
   - **NoSQL:** Firebase Firestore
   - **Object Storage:** Firebase Storage
 
-## Running Locally
+## Getting Started
 
-1. Clone the repo: `git clone https://github.com/ios-102/YouPlay`
-2. Add the `GoogleService-Info.plist` into `/ios-app/YouPlay/` folder
-3. Start the app in `Xcode`
+### 1. Create a Spotify API application <!-- omit from toc -->
+
+Head over to your [Spotify Dashboard](https://developer.spotify.com/dashboard/) and register a new application.
+
+**App name:** `YouPlay`
+
+**App description:** `A mood based music streaming service.`
+
+**Website:** _Can be left empty_
+
+**Redirect URI:** `spotify-ios-you-play://spotify-login-callback`
+
+**Which API/SDKs are you planning to use?**
+
+- [x] `Web API`
+- [x] `iOS`
+
+After you have done the initial setup, open the app's `Settings` and add the following **iOS app bundles**:
+
+- `com.you-play.YouPlay`
+
+Your settings should be similar to [this.](./assets//docs/spotify_app_dashboard.png)
+
+Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` matches above.
+
+### 2. Run the App Locally <!-- omit from toc -->
+
+1. Clone the repo: `git clone https://github.com/you-play/YouPlay/`
+2. Download the `GoogleService-Info.plist` and `SpotifyService.plist` from our [Google Drive](https://drive.google.com/drive/u/0/folders/1mpas-2XIVRFXT4UJKt6yppe0XE1tgUjC)
+3. Replace the `CLIENT_ID` and `CLIENT_SECRET` in the `SpotifyService.plist`
+4. Add the `GoogleService-Info.plist` and `SpotifyService.plist` into `/ios-app/YouPlay/` folder
+5. Build and start the app in `Xcode`
 
 ## Project Board
 
@@ -86,9 +112,9 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 ## Product Spec
 
-### User Stories
+### User Stories <!-- omit from toc -->
 
-#### Required Must-have Stories
+#### Required Must-have Stories <!-- omit from toc -->
 
 **As a** user,
 **I want** to select my current mood from a _select_ list of songs (based on energy, and dance-ability...)
@@ -122,7 +148,7 @@ Upon opening the app, users select their mood, and a curated playlist that match
 **I want** to provide feedback on playlist suggestions
 **so that** the app can refine its future recommendations for me.
 
-#### Optional (Nice-to-have Stories)
+#### Optional (Nice-to-have Stories) <!-- omit from toc -->
 
 **As a** user,
 **I want** to create custom moods
@@ -193,7 +219,7 @@ enhance my listening experience.
 
 ![Screenshot 2024-03-09 at 10 52 56 PM](https://github.com/ios-102/YouPlay/assets/83348928/a315059b-b9ea-4975-bfd9-54f8e22d0653)
 
-### Digital Wireframes
+### Digital Wireframes <!-- omit from toc -->
 
 ![Hand-made wire-frames](https://github.com/ios-102/YouPlay/assets/45319275/29c28f40-d564-4dac-af25-9d52c891cf6f)
 
@@ -304,12 +330,12 @@ enhance my listening experience.
 
 ### Networking
 
-#### Spotify Service
+#### Spotify Service <!-- omit from toc -->
 
 - func getAccessToken() async -> String?
 - func search(text: String) async -> SpotifySearchResponse?
 
-#### Authorization Service
+#### Authorization Service <!-- omit from toc -->
 
 - func login(email: String, password: String) async throws
 - func loginWithGoogle() async throws
@@ -317,12 +343,12 @@ enhance my listening experience.
 - func logout()
 - func resetPassword(email: String) async throws
 
-#### Storage Service
+#### Storage Service <!-- omit from toc -->
 
 - func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
   async throws -> String
 
-#### UserService
+#### UserService <!-- omit from toc -->
 
 - func getUserMetadata(uid: String) async throws -> User?
 - func updateUserMetadata(uid: String, user: User) async throws
