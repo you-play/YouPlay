@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
+    @StateObject var spotifyController = SpotifyController()
 
     private let gridColumns = [
         GridItem(.flexible(), spacing: 8),
@@ -53,6 +54,12 @@ struct HomeView: View {
                 }
             }
         }
+        .onOpenURL { url in
+            spotifyController.setAccessToken(from: url)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didFinishLaunchingNotification), perform: { _ in
+            spotifyController.connect()
+        })
     }
 }
 
