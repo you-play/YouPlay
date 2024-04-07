@@ -17,7 +17,7 @@ class RootViewModel: ObservableObject {
     // TODO: we will need to manage liking and pause/play functionality
     @Published var song: Song? = nil
     @Published var isPaused: Bool = true
-    @Published var isLiked: Bool = true
+    @Published var isLiked: Bool = false
     @Published var playlists: [Playlist] = []
 
     private var cancellables = Set<AnyCancellable>()
