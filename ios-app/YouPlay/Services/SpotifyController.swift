@@ -101,15 +101,6 @@ extension SpotifyController {
         if appRemote.isConnected {
             appRemote.disconnect()
         }
-
-        // reset
-        isPaused = false
-        song = nil
-
-        playbackRestoreURI = ""
-        playbackRestoreSeekPosition = 0
-        songId = nil
-        appRemote.playerAPI?.pause(nil)
     }
     
     /// Pauses/Plays the currently playing track.
