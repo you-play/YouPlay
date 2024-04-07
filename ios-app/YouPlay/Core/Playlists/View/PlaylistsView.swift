@@ -9,14 +9,20 @@ import SwiftUI
 
 struct PlaylistsView: View {
     @StateObject var viewModel = PlaylistsViewModel()
+    @ObservedObject var spotifyController: SpotifyController
+
     @State private var showingCreatePlaylistSheet = false
     @State private var newPlaylistName = ""
-    
+
     var body: some View {
         NavigationView {
             List {
                 ForEach(viewModel.playlists) { playlist in
-                    NavigationLink(destination: PlaylistDetailView(playlist: playlist)) {
+                    NavigationLink(destination:
+                        PlaylistDetailView(playlist: playlist,
+                                           songs: viewModel.fetchSongsForPlaylist(playlistId: playlist.id),
+                                           spotifyController: spotifyController))
+                    {
                         HStack {
                             if let imageUrl = playlist.imageUrl, let url = URL(string: imageUrl) {
                                 AsyncImage(url: url) { phase in
@@ -90,7 +96,7 @@ struct PlaylistsView: View {
             }
         }
     }
-    
+
     private func deletePlaylist(at offsets: IndexSet) {
         for offset in offsets {
             let playlist = viewModel.playlists[offset]

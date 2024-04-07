@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SongDetailView: View {
-    @ObservedObject var viewModel: RootViewModel
+    @StateObject var viewModel = RootViewModel(spotifyController: SpotifyController())
+
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -70,9 +71,7 @@ struct SongDetailView: View {
 
                     // play/pause
                     Button(action: {
-                        viewModel.isPaused.toggle()
-                        // TODO: play/pause song
-                        print(viewModel.isPaused ? "Pause song" : "Play song")
+                        viewModel.spotifyController.pauseOrPlay()
                     }) {
                         Image(systemName: viewModel.isPaused ? "play.circle.fill" : "pause.circle.fill")
                             .foregroundColor(.primary)
@@ -161,6 +160,6 @@ struct SongDetailView: View {
 
 #Preview {
     NavigationStack {
-        SongDetailView(viewModel: RootViewModel())
+        SongDetailView(viewModel: RootViewModel(spotifyController: SpotifyController()))
     }
 }

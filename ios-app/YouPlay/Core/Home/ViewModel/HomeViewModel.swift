@@ -28,6 +28,11 @@ class HomeViewModel: ObservableObject {
         topPlaylists = await PlaylistServiceImpl.shared.getTopPlaylists(uid: uid, limit: TOP_PLAYLISTS_LIMIT)
     }
 
+    // TODO: add impl
+    func fetchSongsForPlaylist(playlistId: String) -> [Song] {
+        return Song.mocks
+    }
+
     private func setupSubscribers() {
         UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
             self?.currentUser = currentUser

@@ -12,6 +12,7 @@ import SpotifyiOS
 import SwiftUI
 
 /// This is internal workings on the controller.
+@MainActor
 class SpotifyController: NSObject, ObservableObject {
     /// Your own Spotify client ID. Otherwise, it won't be able to authorize you.
     var spotifyClientID: String {
@@ -30,9 +31,12 @@ class SpotifyController: NSObject, ObservableObject {
     var accessToken: String? = nil
     
     // playback controls
-    var isPaused: Bool = false
-    var playbackRestoreURI = ""
-    var playbackRestoreSeekPosition: Int = 0
+    @Published var isPaused: Bool = false
+    @Published var song: Song? = nil
+
+    private var playbackRestoreURI = ""
+    private var playbackRestoreSeekPosition: Int = 0
+    private var songId: String? = nil
     
     private var connectCancellable: AnyCancellable?
     private var disconnectCancellable: AnyCancellable?
@@ -78,8 +82,13 @@ class SpotifyController: NSObject, ObservableObject {
 }
 
 /// This is the main functionality/API to interact with Spotify Player
+@MainActor
 extension SpotifyController {
     func connect() {
+        if appRemote.isConnected {
+            return
+        }
+        
         guard let _ = appRemote.connectionParameters.accessToken else {
             appRemote.authorizeAndPlayURI(SILENT_TRACK_URI) // don't play audio on first "login"
             return
@@ -105,11 +114,13 @@ extension SpotifyController {
     func pauseOrPlay() {
         // save state of the player
         appRemote.playerAPI?.getPlayerState { [weak self] state, _ in
-            let state = state as! SPTAppRemotePlayerState
+            let state = state as! SPTAppRemotePlayerState?
             
-            self?.playbackRestoreURI = state.track.uri
-            self?.playbackRestoreSeekPosition = state.playbackPosition
-            print("DEBUG: saved playback seek position as \(state.playbackPosition) ms for uri \(state.track.uri)")
+            if let state = state {
+                self?.playbackRestoreURI = state.track.uri
+                self?.playbackRestoreSeekPosition = state.playbackPosition
+                print("DEBUG: saved playback seek position as \(state.playbackPosition) ms for uri \(state.track.uri)")
+            }
         }
         
         if isPaused { // paused -> play
@@ -119,20 +130,22 @@ extension SpotifyController {
             appRemote.playerAPI?.seek(toPosition: playbackRestoreSeekPosition)
             appRemote.playerAPI?.setRepeatMode(.context) // keep playing "recommended" songs
             print("DEBUG: Resuming song with uri \(playbackRestoreURI) at \(playbackRestoreSeekPosition) ms")
-
+            isPaused = false
         } else { // play -> paused
             play(uri: SILENT_TRACK_URI)
             appRemote.playerAPI?.setRepeatMode(.track) // keep playing silent audio in a loop
             print("DEBUG: Pausing song with uri \(playbackRestoreURI) with silent track with uri \(SILENT_TRACK_URI)")
+            isPaused = true
         }
-        
-        isPaused.toggle()
     }
     
     /// Plays a song (or similar) given a Spotify URI.
     func play(uri: String) {
-        isPaused = false
-        
+        // as long as the "silent song" is not playing, we are not paused
+        if uri != SILENT_TRACK_URI {
+            isPaused = false
+        }
+       
         appRemote.playerAPI?.play(uri, asRadio: false) { result, error in
             if let error = error {
                 print("DEBUG: Error playing song with uri \(uri):" + error.localizedDescription)
@@ -167,6 +180,17 @@ extension SpotifyController: SPTAppRemoteDelegate {
 /// Intercepts player state.
 extension SpotifyController: SPTAppRemotePlayerStateDelegate {
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+        let currentURI = playerState.track.uri
+        let currentSongId = currentURI.replacingOccurrences(of: "spotify:track:", with: "")
+        
+        // Updates song metadata
+        if currentURI != SILENT_TRACK_URI && currentSongId != songId {
+            Task {
+                self.song = await SpotifyServiceImpl.shared.getSongDetails(id: currentSongId)
+                self.songId = currentSongId
+            }
+        }
+        
         debugPrint("Track name: \(playerState.track.name)")
     }
 }

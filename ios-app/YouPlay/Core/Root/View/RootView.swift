@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct RootView: View {
-    @StateObject private var viewModel = RootViewModel()
+    @StateObject private var viewModel = RootViewModel(spotifyController: SpotifyController())
     @State private var isShowingSongDetail = false
     @State private var keyboardHeight: CGFloat = 0.0
 
@@ -20,7 +20,7 @@ struct RootView: View {
             } else {
                 NavigationStack {
                     ZStack {
-                        TabBarView()
+                        TabBarView(spotifyController: viewModel.spotifyController)
                             .toolbar { // Global toolbar
                                 ToolbarItem(placement: .topBarLeading) {
                                     if let user = viewModel.currentUser {
@@ -75,9 +75,7 @@ struct RootView: View {
 
                                         // play/pause button
                                         Button {
-                                            viewModel.isPaused.toggle()
-                                            // TODO: play/pause song
-                                            print(viewModel.isPaused ? "Pause song" : "Play song")
+                                            viewModel.spotifyController.pauseOrPlay()
                                         } label: {
                                             Image(systemName: viewModel.isPaused ? "play.circle.fill" : "pause.circle.fill")
                                                 .foregroundColor(.primary)
@@ -115,6 +113,12 @@ struct RootView: View {
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
         }
+        .onOpenURL { url in
+            viewModel.spotifyController.setAccessToken(from: url)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didFinishLaunchingNotification), perform: { _ in
+            viewModel.spotifyController.connect()
+        })
     }
 }
 

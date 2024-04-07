@@ -5,9 +5,9 @@
 //  Created by Sebastian on 3/13/24.
 //
 
-import Foundation
 import Combine
 import FirebaseAuth
+import Foundation
 
 class PlaylistsViewModel: ObservableObject {
     @Published var playlists: [Playlist] = [] // Holds playlists and notifies views of changes
@@ -38,6 +38,11 @@ class PlaylistsViewModel: ObservableObject {
                 self.playlists = fetchedPlaylists
             }
         }
+    }
+    
+    // TODO: implement fetching API
+    func fetchSongsForPlaylist(playlistId: String) -> [Song] {
+        return [Song.mock, Song.mock]
     }
     
     // Creates a new playlist with a given name

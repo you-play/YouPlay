@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
-    @StateObject var spotifyController = SpotifyController()
+    @ObservedObject var spotifyController: SpotifyController
 
     private let gridColumns = [
         GridItem(.flexible(), spacing: 8),
@@ -24,10 +24,11 @@ struct HomeView: View {
                     LazyVGrid(columns: gridColumns, spacing: 8) {
                         ForEach(viewModel.topPlaylists) { playlist in
                             NavigationLink {
-                                // TODO: navigate to playlist view
-                                Text("Viewing songs for: \(playlist.title)")
-                                    .navigationTitle(playlist.title)
-                                    .navigationBarTitleDisplayMode(.inline)
+                                PlaylistDetailView(
+                                    playlist: playlist,
+                                    songs: viewModel.fetchSongsForPlaylist(playlistId: playlist.id),
+                                    spotifyController: spotifyController
+                                )
                             } label: {
                                 PlaylistCardView(playlist: playlist)
                             }
@@ -38,12 +39,14 @@ struct HomeView: View {
 
                     ScrollableSongsView(
                         title: "Recommended",
-                        songs: Song.mocks
+                        songs: Song.mocks,
+                        spotifyController: spotifyController
                     )
 
                     ScrollableSongsView(
                         title: "Latest",
-                        songs: Song.mocks
+                        songs: Song.mocks,
+                        spotifyController: spotifyController
                     )
                 }
                 .padding(.top)
@@ -54,15 +57,9 @@ struct HomeView: View {
                 }
             }
         }
-        .onOpenURL { url in
-            spotifyController.setAccessToken(from: url)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didFinishLaunchingNotification), perform: { _ in
-            spotifyController.connect()
-        })
     }
 }
 
 #Preview {
-    HomeView(viewModel: HomeViewModel())
+    HomeView(viewModel: HomeViewModel(), spotifyController: SpotifyController())
 }
