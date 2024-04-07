@@ -148,6 +148,40 @@ class PlaylistServiceImpl: PlaylistService {
         
         return playlistIdToSongs
     }
+
+    func addSongToLikedSongs(uid: String, song: Song) async {
+        let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+        
+        do {
+            let querySnapshot = try await playlistRef.whereField("title", isEqualTo: "Liked Songs").getDocuments()
+            guard let document = querySnapshot.documents.first else {
+                print("DEBUG: Liked songs playlist not found for user \(uid)")
+                return
+            }
+            // Get playlist object
+            var likedSongsPlaylist = try document.data(as: Playlist.self)
+            // Add the song if it's not already present
+            var uniqueSongs: Set<String> = Set(likedSongsPlaylist.songs)
+            if uniqueSongs.contains(song.id) {
+                print("DEBUG: Song \(song.id) already exists in Liked Songs playlist for user \(uid)")
+                return
+            } else {
+                uniqueSongs.insert(song.id)
+            }
+            
+            //Update playlist
+            likedSongsPlaylist.songs = Array(uniqueSongs)
+            likedSongsPlaylist.lastModified = Timestamp()
+            
+            let documentRef = playlistRef.document(document.documentID)
+            let encodedPlaylist = try Firestore.Encoder().encode(likedSongsPlaylist)
+            try await documentRef.setData(encodedPlaylist)
+            print("DEBUG: Added song \(song.id) to Liked Songs for user \(uid)")
+            
+        } catch {
+            print("DEBUG: Unable to add song \(song.id) to Liked Songs playlist for user \(uid)", error.localizedDescription)
+        }
+    }
     
     func addSongToPlaylist(uid: String, playlistId: String, song: Song) async {
         let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid).document(playlistId)

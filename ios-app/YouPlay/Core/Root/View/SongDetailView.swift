@@ -44,7 +44,16 @@ struct SongDetailView: View {
                     // Like button
                     Button(action: {
                         viewModel.isLiked.toggle()
-                        // TODO: add like functionality
+                        Task {
+                            if let currentUser = viewModel.currentUser,
+                               let song = viewModel.song
+                            {
+                                Task {
+                                    await viewModel.addLikedSongToPlaylis(user: currentUser, song: song)
+                                }
+                            }
+                        }
+
                         print(viewModel.isLiked ? "Liked song" : "Unliked song")
                     }) {
                         Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
