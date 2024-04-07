@@ -26,7 +26,7 @@ struct HomeView: View {
                             NavigationLink {
                                 PlaylistDetailView(
                                     playlist: playlist,
-                                    songs: viewModel.fetchSongsForPlaylist(playlistId: playlist.id),
+                                    songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
                                     spotifyController: spotifyController
                                 )
                             } label: {
@@ -37,24 +37,21 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
 
-                    ScrollableSongsView(
-                        title: "Recommended",
-                        songs: Song.mocks,
-                        spotifyController: spotifyController
-                    )
-
-                    ScrollableSongsView(
-                        title: "Latest",
-                        songs: Song.mocks,
-                        spotifyController: spotifyController
-                    )
-                }
-                .padding(.top)
-                .onAppear {
-                    Task {
-                        await viewModel.fetchTopPlaylists()
+                    ForEach(viewModel.topPlaylists) { playlist in
+                        ScrollableSongsView(
+                            title: playlist.title,
+                            songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
+                            spotifyController: spotifyController
+                        )
                     }
                 }
+                .padding(.top)
+            }
+        }
+        .onAppear {
+            Task {
+                await viewModel.fetchTopPlaylists()
+                await viewModel.fetchSongs(playlists: viewModel.topPlaylists)
             }
         }
     }

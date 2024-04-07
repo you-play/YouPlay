@@ -9,46 +9,41 @@ import Combine
 import FirebaseAuth
 import Foundation
 
+@MainActor
 class PlaylistsViewModel: ObservableObject {
-    @Published var playlists: [Playlist] = [] // Holds playlists and notifies views of changes
+    @Published var currentUser: User?
+    @Published var playlists: [Playlist] = []
+    @Published var playlistIdToSongs: [String: [Song]] = [:]
+    
     private var cancellables = Set<AnyCancellable>()
-    private let playlistService: PlaylistService // Handles playlist operations
+    private let playlistService: PlaylistService
     
-    // Computed property to get the current user's ID
-    private var currentUserID: String? {
-        Auth.auth().currentUser?.uid
-    }
-    
-    // Dependency injection for the playlist service
     init(playlistService: PlaylistService = PlaylistServiceImpl.shared) {
         self.playlistService = playlistService
-        fetchPlaylists()
+        setupSubscribers()
+
+        Task {
+            await fetchPlaylists()
+            await fetchSongs(playlists: playlists)
+        }
     }
     
-    // Fetches playlists for the current user
-    func fetchPlaylists() {
-        guard let userID = currentUserID else {
+    func fetchPlaylists() async {
+        guard let uid = currentUser?.uid else {
             print("DEBUG: No user is currently logged in.")
             return
         }
-        Task {
-            let fetchedPlaylists = await playlistService.getPlaylists(uid: userID)
-            DispatchQueue.main.async {
-                // Updates playlists on the main thread
-                self.playlists = fetchedPlaylists
-            }
-        }
+        
+        playlists = await playlistService.getPlaylists(uid: uid)
+        print("DEBUG: playlists retrieved \(playlists)")
     }
     
-    // TODO: implement fetching API
-    func fetchSongsForPlaylist(playlistId: String) -> [Song] {
-        return [Song.mock, Song.mock]
+    func fetchSongs(playlists: [Playlist]) async {
+        playlistIdToSongs = await PlaylistServiceImpl.shared.getPlaylistIdToSongsMap(for: playlists)
     }
     
-    // Creates a new playlist with a given name
     func createPlaylist(withName name: String) {
         guard let userID = Auth.auth().currentUser?.uid else {
-            // Debug message if no user is logged in
             print("DEBUG: No user is currently logged in.")
             return
         }
@@ -56,7 +51,7 @@ class PlaylistsViewModel: ObservableObject {
         Task {
             await playlistService.createPlaylist(uid: userID, name: name)
             // Fetch playlists after creating a new one
-            fetchPlaylists()
+            await fetchPlaylists()
         }
     }
     
@@ -69,6 +64,13 @@ class PlaylistsViewModel: ObservableObject {
         }
         await playlistService.deletePlaylist(uid: userID, playlistId: playlistId)
         // Refreshes the list after deletion
-        fetchPlaylists()
+        await fetchPlaylists()
+    }
+    
+    private func setupSubscribers() {
+        UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
+            self?.currentUser = currentUser
+        }
+        .store(in: &cancellables)
     }
 }

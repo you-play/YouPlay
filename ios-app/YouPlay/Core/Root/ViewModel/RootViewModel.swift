@@ -29,8 +29,13 @@ class RootViewModel: ObservableObject {
     }
 
     func addSongToPlaylist(user: User, playlist: Playlist, song: Song) async {
-        // TODO: add to playlist
+        guard let uid = user.uid else {
+            print("DEBUG: unable to add song \(song.name) to playlist \(playlist.title) without a UID")
+            return
+        }
+
         print("DEBUG: adding song '\(song.name)' to playlist '\(playlist.title)' for username '\(user.username)'")
+        await PlaylistServiceImpl.shared.addSongToPlaylist(uid: uid, playlistId: playlist.id, song: song)
     }
 
     func fetchPlaylists() async {

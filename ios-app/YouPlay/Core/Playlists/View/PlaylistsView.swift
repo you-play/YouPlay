@@ -17,55 +17,65 @@ struct PlaylistsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.playlists) { playlist in
-                    NavigationLink(destination:
-                        PlaylistDetailView(playlist: playlist,
-                                           songs: viewModel.fetchSongsForPlaylist(playlistId: playlist.id),
-                                           spotifyController: spotifyController))
-                    {
-                        HStack {
-                            if let imageUrl = playlist.imageUrl, let url = URL(string: imageUrl) {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                    case .success(let image):
-                                        image.resizable().aspectRatio(contentMode: .fill)
-                                    case .failure:
-                                        Image(systemName: "photo")
-                                    @unknown default:
-                                        EmptyView()
+                if viewModel.playlists.isEmpty {
+                    ContentUnavailableView(
+                        "Looks like it's empty!",
+                        systemImage: "music.mic.circle.fill",
+                        description: Text("Don't be shy, make a playlist")
+                    )
+                } else {
+                    ForEach(viewModel.playlists) { playlist in
+                        NavigationLink(destination:
+                            PlaylistDetailView(playlist: playlist,
+                                               songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
+                                               spotifyController: spotifyController))
+                        {
+                            HStack {
+                                if let imageUrl = playlist.imageUrl, let url = URL(string: imageUrl) {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                        case .success(let image):
+                                            image.resizable().aspectRatio(contentMode: .fill)
+                                        case .failure:
+                                            Image(systemName: "photo")
+                                        @unknown default:
+                                            EmptyView()
+                                        }
                                     }
-                                }
-                                .frame(width: 60, height: 60)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                            } else {
-                                Image(systemName: "music.note.list")
-                                    .resizable()
                                     .frame(width: 60, height: 60)
-                                    .background(Color.gray)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                                } else {
+                                    Image(systemName: "music.note.list")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                        .background(Color.gray)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                }
+                                VStack(alignment: .leading) {
+                                    Text(playlist.title)
+                                        .font(.headline)
+                                    Text("\(playlist.songs.count) songs")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(.leading, 8)
                             }
-                            VStack(alignment: .leading) {
-                                Text(playlist.title)
-                                    .font(.headline)
-                                Text("\(playlist.songs.count) songs")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            }
-                            .padding(.leading, 8)
                         }
                     }
+                    .onDelete(perform: deletePlaylist)
                 }
-                .onDelete(perform: deletePlaylist)
             }
             .listStyle(PlainListStyle())
             .navigationTitle("Playlists")
             .toolbar {
-                Button(action: {
-                    self.showingCreatePlaylistSheet = true
-                }) {
-                    Image(systemName: "plus")
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        self.showingCreatePlaylistSheet = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
                 }
             }
             .sheet(isPresented: $showingCreatePlaylistSheet) {
@@ -92,6 +102,12 @@ struct PlaylistsView: View {
                             }
                         }
                     }
+                }
+            }
+            .refreshable {
+                Task {
+                    await viewModel.fetchPlaylists()
+                    await viewModel.fetchSongs(playlists: viewModel.playlists)
                 }
             }
         }

@@ -126,7 +126,6 @@ struct SongDetailView: View {
                                                 }
                                             }
                                         } label: {
-                                            // TODO: replace with playlist row stuff
                                             PlaylistCardView(playlist: playlist, maxHeight: 80)
                                                 .padding(.bottom, 8)
                                         }
