@@ -27,7 +27,7 @@ class RootViewModel: ObservableObject {
         self.spotifyController = spotifyController
         setupSubscribers()
     }
-    func addLikedSongToPlaylis(user : User , song: Song) async{
+    func addLikedSongToPlaylist(user : User , song: Song) async{
         guard let uid = user.uid else{
             print("DEBUG: unable to add song \(song.name) to Liked Songs Playlist without a UID")
             return

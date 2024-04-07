@@ -49,7 +49,7 @@ struct SongDetailView: View {
                                let song = viewModel.song
                             {
                                 Task {
-                                    await viewModel.addLikedSongToPlaylis(user: currentUser, song: song)
+                                    await viewModel.addLikedSongToPlaylist(user: currentUser, song: song)
                                 }
                             }
                         }
