@@ -117,8 +117,7 @@ class PlaylistServiceImpl: PlaylistService {
     }
 
     func removeSongFromPlaylist(uid: String, playlistId: String, songId: String) async {
-        let db = Firestore.firestore()
-        let playlistRef = db.collection("playlists").document(playlistId)
+        let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid).document(playlistId)
         
         do {
             try await playlistRef.updateData([
