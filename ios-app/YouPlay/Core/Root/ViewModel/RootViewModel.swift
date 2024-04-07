@@ -10,27 +10,34 @@ import Firebase
 import FirebaseAuth
 import Foundation
 
+@MainActor
 class RootViewModel: ObservableObject {
     @Published var currentUser: User?
 
     // TODO: we will need to manage liking and pause/play functionality
-    @Published var song: Song? = Song.mock
+    @Published var song: Song? = nil
     @Published var isPaused: Bool = true
     @Published var isLiked: Bool = true
     @Published var playlists: [Playlist] = []
 
     private var cancellables = Set<AnyCancellable>()
+    var spotifyController: SpotifyController
 
-    init() {
+    init(spotifyController: SpotifyController) {
+        self.spotifyController = spotifyController
         setupSubscribers()
     }
 
     func addSongToPlaylist(user: User, playlist: Playlist, song: Song) async {
-        // TODO: add to playlist
+        guard let uid = user.uid else {
+            print("DEBUG: unable to add song \(song.name) to playlist \(playlist.title) without a UID")
+            return
+        }
+
         print("DEBUG: adding song '\(song.name)' to playlist '\(playlist.title)' for username '\(user.username)'")
+        await PlaylistServiceImpl.shared.addSongToPlaylist(uid: uid, playlistId: playlist.id, song: song)
     }
 
-    @MainActor
     func fetchPlaylists() async {
         guard let uid = currentUser?.uid else {
             print("DEBUG: unable to fetch playlists without a uid")
@@ -44,6 +51,16 @@ class RootViewModel: ObservableObject {
     private func setupSubscribers() {
         UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
             self?.currentUser = currentUser
+        }
+        .store(in: &cancellables)
+
+        spotifyController.$isPaused.sink { [weak self] isPaused in
+            self?.isPaused = isPaused
+        }
+        .store(in: &cancellables)
+
+        spotifyController.$song.sink { [weak self] song in
+            self?.song = song
         }
         .store(in: &cancellables)
     }

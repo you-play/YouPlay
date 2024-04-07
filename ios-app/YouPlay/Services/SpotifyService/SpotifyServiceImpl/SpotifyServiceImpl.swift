@@ -60,6 +60,25 @@ class SpotifyServiceImpl: SpotifyService {
         return nil
     }
 
+    func getSongDetails(id: String) async -> Song? {
+        print("DEBUG: fetching song details for song id \(id)")
+        do {
+            let accessToken = await getAccessToken()
+            let data = try await networkService.request(method: .get,
+                                                        endpoint: "/tracks/\(id)",
+                                                        queryParams: nil,
+                                                        body: nil,
+                                                        bearerToken: accessToken)
+
+            let results = try JSONDecoder().decode(Song.self, from: data)
+            return results
+        } catch {
+            print("DEBUG: error while searching for song", error)
+        }
+
+        return nil
+    }
+
     /// `loadSpotifyCredentials` retrives relevant Spotify credentials from a `SpotifyService.plist` file.
     func loadSpotifyCredentials() throws -> (clientId: String, clientSecret: String) {
         guard let path = Bundle.main.path(forResource: "SpotifyService", ofType: "plist"),
@@ -116,12 +135,13 @@ class SpotifyServiceImpl: SpotifyService {
             throw error
         }
     }
+
     func fetchSongs(byIds songIds: [String]) async -> [Song]? {
         guard !songIds.isEmpty else { return nil }
-        
+
         let ids = songIds.joined(separator: ",")
         let queryParams: [String: String] = ["ids": ids]
-        
+
         do {
             let accessToken = await getAccessToken()
             let data = try await networkService.request(method: .get,
@@ -129,16 +149,17 @@ class SpotifyServiceImpl: SpotifyService {
                                                         queryParams: queryParams,
                                                         body: nil,
                                                         bearerToken: accessToken)
-            
+
             let decoder = JSONDecoder()
             let response = try decoder.decode(SpotifyTracksResponse.self, from: data)
             return response.tracks
         } catch {
             print("DEBUG: error while fetching songs by ID", error)
         }
-        
+
         return nil
     }
+
     struct SpotifyTracksResponse: Codable {
         let tracks: [Song]
     }

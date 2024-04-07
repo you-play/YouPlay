@@ -27,6 +27,7 @@ Upon opening the app, users select their mood, and a curated playlist that match
   - [Auth Flow](#auth-flow)
   - [Player Crumb-bar](#player-crumb-bar)
   - [Search Bar](#search-bar)
+  - [Playlist Flow](#playlist-flow)
 - [Product Spec](#product-spec)
 - [Screen Archetypes](#screen-archetypes)
   - [Navigation](#navigation)
@@ -109,6 +110,17 @@ Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` m
 - Users able to search for songs
 
 ![search bar](./assets/demos/demo-search-bar.gif)
+
+### Playlist Flow
+
+- Users are able to:
+  - Play any song they like
+  - Add any song to a playlist (if it's not a duplicate
+- Playlists are kept up-to-date by `lastModified` date
+- Playlist have the image of the last song added to it
+- Users can refresh their playlists
+
+![playlist flow](./assets/demos/demo-playlist-flow.gif)
 
 ## Product Spec
 

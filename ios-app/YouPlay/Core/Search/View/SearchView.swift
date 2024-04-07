@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject var viewModel = SearchViewModel()
+    @ObservedObject var spotifyController: SpotifyController
 
     var body: some View {
         VStack {
@@ -54,8 +55,7 @@ struct SearchView: View {
 
             List(viewModel.searchResults?.tracks?.items ?? [], id: \.id) { song in
                 Button {
-                    // TODO: play the song
-                    print("Now playing: \(song.name)")
+                    spotifyController.play(uri: song.uri)
                 } label: {
                     HorizontalSongView(song: song)
                 }
@@ -78,5 +78,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView(viewModel: SearchViewModel())
+    SearchView(viewModel: SearchViewModel(), spotifyController: SpotifyController())
 }

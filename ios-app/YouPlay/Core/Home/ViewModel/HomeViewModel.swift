@@ -8,9 +8,11 @@
 import Combine
 import Foundation
 
+@MainActor
 class HomeViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var topPlaylists: [Playlist] = []
+    @Published var playlistIdToSongs: [String: [Song]] = [:]
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -26,6 +28,10 @@ class HomeViewModel: ObservableObject {
         }
 
         topPlaylists = await PlaylistServiceImpl.shared.getTopPlaylists(uid: uid, limit: TOP_PLAYLISTS_LIMIT)
+    }
+
+    func fetchSongs(playlists: [Playlist]) async {
+        playlistIdToSongs = await PlaylistServiceImpl.shared.getPlaylistIdToSongsMap(for: playlists)
     }
 
     private func setupSubscribers() {

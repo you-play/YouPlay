@@ -19,12 +19,13 @@ struct Song: Identifiable, Codable, Hashable {
     let explicit: Bool
     let popularity: Int
     let previewURL: String?
+    let uri: String
 
     enum CodingKeys: String, CodingKey {
         case album, artists
         case explicit
         case id
-        case name, popularity
+        case name, popularity, uri
         case previewURL = "preview_url"
     }
 }
@@ -39,7 +40,8 @@ extension Song {
         album: Album.mock,
         explicit: false,
         popularity: 90,
-        previewURL: nil)
+        previewURL: nil,
+        uri: "spotify:track:1p80LdxRV74UKvL8gnD7ky")
 
     static let mocks = [
         Song(
@@ -51,7 +53,8 @@ extension Song {
             album: Album.mock,
             explicit: false,
             popularity: 90,
-            previewURL: nil),
+            previewURL: nil,
+            uri: "spotify:track:1p80LdxRV74UKvL8gnD7ky"),
         Song(
             id: "2",
             name: "Blank Space 2",
@@ -61,7 +64,8 @@ extension Song {
             album: Album.mock,
             explicit: false,
             popularity: 90,
-            previewURL: nil),
+            previewURL: nil,
+            uri: "spotify:track:1p80LdxRV74UKvL8gnD7ky"),
         Song(
             id: "3",
             name: "Blank Space 3",
@@ -71,7 +75,8 @@ extension Song {
             album: Album.mock,
             explicit: false,
             popularity: 90,
-            previewURL: nil),
+            previewURL: nil,
+            uri: "spotify:track:1p80LdxRV74UKvL8gnD7ky"),
         Song(
             id: "4",
             name: "Blank Space 4",
@@ -81,7 +86,8 @@ extension Song {
             album: Album.mock,
             explicit: false,
             popularity: 90,
-            previewURL: nil),
+            previewURL: nil,
+            uri: "spotify:track:1p80LdxRV74UKvL8gnD7ky"),
         Song(
             id: "5",
             name: "Blank Space 5",
@@ -91,6 +97,7 @@ extension Song {
             album: Album.mock,
             explicit: false,
             popularity: 90,
-            previewURL: nil),
+            previewURL: nil,
+            uri: "spotify:track:1p80LdxRV74UKvL8gnD7ky"),
     ]
 }

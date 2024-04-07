@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
-    @StateObject var spotifyController = SpotifyController()
+    @ObservedObject var spotifyController: SpotifyController
 
     private let gridColumns = [
         GridItem(.flexible(), spacing: 8),
@@ -24,10 +24,11 @@ struct HomeView: View {
                     LazyVGrid(columns: gridColumns, spacing: 8) {
                         ForEach(viewModel.topPlaylists) { playlist in
                             NavigationLink {
-                                // TODO: navigate to playlist view
-                                Text("Viewing songs for: \(playlist.title)")
-                                    .navigationTitle(playlist.title)
-                                    .navigationBarTitleDisplayMode(.inline)
+                                PlaylistDetailView(
+                                    playlist: playlist,
+                                    songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
+                                    spotifyController: spotifyController
+                                )
                             } label: {
                                 PlaylistCardView(playlist: playlist)
                             }
@@ -36,33 +37,26 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
 
-                    ScrollableSongsView(
-                        title: "Recommended",
-                        songs: Song.mocks
-                    )
-
-                    ScrollableSongsView(
-                        title: "Latest",
-                        songs: Song.mocks
-                    )
-                }
-                .padding(.top)
-                .onAppear {
-                    Task {
-                        await viewModel.fetchTopPlaylists()
+                    ForEach(viewModel.topPlaylists) { playlist in
+                        ScrollableSongsView(
+                            title: playlist.title,
+                            songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
+                            spotifyController: spotifyController
+                        )
                     }
                 }
+                .padding(.top)
             }
         }
-        .onOpenURL { url in
-            spotifyController.setAccessToken(from: url)
+        .onAppear {
+            Task {
+                await viewModel.fetchTopPlaylists()
+                await viewModel.fetchSongs(playlists: viewModel.topPlaylists)
+            }
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didFinishLaunchingNotification), perform: { _ in
-            spotifyController.connect()
-        })
     }
 }
 
 #Preview {
-    HomeView(viewModel: HomeViewModel())
+    HomeView(viewModel: HomeViewModel(), spotifyController: SpotifyController())
 }
