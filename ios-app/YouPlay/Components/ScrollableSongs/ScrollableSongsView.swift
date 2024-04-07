@@ -41,12 +41,14 @@ struct ScrollableSongsView: View {
 struct SongRowView: View {
     let song: Song
 
+    let size = 120.0
+
     var body: some View {
         VStack(alignment: .leading) {
             AlbumImageView(
                 image: song.album.images.first,
-                width: 120.0,
-                height: 120.0,
+                width: size,
+                height: size,
                 borderRadius: .small
             )
             .padding(.bottom, 5)
@@ -64,6 +66,7 @@ struct SongRowView: View {
             .foregroundStyle(.gray)
             .lineLimit(1)
         }
+        .frame(width: size)
     }
 }
 

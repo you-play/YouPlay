@@ -26,7 +26,9 @@ struct PlaylistDetailView: View {
             )
         } else {
             List {
-                ForEach(songs) { song in
+                ForEach(songs.sorted(by: { song1, song2 in
+                    song1.name < song2.name
+                })) { song in
                     Button {
                         spotifyController.play(uri: song.uri)
                     } label: {
