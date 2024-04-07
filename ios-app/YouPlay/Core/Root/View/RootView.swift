@@ -25,7 +25,7 @@ struct RootView: View {
                                 ToolbarItem(placement: .topBarLeading) {
                                     if let user = viewModel.currentUser {
                                         NavigationLink(
-                                            destination: ProfileView(),
+                                            destination: ProfileView(spotifyController: viewModel.spotifyController),
                                             label: {
                                                 CircularProfileImageView(user: user, size: .small)
                                             }

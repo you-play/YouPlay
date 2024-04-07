@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
+    @ObservedObject var spotifyController: SpotifyController
 
     @Environment(\.dismiss) var dismiss
 
@@ -38,6 +39,7 @@ struct ProfileView: View {
                     Button("Log Out") {
                         print("DEBUG: logging out")
                         AuthServiceImpl.shared.logout()
+                        spotifyController.disconnect()
                         dismiss()
                     }
                     .tint(.red)
@@ -58,5 +60,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(spotifyController: SpotifyController())
 }
