@@ -14,6 +14,8 @@ struct PlaylistsView: View {
     @State private var showingCreatePlaylistSheet = false
     @State private var newPlaylistName = ""
 
+    private let imageSize = 90.0
+
     var body: some View {
         NavigationView {
             List {
@@ -44,19 +46,22 @@ struct PlaylistsView: View {
                                             EmptyView()
                                         }
                                     }
-                                    .frame(width: 60, height: 60)
+                                    .frame(width: imageSize, height: imageSize)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                 } else {
                                     Image(systemName: "music.note.list")
                                         .resizable()
-                                        .frame(width: 60, height: 60)
+                                        .frame(width: imageSize, height: imageSize)
                                         .background(Color.gray)
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                 }
+
                                 VStack(alignment: .leading) {
                                     Text(playlist.title)
-                                        .font(.headline)
-                                    Text("\(playlist.songs.count) songs")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+
+                                    Text("\(playlist.songs.count) \(playlist.songs.count == 1 ? "song" : "songs")")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
                                 }
@@ -86,8 +91,8 @@ struct PlaylistsView: View {
                             Task {
                                 await viewModel.createPlaylist(withName: newPlaylistName)
                                 // Reset the name for next use
-                                newPlaylistName = ""
                                 showingCreatePlaylistSheet = false
+                                newPlaylistName = ""
                             }
                         }
                         .disabled(newPlaylistName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)

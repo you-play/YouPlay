@@ -60,6 +60,8 @@ struct PlaylistDetailView: View {
                                     .font(.headline)
                                 Text(song.artists.map { $0.name }.joined(separator: ", "))
                                     .font(.subheadline)
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
                             }
                             .padding(.leading, 8)
                         }
@@ -67,11 +69,9 @@ struct PlaylistDetailView: View {
                     .tint(.white)
                 }
                 .onDelete(perform: deleteSong)
-                
             }
             .listStyle(PlainListStyle())
             .navigationTitle(playlist.title)
-            
         }
     }
 

@@ -42,17 +42,15 @@ class PlaylistsViewModel: ObservableObject {
         playlistIdToSongs = await PlaylistServiceImpl.shared.getPlaylistIdToSongsMap(for: playlists)
     }
     
-    func createPlaylist(withName name: String) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("DEBUG: No user is currently logged in.")
+    func createPlaylist(withName name: String) async {
+        guard let uid = currentUser?.uid else {
+            print("DEBUG: No user is currently logged in unable to create playlist")
             return
         }
     
-        Task {
-            await playlistService.createPlaylist(uid: userID, name: name)
-            // Fetch playlists after creating a new one
-            await fetchPlaylists()
-        }
+        await playlistService.createPlaylist(uid: uid, name: name)
+        // Fetch playlists after creating a new one
+        await fetchPlaylists()
     }
     
     // Deletes a playlist with a given ID

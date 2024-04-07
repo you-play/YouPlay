@@ -94,6 +94,7 @@ class PlaylistServiceImpl: PlaylistService {
     // Function to create a new playlist for a given user
     func createPlaylist(uid: String, name: String) async {
         let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+        
         let newPlaylist = Playlist(title: name, songs: [], imageUrl: nil)
         do {
             let _ = try playlistsRef.addDocument(from: newPlaylist)
