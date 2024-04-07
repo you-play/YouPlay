@@ -46,6 +46,7 @@ class ProfileViewModel: ObservableObject {
 
         Task {
             try await UserServiceImpl.shared.updateProfileImage(uid: uid, imageData: imageData)
+            _ = try await UserServiceImpl.shared.getUserMetadata(uid: uid) // refresh image
 
             // reset
             selectedImage = nil
