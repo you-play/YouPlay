@@ -208,9 +208,9 @@ enhance my listening experience.
 
 **Tab Navigation** (Tab to Screen)
 
-- [ ] Home
+- [x] Home
 - [x] Search
-- [ ] Playlists
+- [x] Playlists
 
 **Flow Navigation** (Screen to Screen)
 
@@ -218,13 +218,13 @@ enhance my listening experience.
   - Leads to `Home`
 - [x] `Profile` (after clicking "Log out")
   - Leads to `Login/Sign-up`
-- [ ] `Home` (after clicking a `Playlist`)
+- [x] `Home` (after clicking a `Playlist`)
       Leads to the `Playlist` screen for it
-- [ ] `Home` (after clicking a `Song`)
+- [x] `Home` (after clicking a `Song`)
   - Leads to `Song/Playback` (bottom sheet) for it
 - [x] `Song/Playback` (after dismissing a `Song` _bottom sheet_)
   - Leads to `Home`
-- [ ] `Song/Playback` (after hitting the "Add to Playlist" button)
+- [x] `Song/Playback` (after hitting the "Add to Playlist" button)
   - Leads to `PlaylistSelection` _bottom sheet_
 
 ## Wireframes
@@ -296,15 +296,8 @@ enhance my listening experience.
 | Property | Type   | Description                         |
 | -------- | ------ | ----------------------------------- |
 | url      | String | URL of the album image              |
-| height   | Int    | Height of the album image in pixels |
-| width    | Int    | Width of the album image in pixels  |
-
-`Tracks` model
-
-| Property | Type    | Description                        |
-| -------- | ------- | ---------------------------------- |
-| next     | String? | URL of the next page of tracks     |
-| previous | String? | URL of the previous page of tracks |
+| height   | Int?   | Height of the album image in pixels |
+| width    | Int?   | Width of the album image in pixels  |
 
 `Artist`model
 
@@ -332,14 +325,6 @@ enhance my listening experience.
 | offset   | Int    | Offset for the paginated response                |
 | total    | Int    | Total number of items available                  |
 
-`SpotifyImage` model
-
-| Property | Type   | Description                   |
-| -------- | ------ | ----------------------------- |
-| url      | String | URL of the image              |
-| height   | Int    | Height of the image in pixels |
-| width    | Int    | Width of the image in pixels  |
-
 ### Networking
 
 #### Spotify Service <!-- omit from toc -->
@@ -349,19 +334,41 @@ enhance my listening experience.
 
 #### Authorization Service <!-- omit from toc -->
 
-- func login(email: String, password: String) async throws
-- func loginWithGoogle() async throws
-- func createUser(email: String, password: String) async throws
-- func logout()
-- func resetPassword(email: String) async throws
+- `func login(email: String, password: String) async throws`
+- `func loginWithGoogle() async throws`
+- `func createUser(email: String, password: String) async throws`
+- `func logout()`
+- `func resetPassword(email: String) async throws`
 
 #### Storage Service <!-- omit from toc -->
 
-- func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
-  async throws -> String
+- ````func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
+  async throws -> String```
+  ````
 
 #### UserService <!-- omit from toc -->
 
-- func getUserMetadata(uid: String) async throws -> User?
-- func updateUserMetadata(uid: String, user: User) async throws
-- func updateProfileImage(uid: String, imageData: Data) async throws
+- `func getUserMetadata(uid: String) async throws -> User?`
+- `func updateUserMetadata(uid: String, user: User) async throws`
+- `func updateProfileImage(uid: String, imageData: Data) async throws`
+
+#### PlaylistService <!-- omit from toc -->
+
+- `func setupDefaultPlaylists(uid: String) async -> Void`
+  `func getPlaylists(uid: String) async -> [Playlist]`
+- `func getPlaylist(uid: String, playlistId: String) async -> Playlist?`
+- `func getTopPlaylists(uid: String, limit: Int) async -> [Playlist]`
+- `func createPlaylist(uid: String, name: String) async`
+- `func deletePlaylist(uid: String, playlistId: String) async`
+- `func removeSongFromPlaylist(uid: String, playlistId: String, songId: String) async`
+- `func getPlaylistIdToSongsMap(for playlists: [Playlist]) async -> [String: [Song]]`
+- `func addSongToPlaylist(uid: String, playlistId: String, song: Song) async`
+
+#### PlaybackService <!-- omit from toc -->
+
+- `play(uri: String)`
+- `pauseOrPlay()`
+- `connect()`
+- `disconnect()`
+- `previous()`
+- `next()`

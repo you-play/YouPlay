@@ -1,4 +1,5 @@
 # App Idea 1: Spotify Clone (Unit 6)
+
 **What**: This app is a streamlined music streaming service that generates playlists based on the user's current mood. Upon opening the app, users select their mood, and a curated playlist that matches their selection is immediately suggested.
 
 **Who**: It's tailored for individuals who want their music to complement or enhance their current emotional state, from those seeking comfort or motivation to those looking to relax or energize themselves.
