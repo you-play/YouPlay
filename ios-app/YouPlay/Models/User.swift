@@ -21,6 +21,8 @@ struct User: Identifiable, Codable, Hashable {
     var age: Int?
     var gender: Gender?
     var profileImageUrl: String?
+    /// The song ids of the user's recently found/played songs from `Search`
+    var recentSongIds: [String]?
 }
 
 extension User {
