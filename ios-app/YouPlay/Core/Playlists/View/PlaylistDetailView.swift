@@ -13,8 +13,17 @@ struct PlaylistDetailView: View {
     @State var songs: [Song]
     @ObservedObject var spotifyController: SpotifyController
 
+    @State private var searchText = ""
     private var currentUserID: String? {
         Auth.auth().currentUser?.uid
+    }
+
+    private var filteredSongs: [Song] {
+        if searchText.isEmpty {
+            return songs
+        } else {
+            return songs.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
     }
 
     var body: some View {
@@ -26,7 +35,7 @@ struct PlaylistDetailView: View {
             )
         } else {
             List {
-                ForEach(songs.sorted(by: { song1, song2 in
+                ForEach(filteredSongs.sorted(by: { song1, song2 in
                     song1.name < song2.name
                 })) { song in
                     Button {
@@ -74,6 +83,7 @@ struct PlaylistDetailView: View {
             }
             .listStyle(PlainListStyle())
             .navigationTitle(playlist.title)
+            .searchable(text: $searchText)
         }
     }
 
