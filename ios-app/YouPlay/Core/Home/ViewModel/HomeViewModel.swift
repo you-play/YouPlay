@@ -18,6 +18,11 @@ class HomeViewModel: ObservableObject {
 
     init() {
         setupSubscribers()
+
+        Task {
+            await fetchTopPlaylists()
+            await fetchSongs(playlists: topPlaylists)
+        }
     }
 
     @MainActor
