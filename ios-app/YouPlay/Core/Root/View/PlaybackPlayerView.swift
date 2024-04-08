@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SongDetailView: View {
+struct PlaybackPlayerView: View {
     @StateObject var viewModel = RootViewModel(spotifyController: SpotifyController())
 
     @Environment(\.dismiss) var dismiss
@@ -99,76 +99,15 @@ struct SongDetailView: View {
         .onAppear {
             Task {
                 if let songId = viewModel.song?.id {
-                    await viewModel.isLiked = viewModel.isLikedSong(songId: songId)
+                    viewModel.isLiked = await viewModel.isLikedSong(songId: songId)
                 }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    NavigationLink {
-                        if viewModel.playlists.isEmpty {
-                            ContentUnavailableView(
-                                "Don't drop the mic!",
-                                systemImage: "music.mic.circle.fill",
-                                description: Text("Head over to Playlists to start adding songs")
-                            )
-                        } else {
-                            ScrollView(.vertical) {
-                                LazyVStack {
-                                    ForEach(viewModel.playlists) { playlist in
-                                        Button {
-                                            Task {
-                                                if let currentUser = viewModel.currentUser,
-                                                   let song = viewModel.song
-                                                {
-                                                    Task {
-                                                        await viewModel.addSongToPlaylist(
-                                                            user: currentUser,
-                                                            playlist: playlist,
-                                                            song: song
-                                                        )
-
-                                                        dismiss()
-                                                    }
-                                                } else {
-                                                    print("DEBUG: Unable to add to song to playlist without both a currentUser and song")
-                                                }
-                                            }
-                                        } label: {
-                                            PlaylistCardView(playlist: playlist, maxHeight: 80)
-                                                .padding(.bottom, 8)
-                                        }
-                                        .tint(.white)
-                                    }
-
-                                    Spacer()
-                                }
-                                .padding()
-                                .navigationTitle("Add to playlist")
-                                .navigationBarTitleDisplayMode(.inline)
-                            }
-                        }
-                    } label: {
-                        Text("Add to playlist")
-                    }
-                } label: {
-                    Image(systemName: "gearshape.fill")
-                }
-                .tint(.white)
-                .onTapGesture {
-                    Task {
-                        await viewModel.fetchPlaylists()
-                    }
-                }
-            }
-        }
-        .tint(.green)
     }
 }
 
 #Preview {
     NavigationStack {
-        SongDetailView(viewModel: RootViewModel(spotifyController: SpotifyController()))
+        PlaybackPlayerView(viewModel: RootViewModel(spotifyController: SpotifyController()))
     }
 }
