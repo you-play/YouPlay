@@ -942,7 +942,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YouPlay/Preview Content\"";
-				DEVELOPMENT_TEAM = NT3V622V8B;
+				DEVELOPMENT_TEAM = SCQ6AGK265;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YouPlay/Info.plist;
@@ -957,7 +957,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.you-play.YouPlay";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.you-play11.YouPlay";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -973,7 +973,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YouPlay/Preview Content\"";
-				DEVELOPMENT_TEAM = NT3V622V8B;
+				DEVELOPMENT_TEAM = SCQ6AGK265;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YouPlay/Info.plist;
@@ -988,7 +988,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.you-play.YouPlay";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.you-play11.YouPlay";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

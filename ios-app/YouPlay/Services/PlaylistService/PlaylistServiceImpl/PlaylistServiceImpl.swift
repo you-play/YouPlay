@@ -93,6 +93,10 @@ class PlaylistServiceImpl: PlaylistService {
     
     // Function to create a new playlist for a given user
     func createPlaylist(uid: String, name: String) async {
+        if name.lowercased() == LIKED_SONGS.lowercased() {
+            print("DEBUG: Cannot add a song that is labeled Liked Songs")
+            return
+        }
         let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
         
         let newPlaylist = Playlist(title: name, songs: [], imageUrl: nil)
@@ -147,6 +151,22 @@ class PlaylistServiceImpl: PlaylistService {
         }
         
         return playlistIdToSongs
+    }
+
+    func addSongToLikedSongs(uid: String, song: Song) async {
+        let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+        
+        do {
+            let querySnapshot = try await playlistRef.whereField("title", isEqualTo: "Liked Songs").getDocuments()
+            guard let document = querySnapshot.documents.first else {
+                print("DEBUG: Liked songs playlist not found for user \(uid)")
+                return
+            }
+            let playlistID = document.documentID
+            await addSongToPlaylist(uid: uid, playlistId: playlistID, song: song)
+        } catch {
+            print("DEBUG: Unable to add song \(song.id) to Liked Songs playlist for user \(uid)", error.localizedDescription)
+        }
     }
     
     func addSongToPlaylist(uid: String, playlistId: String, song: Song) async {

@@ -17,7 +17,7 @@ class RootViewModel: ObservableObject {
     // TODO: we will need to manage liking and pause/play functionality
     @Published var song: Song? = nil
     @Published var isPaused: Bool = true
-    @Published var isLiked: Bool = true
+    @Published var isLiked: Bool = false
     @Published var playlists: [Playlist] = []
 
     private var cancellables = Set<AnyCancellable>()
@@ -26,6 +26,14 @@ class RootViewModel: ObservableObject {
     init(spotifyController: SpotifyController) {
         self.spotifyController = spotifyController
         setupSubscribers()
+    }
+    func addLikedSongToPlaylist(user : User , song: Song) async{
+        guard let uid = user.uid else{
+            print("DEBUG: unable to add song \(song.name) to Liked Songs Playlist without a UID")
+            return
+        }
+        print("DEBUG: adding song '\(song.name)' to Liked Songs Playlist for username '\(user.username)'")
+        await PlaylistServiceImpl.shared.addSongToLikedSongs(uid: uid, song: song)
     }
 
     func addSongToPlaylist(user: User, playlist: Playlist, song: Song) async {
