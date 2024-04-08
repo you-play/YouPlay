@@ -25,7 +25,7 @@ struct SearchView: View {
                         .padding(.leading, 5)
                         .imageScale(.large)
 
-                    TextField("Search...", text: $viewModel.searchQuery)
+                    TextField("What to do you want to listen to?", text: $viewModel.searchQuery)
                         .padding(.vertical, 10)
                         .padding(.leading, 10)
                         .foregroundColor(.white)
@@ -53,15 +53,43 @@ struct SearchView: View {
                 }
             }
 
-            List(viewModel.searchResults?.tracks?.items ?? [], id: \.id) { song in
-                Button {
-                    spotifyController.play(uri: song.uri)
-                } label: {
-                    HorizontalSongView(song: song)
+            List {
+                ForEach(viewModel.searchQuery.isEmpty
+                    ? viewModel.recentSongs
+                    : viewModel.searchResults?.tracks?.items ?? [])
+                { song in
+                    Button {
+                        spotifyController.play(uri: song.uri)
+
+                        Task {
+                            let isRecent = await viewModel.isRecent(songId: song.id)
+
+                            if !isRecent {
+                                await viewModel.addSongToRecents(songId: song.id)
+                                await viewModel.fetchRecentSongs()
+                            }
+                        }
+                    } label: {
+                        HorizontalSongView(song: song)
+                    }
+                }
+
+                if viewModel.recentSongs.count > 6 {
+                    Button("Clear recent searches") {
+                        Task {
+                            await viewModel.clearAllRecents()
+                            await viewModel.fetchRecentSongs()
+                        }
+                    }
+                    .padding()
+                    .foregroundStyle(Color.green)
+                    .padding(.bottom, 64)
                 }
             }
             .overlay {
-                if viewModel.searchQuery.isEmpty {
+                if viewModel.isLoading {
+                    ProgressView()
+                } else if viewModel.searchQuery.isEmpty && viewModel.recentSongs.isEmpty {
                     ContentUnavailableView(
                         "Don't drop the mic!",
                         systemImage: "music.mic.circle.fill",

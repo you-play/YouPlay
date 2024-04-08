@@ -27,7 +27,10 @@ Upon opening the app, users select their mood, and a curated playlist that match
   - [Auth Flow](#auth-flow)
   - [Player Crumb-bar](#player-crumb-bar)
   - [Search Bar](#search-bar)
+  - [Playlist Management](#playlist-management)
   - [Playlist Flow](#playlist-flow)
+  - [Recent Songs](#recent-songs)
+  - [Playlist Search \& Filtering](#playlist-search--filtering)
 - [Product Spec](#product-spec)
 - [Screen Archetypes](#screen-archetypes)
   - [Navigation](#navigation)
@@ -111,6 +114,14 @@ Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` m
 
 ![search bar](./assets/demos/demo-search-bar.gif)
 
+### Playlist Management
+
+- Users able to:
+  - Create/delete playlists
+  - Remove songs from a playlist
+
+![playlist management](./assets/demos/demo-playlist-management.gif)
+
 ### Playlist Flow
 
 - Users are able to:
@@ -121,6 +132,18 @@ Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` m
 - Users can refresh their playlists
 
 ![playlist flow](./assets/demos/demo-playlist-flow.gif)
+
+### Recent Songs
+
+- Users are able to view their recent songs
+
+![recent songs](./assets/demos/demo-recent-songs.gif)
+
+### Playlist Search & Filtering
+
+- Users are able to search for a song within a playlist by text
+
+![playlist search](./assets/demos/demo-search-songs-list.gif)
 
 ## Product Spec
 

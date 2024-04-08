@@ -41,7 +41,7 @@ struct PlaylistsView: View {
                                         case .success(let image):
                                             image.resizable().aspectRatio(contentMode: .fill)
                                         case .failure:
-                                            Image(systemName: "photo")
+                                            Image("testSpotifyImage")
                                         @unknown default:
                                             EmptyView()
                                         }
@@ -49,10 +49,9 @@ struct PlaylistsView: View {
                                     .frame(width: imageSize, height: imageSize)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                 } else {
-                                    Image(systemName: "music.note.list")
+                                    Image("testSpotifyImage")
                                         .resizable()
                                         .frame(width: imageSize, height: imageSize)
-                                        .background(Color.gray)
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                 }
 
@@ -70,6 +69,10 @@ struct PlaylistsView: View {
                         }
                     }
                     .onDelete(perform: deletePlaylist)
+
+                    // account for crumbar
+                    EmptyView()
+                        .padding(.bottom, 72)
                 }
             }
             .listStyle(PlainListStyle())
