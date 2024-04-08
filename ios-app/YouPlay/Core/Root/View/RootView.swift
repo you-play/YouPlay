@@ -30,7 +30,6 @@ struct RootView: View {
                                                 CircularProfileImageView(user: user, size: .small)
                                             }
                                         )
-                                        .padding(.bottom)
                                     }
                                 }
                             }
@@ -95,7 +94,6 @@ struct RootView: View {
                                 Spacer()
                                     .frame(width: UIScreen.main.bounds.width, height: 10)
                                     .background(Color.black.opacity(0.8))
-                                                
 
                                 Spacer()
                                     .frame(width: UIScreen.main.bounds.width, height: 45)
