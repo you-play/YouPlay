@@ -93,7 +93,7 @@ class PlaylistServiceImpl: PlaylistService {
     
     // Function to create a new playlist for a given user
     func createPlaylist(uid: String, name: String) async {
-        if name.lowercased() == "Liked Songs".lowercased(){
+        if name.lowercased() == LIKED_SONGS.lowercased() {
             print("DEBUG: Cannot add a song that is labeled Liked Songs")
             return
         }

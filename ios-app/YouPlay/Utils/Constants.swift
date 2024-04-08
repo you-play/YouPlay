@@ -33,9 +33,10 @@ let SPOTIFY_BASE_API_URL = "https://api.spotify.com/v1"
 let SILENT_TRACK_URI = "spotify:track:7p5bQJB4XsZJEEn6Tb7EaL"
 
 let TOP_PLAYLISTS_LIMIT = 6
+let LIKED_SONGS = "Liked Songs"
 let DEFAULT_PLAYLISTS: [Playlist] = [
     .init(
-        title: "Liked Songs",
+        title: LIKED_SONGS,
         songs: [],
         imageUrl: "https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1",
         lastModified: FirebaseFirestore.Timestamp()
