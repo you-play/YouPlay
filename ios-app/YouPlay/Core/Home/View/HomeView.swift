@@ -45,6 +45,7 @@ struct HomeView: View {
                         )
                     }
                 }
+                .padding(.bottom, 72)
             }
         }
         .onAppear {
