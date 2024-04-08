@@ -42,20 +42,14 @@ struct SongDetailView: View {
                     Spacer()
 
                     // Like button
-                    Button(action: {
-                        viewModel.isLiked.toggle()
-                        Task {
-                            if let currentUser = viewModel.currentUser,
-                               let song = viewModel.song
-                            {
-                                Task {
-                                    await viewModel.addLikedSongToPlaylist(user: currentUser, song: song)
-                                }
+                    Button {
+                        if let song = viewModel.song {
+                            Task {
+                                await viewModel.toggleLike(song: song)
                             }
                         }
 
-                        print(viewModel.isLiked ? "Liked song" : "Unliked song")
-                    }) {
+                    } label: {
                         Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -101,6 +95,13 @@ struct SongDetailView: View {
                 .padding(.top, 20)
             }
             .padding()
+        }
+        .onAppear {
+            Task {
+                if let songId = viewModel.song?.id {
+                    await viewModel.isLiked = viewModel.isLikedSong(songId: songId)
+                }
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

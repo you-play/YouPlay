@@ -153,20 +153,54 @@ class PlaylistServiceImpl: PlaylistService {
         return playlistIdToSongs
     }
 
-    func addSongToLikedSongs(uid: String, song: Song) async {
-        let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+    /// Toggles the "liked" status for a particular song.
+    @MainActor
+    func toggleLikedStatus(uid: String, song: Song, isLiked: Bool) async {
+        let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
         
         do {
-            let querySnapshot = try await playlistRef.whereField("title", isEqualTo: "Liked Songs").getDocuments()
-            guard let document = querySnapshot.documents.first else {
-                print("DEBUG: Liked songs playlist not found for user \(uid)")
+            let querySnapshot = try await playlistsRef.whereField("title", isEqualTo: LIKED_SONGS).getDocuments()
+            var playlistId = querySnapshot.documents.first?.documentID
+            
+            if playlistId == nil {
+                print("DEBUG: liked songs playlist not found!")
+                playlistId = await createEmptyLikedPlaylist(uid: uid)
+            }
+            
+            guard let playlistId = playlistId else {
+                print("DEBUG: Liked songs playlist not found for user \(uid) and was unable to create it")
                 return
             }
-            let playlistID = document.documentID
-            await addSongToPlaylist(uid: uid, playlistId: playlistID, song: song)
+            
+            if isLiked {
+                await removeSongFromPlaylist(uid: uid, playlistId: playlistId, songId: song.id)
+            } else {
+                await addSongToPlaylist(uid: uid, playlistId: playlistId, song: song)
+            }
+            
         } catch {
             print("DEBUG: Unable to add song \(song.id) to Liked Songs playlist for user \(uid)", error.localizedDescription)
         }
+    }
+    
+    func isLikedSong(uid: String, songId: String) async -> Bool {
+        let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+        
+        do {
+            let querySnapshot = try await playlistRef.whereField("title", isEqualTo: LIKED_SONGS).getDocuments()
+            guard let playlist = try querySnapshot.documents.first?.data(as: Playlist.self) else {
+                print("DEBUG: Liked songs playlist not found for user \(uid)")
+                return false
+            }
+            
+            if playlist.songs.firstIndex(of: songId) != nil {
+                return true
+            }
+        } catch {
+            print("DEBUG: Unable to add song \(songId) to Liked Songs playlist for user \(uid)", error.localizedDescription)
+        }
+        
+        return false
     }
     
     func addSongToPlaylist(uid: String, playlistId: String, song: Song) async {
@@ -185,7 +219,10 @@ class PlaylistServiceImpl: PlaylistService {
             
             playlist.songs = Array(uniqueSongs)
             playlist.lastModified = Timestamp()
-            playlist.imageUrl = song.album.images.first?.url
+            
+            if playlist.title != LIKED_SONGS {
+                playlist.imageUrl = song.album.images.first?.url
+            }
             
             let encodedPlaylist = try Firestore.Encoder().encode(playlist)
             try await playlistRef.setData(encodedPlaylist)
@@ -193,5 +230,26 @@ class PlaylistServiceImpl: PlaylistService {
         } catch {
             print("DEBUG: Unable to add song \(song.id) to playlist \(playlistId) for user \(uid)", error.localizedDescription)
         }
+    }
+    
+    /// Creates an empty liked playlist for a given user and returns the document id the newly
+    /// created playlist.
+    private func createEmptyLikedPlaylist(uid: String) async -> String? {
+        let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
+        
+        do {
+            let likedPlaylist = DEFAULT_PLAYLISTS.first { $0.title == LIKED_SONGS }
+            let encodedPlaylist = try Firestore.Encoder().encode(likedPlaylist)
+                
+            let playlistId = playlistsRef.document().documentID
+            try await playlistsRef.document(playlistId).setData(encodedPlaylist)
+            
+            print("DEBUG: create empty liked playlist for uid \(uid)")
+            return playlistId
+        } catch {
+            print("DEBUG: unable to create liked songs playlists for user \(uid)", error.localizedDescription)
+        }
+        
+        return nil
     }
 }

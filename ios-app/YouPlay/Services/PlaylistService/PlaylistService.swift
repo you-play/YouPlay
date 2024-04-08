@@ -18,4 +18,6 @@ protocol PlaylistService {
     func removeSongFromPlaylist(uid: String, playlistId: String, songId: String) async
     func getPlaylistIdToSongsMap(for playlists: [Playlist]) async -> [String: [Song]]
     func addSongToPlaylist(uid: String, playlistId: String, song: Song) async
+    func toggleLikedStatus(uid: String, song: Song, isLiked: Bool) async
+    func isLikedSong(uid: String, songId: String) async -> Bool
 }

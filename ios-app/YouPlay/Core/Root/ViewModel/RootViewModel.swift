@@ -26,14 +26,41 @@ class RootViewModel: ObservableObject {
     init(spotifyController: SpotifyController) {
         self.spotifyController = spotifyController
         setupSubscribers()
+
+        Task {
+            if let songId = song?.id {
+                // load initial liked state
+                isLiked = await isLikedSong(songId: songId)
+            }
+        }
     }
-    func addLikedSongToPlaylist(user : User , song: Song) async{
-        guard let uid = user.uid else{
-            print("DEBUG: unable to add song \(song.name) to Liked Songs Playlist without a UID")
+
+    func toggleLike(song: Song) async {
+        guard let uid = currentUser?.uid else {
+            print("DEBUG: unable to update liked status for song with id \(song.id) without a uid")
             return
         }
-        print("DEBUG: adding song '\(song.name)' to Liked Songs Playlist for username '\(user.username)'")
-        await PlaylistServiceImpl.shared.addSongToLikedSongs(uid: uid, song: song)
+
+        // optismitically update isLiked for instant feedback
+        let snapshotIsLiked = isLiked
+        isLiked.toggle()
+
+        await PlaylistServiceImpl.shared.toggleLikedStatus(
+            uid: uid,
+            song: song,
+            isLiked: snapshotIsLiked)
+
+        isLiked = await isLikedSong(songId: song.id) // fetch the "thruth"
+        print("DEBUG: toggling liked status for song '\(song.name)' for uid \(uid)")
+    }
+
+    func isLikedSong(songId: String) async -> Bool {
+        guard let uid = currentUser?.uid else {
+            print("DEBUG: unable to find if the song has been liked without uid")
+            return false
+        }
+
+        return await PlaylistServiceImpl.shared.isLikedSong(uid: uid, songId: songId)
     }
 
     func addSongToPlaylist(user: User, playlist: Playlist, song: Song) async {
