@@ -20,7 +20,7 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack(spacing: 16) {
-                    // top playlist
+                    // top playlist header
                     LazyVGrid(columns: gridColumns, spacing: 8) {
                         ForEach(viewModel.topPlaylists) { playlist in
                             NavigationLink {
@@ -48,12 +48,12 @@ struct HomeView: View {
                 .padding(.top)
                 .padding(.bottom, 72)
             }
+            .refreshable {
+                viewModel.fetchTopPlaylists()
+            }
         }
         .onAppear {
-            Task {
-                await viewModel.fetchTopPlaylists()
-                await viewModel.fetchSongs(playlists: viewModel.topPlaylists)
-            }
+            viewModel.fetchTopPlaylists()
         }
     }
 }

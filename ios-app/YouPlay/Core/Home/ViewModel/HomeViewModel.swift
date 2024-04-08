@@ -18,25 +18,19 @@ class HomeViewModel: ObservableObject {
 
     init() {
         setupSubscribers()
-
-        Task {
-            await fetchTopPlaylists()
-            await fetchSongs(playlists: topPlaylists)
-        }
     }
 
     @MainActor
-    func fetchTopPlaylists() async {
+    func fetchTopPlaylists() {
         guard let uid = currentUser?.uid else {
             print("DEBUG: unable to fetch top 6 playlists without a uid")
             return
         }
 
-        topPlaylists = await PlaylistServiceImpl.shared.getTopPlaylists(uid: uid, limit: TOP_PLAYLISTS_LIMIT)
-    }
-
-    func fetchSongs(playlists: [Playlist]) async {
-        playlistIdToSongs = await PlaylistServiceImpl.shared.getPlaylistIdToSongsMap(for: playlists)
+        Task {
+            topPlaylists = await PlaylistServiceImpl.shared.getTopPlaylists(uid: uid, limit: TOP_PLAYLISTS_LIMIT)
+            playlistIdToSongs = await PlaylistServiceImpl.shared.getPlaylistIdToSongsMap(for: topPlaylists)
+        }
     }
 
     private func setupSubscribers() {
