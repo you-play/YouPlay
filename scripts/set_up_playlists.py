@@ -22,11 +22,11 @@ def main():
     input_file_path = 'playlists.json'
     output_file_path = 'playlists-with-song-ids.json'
 
-    playlists = {}  # playlist_title -> [song names]
+    playlists = {}
     with open(input_file_path, 'r') as file:
         playlists = json.load(file)
 
-    playlists_with_ids = [] # playlist_name -> {songs: [list of songs], imageUrl}
+    playlists_with_ids = []
     for playlist_name, songs in playlists.items():
         print(f"Starting search songs inside of '{playlist_name}")
         playlist = {
