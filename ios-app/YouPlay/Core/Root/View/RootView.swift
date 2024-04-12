@@ -32,6 +32,15 @@ struct RootView: View {
                                         )
                                     }
                                 }
+                                .tint(.white)
+
+                                // the following spacers account for the TabBar
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width, height: 10)
+                                    .background(Color.black)
+
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width, height: 45)
                             }
 
                         CrumbBarPlayerView(
@@ -58,6 +67,7 @@ struct RootView: View {
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
         }
+
         .onOpenURL { url in
             viewModel.spotifyController.setAccessToken(from: url)
         }

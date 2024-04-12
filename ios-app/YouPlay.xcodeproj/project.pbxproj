@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2F0542812BBF1A69006AA400 /* PlaylistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0542802BBF1A69006AA400 /* PlaylistDetailView.swift */; };
 		372C7BE52BAE5C7E00DCD41E /* PlaybackPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BE42BAE5C7E00DCD41E /* PlaybackPlayerView.swift */; };
+		372C7BE52BAE5C7E00DCD41E /* SongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */; };
 		372C7BEA2BAE614900DCD41E /* SpotifyServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BE92BAE614900DCD41E /* SpotifyServiceImpl.swift */; };
 		372C7BEC2BAE615600DCD41E /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BEB2BAE615600DCD41E /* SpotifyService.swift */; };
 		372C7BF22BAE755200DCD41E /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C7BF12BAE755200DCD41E /* Song.swift */; };
@@ -104,6 +105,7 @@
 /* Begin PBXFileReference section */
 		2F0542802BBF1A69006AA400 /* PlaylistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailView.swift; sourceTree = "<group>"; };
 		372C7BE42BAE5C7E00DCD41E /* PlaybackPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPlayerView.swift; sourceTree = "<group>"; };
+		372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailView.swift; sourceTree = "<group>"; };
 		372C7BE92BAE614900DCD41E /* SpotifyServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyServiceImpl.swift; sourceTree = "<group>"; };
 		372C7BEB2BAE615600DCD41E /* SpotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		372C7BF12BAE755200DCD41E /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 				372C7BE42BAE5C7E00DCD41E /* PlaybackPlayerView.swift */,
 				9EB60BD12BC3C0D8008CCE5B /* PlaybackPlayerMenuView.swift */,
 				9EB60BCD2BC3BD15008CCE5B /* CrumbBarPlayerView.swift */,
+				372C7BE42BAE5C7E00DCD41E /* SongDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

@@ -11,6 +11,7 @@ struct SpotifyImage: Hashable, Codable {
     let url: String
     var height: Int? = nil
     var width: Int? = nil
+
 }
 
 extension SpotifyImage {

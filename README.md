@@ -122,6 +122,19 @@ Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` m
 4. Add the `GoogleService-Info.plist` and `SpotifyService.plist` into `/ios-app/YouPlay/` folder (**Tip:** you can drop the files directly into the `XCode` UI file explorer)
 5. Build and start the app in `Xcode`
 
+### Player Crumb-bar
+
+- Users able to view the song that's currently playing
+- Users can click on the crumb-bar and open the details for that specific song
+
+![player crumbar](./assets/demos/demo-player-crumbar.gif)
+
+### Search Bar
+
+- Users able to search for songs
+
+![search bar](./assets/demos/demo-search-bar.gif)
+
 ## Product Spec
 
 ### User Stories
