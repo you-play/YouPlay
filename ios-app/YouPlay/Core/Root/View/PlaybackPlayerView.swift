@@ -54,7 +54,7 @@ struct PlaybackPlayerView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 25, height: 25)
-                            .foregroundColor(viewModel.isLiked ? .green : .white)
+                            .foregroundColor(viewModel.isLiked ? .white : .white)
                             .padding(.horizontal)
                     }
                 }

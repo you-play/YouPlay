@@ -15,7 +15,7 @@ struct LoginView: View {
             Spacer()
 
             // logo
-            Image("SpotifyLogo")
+            Image("YouPlayLogo")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120, height: 120)
@@ -47,7 +47,7 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.horizontal)
-            .tint(.green)
+            .tint(.white)
 
             .padding(.top, -8)
 
@@ -61,9 +61,9 @@ struct LoginView: View {
                 Text("Login")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .frame(maxWidth: .infinity, minHeight: 45)
-                    .background(.green)
+                    .background(.white)
                     .cornerRadius(10)
             }
             .padding(.top)
@@ -118,7 +118,7 @@ struct LoginView: View {
                         .fontWeight(.semibold)
                 }
                 .font(.subheadline)
-                .foregroundStyle(.green)
+                .foregroundStyle(.white)
             }
             .padding(.vertical)
         }

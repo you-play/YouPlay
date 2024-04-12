@@ -41,7 +41,7 @@ struct ProfileView: View {
                             DemoAccountView(viewModel: viewModel)
                         } label: {
                             Text("Setup Demo Account")
-                                .tint(.green)
+                                .tint(.white)
                         }
                     }
 

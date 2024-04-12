@@ -46,9 +46,9 @@ struct DemoAccountView: View {
                         Text("Setup")
                             .font(.subheadline)
                             .fontWeight(.semibold)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.black)
                             .frame(maxWidth: .infinity, minHeight: 45)
-                            .background(.green)
+                            .background(.white)
                             .cornerRadius(10)
                     }
                     

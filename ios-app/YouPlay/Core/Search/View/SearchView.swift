@@ -82,7 +82,7 @@ struct SearchView: View {
                         }
                     }
                     .padding()
-                    .foregroundStyle(Color.green)
+                    .foregroundStyle(Color.white)
                     .padding(.bottom, 64)
                 }
             }

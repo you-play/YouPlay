@@ -41,7 +41,7 @@ struct RootView: View {
                         )
                     }
                 }
-                .tint(.green)
+                .tint(.white)
             }
         }
         .sheet(isPresented: $showPlaybackPlayer) {
@@ -53,7 +53,7 @@ struct RootView: View {
                         }
                     }
             }
-            .tint(.green)
+            .tint(.white)
         }
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight

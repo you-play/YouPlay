@@ -27,7 +27,7 @@ struct TabBarView: View {
                     Label("Playlists", systemImage: "music.note.list")
                 }
         }
-        .tint(.green)
+        .tint(.white)
         .onAppear {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()

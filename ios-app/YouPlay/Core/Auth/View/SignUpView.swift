@@ -16,7 +16,7 @@ struct SignUpView: View {
             Spacer()
                 
             // logo
-            Image("SpotifyLogo")
+            Image("YouPlayLogo")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120, height: 120)
@@ -47,9 +47,9 @@ struct SignUpView: View {
                 Text("Sign up")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .frame(maxWidth: .infinity, minHeight: 45)
-                    .background(.green)
+                    .background(.white)
                     .cornerRadius(10)
             }
             .padding(.top)
@@ -71,7 +71,7 @@ struct SignUpView: View {
                 .font(.subheadline)
             }
             .padding(.vertical)
-            .tint(.green)
+            .tint(.white)
         }
     }
 }
