@@ -12,8 +12,22 @@
 				<string>com.googleusercontent.apps.788903088215-cr7dp5n3c99og92moosb22naftlth81p</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.you-play.YouPlay</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>spotify-ios-you-play</string>
+			</array>
+		</dict>
 	</array>
 	<key>GIDClientID</key>
 	<string>788903088215-cr7dp5n3c99og92moosb22naftlth81p.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>spotify</string>
+	</array>
 </dict>
 </plist>

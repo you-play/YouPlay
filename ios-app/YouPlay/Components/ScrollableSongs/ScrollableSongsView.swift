@@ -10,6 +10,7 @@ import SwiftUI
 struct ScrollableSongsView: View {
     let title: String
     let songs: [Song]
+    @ObservedObject var spotifyController: SpotifyController
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,8 +24,7 @@ struct ScrollableSongsView: View {
                 LazyHStack(spacing: 16) {
                     ForEach(songs) { song in
                         Button {
-                            // TODO: set the playing to song
-                            print("Now playing: \(song.name)")
+                            spotifyController.play(uri: song.uri)
                         } label: {
                             SongRowView(song: song)
                         }
@@ -34,19 +34,22 @@ struct ScrollableSongsView: View {
                 .padding(.horizontal)
             }
         }
-        .frame(maxHeight: 190)
+        .frame(maxHeight: 215)
     }
 }
 
 struct SongRowView: View {
     let song: Song
 
+    let size = 120.0
+    let metadataHeight = 50.0
+
     var body: some View {
         VStack(alignment: .leading) {
             AlbumImageView(
                 image: song.album.images.first,
-                width: 100.0,
-                height: 100.0,
+                width: size,
+                height: size,
                 borderRadius: .small
             )
             .padding(.bottom, 5)
@@ -64,12 +67,14 @@ struct SongRowView: View {
             .foregroundStyle(.gray)
             .lineLimit(1)
         }
+        .frame(width: size, height: size + metadataHeight)
     }
 }
 
 #Preview {
     ScrollableSongsView(
         title: "Recommended",
-        songs: Song.mocks
+        songs: Song.mocks,
+        spotifyController: SpotifyController()
     )
 }

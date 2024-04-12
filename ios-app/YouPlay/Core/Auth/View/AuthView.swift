@@ -21,7 +21,7 @@ struct AuthView: View {
                 }
             }
         }
-        .tint(.green)
+        .tint(.white)
     }
 }
 

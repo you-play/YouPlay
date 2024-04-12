@@ -14,4 +14,9 @@ protocol UserService {
     func getUserMetadata(uid: String) async throws -> User?
     func updateUserMetadata(uid: String, user: User) async throws
     func updateProfileImage(uid: String, imageData: Data) async throws
+    func addSongToRecents(uid: String, songId: String) async
+    func getRecentSongs(uid: String) async -> [Song]
+    func isRecentSong(uid: String, songId: String) async -> Bool
+    func clearRecentSongs(uid: String) async
+    func setupDemoAccount(uid: String) async
 }

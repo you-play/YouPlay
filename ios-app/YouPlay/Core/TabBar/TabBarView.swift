@@ -8,24 +8,26 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @ObservedObject var spotifyController: SpotifyController
+    
     var body: some View {
         TabView {
-            HomeView()
+            HomeView(spotifyController: spotifyController)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
 
-            SearchView()
+            SearchView(spotifyController: spotifyController)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
 
-            PlaylistsView()
+            PlaylistsView(spotifyController: spotifyController)
                 .tabItem {
                     Label("Playlists", systemImage: "music.note.list")
                 }
         }
-        .tint(.green)
+        .tint(.white)
         .onAppear {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
@@ -36,5 +38,5 @@ struct TabBarView: View {
 }
 
 #Preview {
-    TabBarView()
+    TabBarView(spotifyController: SpotifyController())
 }

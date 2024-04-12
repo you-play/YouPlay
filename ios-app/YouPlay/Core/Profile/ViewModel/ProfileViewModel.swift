@@ -13,6 +13,7 @@ import SwiftUI
 @MainActor
 class ProfileViewModel: ObservableObject {
     @Published var isSaving = false
+    @Published var isLoading = false
     @Published var currentUser: User?
     @Published var profileImage: Image?
     @Published var selectedImage: PhotosPickerItem? {
@@ -46,6 +47,7 @@ class ProfileViewModel: ObservableObject {
 
         Task {
             try await UserServiceImpl.shared.updateProfileImage(uid: uid, imageData: imageData)
+            _ = try await UserServiceImpl.shared.getUserMetadata(uid: uid) // refresh image
 
             // reset
             selectedImage = nil

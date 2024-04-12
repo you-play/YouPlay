@@ -1,75 +1,126 @@
 # YouPlay <!-- omit from toc -->
 
+> A streamlined music streaming service that generates playlists based on the user's current mood.
+>
+> **Developed by:** [Heather Browning](https://www.linkedin.com/in/bunnymouses/), [Joshua Lopes](https://www.linkedin.com/in/joshua-lopes-aaab05188/), [Sebastian Nunez](https://www.linkedin.com/in/sebastian-nunez-profile/), [Yixin (Fiona) Zhao](https://www.linkedin.com/in/yixin-zhao-/)
+
+![screens 1](./assets/images/screens-1.png)
+
+![screens 2](./assets/images/screens-2.png)
+
 ## Table of Contents <!-- omit from toc -->
 
-- [Overview](#overview)
-  - [Description](#description)
-  - [App Evaluation](#app-evaluation)
 - [Technologies](#technologies)
-- [Running Locally](#running-locally)
 - [Project Board](#project-board)
-- [Demos](#demos)
-  - [Auth Flow](#auth-flow)
-  - [Player Crumb-bar](#player-crumb-bar)
-  - [Search Bar](#search-bar)
+- [Core Features](#core-features)
+  - [Authentication](#authentication)
+  - [Player Controls](#player-controls)
+  - [Song Search](#song-search)
+  - [Playlist Management](#playlist-management)
+  - [Playlist Interaction](#playlist-interaction)
+- [Getting Started](#getting-started)
 - [Product Spec](#product-spec)
   - [User Stories](#user-stories)
-    - [Required Must-have Stories](#required-must-have-stories)
-    - [Optional (Nice-to-have Stories)](#optional-nice-to-have-stories)
-- [Screen Archetypes](#screen-archetypes)
+  - [Screen Archetypes](#screen-archetypes)
   - [Navigation](#navigation)
-- [Wireframes](#wireframes)
-  - [Digital Wireframes](#digital-wireframes)
-- [Schema](#schema)
-  - [Models](#models)
-  - [Networking](#networking)
-
-## Overview
-
-### Description
-
-This app is a streamlined music streaming service that generates playlists based on the user's current mood.
-Upon opening the app, users select their mood, and a curated playlist that matches their selection is immediately suggested.
-
-### App Evaluation
-
-- **Category:** Music streaming, social
-- **Mobile:** Yes
-- **Story:** Tailored for those who seek music to match and amplify their emotions—whether it's for comfort, motivation, relaxation, or energy.
-- **Market:** Individuals who own an iOS device and are willing to stream music.
-- **Habit:** Users are meant to use the app throughout their day.
-- **Scope:** Our goal is to develop an MVP with a short scope of features and work from there. Focused on making the app functional and user-friendly.
+  - [Wireframes](#wireframes)
+- [Internal Services](#internal-services)
+- [Data Models](#data-models)
 
 ## Technologies
 
 - **Language:** Swift
 - **iOS Framework:** SwiftUI
-- **Auth:** Firebase Auth
+- **Auth:** [Firebase Auth](https://firebase.google.com/docs/auth)
+- **Music Playback:** [Spotify iOS SDK](https://github.com/spotify/ios-sdk)
+- **Song Metadata:** [Spotify Web API](https://developer.spotify.com/documentation/web-api)
 - **Database**
-  - **NoSQL:** Firebase Firestore
-  - **Object Storage:** Firebase Storage
-
-## Running Locally
-
-1. Clone the repo: `git clone https://github.com/ios-102/YouPlay`
-2. Add the `GoogleService-Info.plist` into `/ios-app/YouPlay/` folder
-3. Start the app in `Xcode`
+  - **NoSQL:** [Firebase Firestore](https://firebase.google.com/docs/firestore)
+  - **Object Storage:** [Firebase Storage](https://firebase.google.com/docs/storage)
 
 ## Project Board
 
-![project board 1](./assets//screenshots/project-board-1.png)
+You can find our project board [here.](https://github.com/orgs/you-play/projects/1/views/2)
 
-## Demos
+![project board 1](./assets/images/project-board-1.png)
 
-### Auth Flow
+## Core Features
 
-- Complete auth flow (log in, sign up, logout) using email and password alongside Google OAuth.
+### Authentication
 
-- Users are able to update their profile picture and have it uploaded directly to Firebase Storage.
+- Complete authentication flow (login, sign up, logout) using email and password alongside [Google OAuth](https://developers.google.com/identity/protocols/oauth2)
+- Users can update their profile picture with direct upload to [Firebase Storage](https://firebase.google.com/docs/storage)
+- Password reset functionality via email
 
-- Password reset available via email.
+### Player Controls
 
-![auth flow demo](./assets/demos/demo-auth-flow.gif)
+- Player interface displaying the currently playing song with audio playback controls
+- Users can view song details by clicking on the crumb-bar
+- Users can add songs to a playlist directly from a menu
+
+### Song Search
+
+- Users can search for any song
+- Users can view their recently played songs
+
+### Playlist Management
+
+- Users can create and delete playlists
+- Users can remove songs from a playlist
+
+### Playlist Interaction
+
+- Users can play any song
+- Playlists are kept up-to-date using the `lastModified` date
+- Users can refresh their playlists
+- Implemented search for songs within a playlist by text
+
+## Getting Started
+
+### 1. Check out `CONTRIBUTING.md` <!-- omit from toc -->
+
+Read through our [contributing document](./CONTRIBUTING.md) to get up-to-speed with project standards and expectations.
+
+### 2. Create a `Firebase` iOS application <!-- omit from toc -->
+
+Our application runs mostly through Google's [Firebase](https://firebase.google.com/) platform.
+
+You can go [here](https://firebase.google.com/docs/ios/setup) to get started setting up an iOS application.
+
+### 3. Create a `Spotify` API application <!-- omit from toc -->
+
+Head over to your [Spotify Dashboard](https://developer.spotify.com/dashboard/) and register a new application.
+
+**App name:** `YouPlay`
+
+**App description:** `A mood based music streaming service.`
+
+**Website:** _Can be left empty_
+
+**Redirect URI:** `spotify-ios-you-play://spotify-login-callback`
+
+**Which API/SDKs are you planning to use?**
+
+- [x] `Web API`
+- [x] `iOS`
+
+After you have done the initial setup, open the app's `Settings` and add the following **iOS app bundles**:
+
+- `com.you-play.YouPlay`
+
+Your settings should be similar to [this.](./assets//docs/spotify_app_dashboard.png)
+
+Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` matches above.
+
+**Note:** If the bundle ID is NOT available in `XCode`, you can add a suffix (ex. `com.you-play.YouPlay-Sebastian`). Make sure to update it in your [Spotify Dashboard](https://developer.spotify.com/dashboard/) settings.
+
+### 4. Run the App Locally <!-- omit from toc -->
+
+1. Clone the repo: `git clone https://github.com/you-play/YouPlay/`
+2. Download the `GoogleService-Info.plist` (not required if you have your own Firebase app) and `SpotifyService.plist` from our [Google Drive](https://drive.google.com/drive/u/0/folders/1mpas-2XIVRFXT4UJKt6yppe0XE1tgUjC) (or you can find empty "templates" [here](./assets/docs/templates/))
+3. Replace/add the `CLIENT_ID` and `CLIENT_SECRET` in the `SpotifyService.plist` with your own Spotify credentials
+4. Add the `GoogleService-Info.plist` and `SpotifyService.plist` into `/ios-app/YouPlay/` folder (**Tip:** you can drop the files directly into the `XCode` UI file explorer)
+5. Build and start the app in `Xcode`
 
 ### Player Crumb-bar
 
@@ -88,7 +139,7 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 ### User Stories
 
-#### Required Must-have Stories
+#### Required Must-have Stories <!-- omit from toc -->
 
 **As a** user,
 **I want** to select my current mood from a _select_ list of songs (based on energy, and dance-ability...)
@@ -122,7 +173,7 @@ Upon opening the app, users select their mood, and a curated playlist that match
 **I want** to provide feedback on playlist suggestions
 **so that** the app can refine its future recommendations for me.
 
-#### Optional (Nice-to-have Stories)
+#### Optional (Nice-to-have Stories) <!-- omit from toc -->
 
 **As a** user,
 **I want** to create custom moods
@@ -144,7 +195,7 @@ enhance my listening experience.
 **I want** the option to filter songs by language or genre within a mood category
 **so I can** tailor the music even further to my
 
-## Screen Archetypes
+### Screen Archetypes
 
 - Login Screen
   - As a user, I must be able to log in
@@ -170,9 +221,9 @@ enhance my listening experience.
 
 **Tab Navigation** (Tab to Screen)
 
-- [ ] Home
+- [x] Home
 - [x] Search
-- [ ] Playlists
+- [x] Playlists
 
 **Flow Navigation** (Screen to Screen)
 
@@ -180,28 +231,60 @@ enhance my listening experience.
   - Leads to `Home`
 - [x] `Profile` (after clicking "Log out")
   - Leads to `Login/Sign-up`
-- [ ] `Home` (after clicking a `Playlist`)
+- [x] `Home` (after clicking a `Playlist`)
       Leads to the `Playlist` screen for it
-- [ ] `Home` (after clicking a `Song`)
+- [x] `Home` (after clicking a `Song`)
   - Leads to `Song/Playback` (bottom sheet) for it
 - [x] `Song/Playback` (after dismissing a `Song` _bottom sheet_)
   - Leads to `Home`
-- [ ] `Song/Playback` (after hitting the "Add to Playlist" button)
+- [x] `Song/Playback` (after hitting the "Add to Playlist" button)
   - Leads to `PlaylistSelection` _bottom sheet_
 
-## Wireframes
+### Wireframes
 
 ![Screenshot 2024-03-09 at 10 52 56 PM](https://github.com/ios-102/YouPlay/assets/83348928/a315059b-b9ea-4975-bfd9-54f8e22d0653)
 
-### Digital Wireframes
+#### Digital Wireframes <!-- omit from toc -->
 
 ![Hand-made wire-frames](https://github.com/ios-102/YouPlay/assets/45319275/29c28f40-d564-4dac-af25-9d52c891cf6f)
 
-## Schema
+## Internal Services
 
-### Models
+These are the main _planned_ network services available in the app.
 
-`User` model
+**Note:** These are not kept up-to-date.
+
+### `AuthService` <!-- omit from toc -->
+
+Handles all internal communication and authentication with Firebase Auth.
+
+### `PlaylistService` <!-- omit from toc -->
+
+Handles internal playlist management (creation, delete, etc.).
+
+### `PlaybackService` <!-- omit from toc -->
+
+Handles all audio playback controls connected to the Spotify SDK controller.
+
+### `SpotifyService` <!-- omit from toc -->
+
+Connects the application to the Spotify Web API and allows querying and fetching song metadata.
+
+### `StorageService` <!-- omit from toc -->
+
+Handles object storage communication with Firebase Storage.
+
+### `UserService` <!-- omit from toc -->
+
+Handles user metadata access and retrieval (profile picture, demographics, etc.)
+
+## Data Models
+
+These are the core planned data models for the app.
+
+**Note:** These are not kept up-to-date.
+
+### `User` <!-- omit from toc -->
 
 | Property        | Type    | Description                                          |
 | --------------- | ------- | ---------------------------------------------------- |
@@ -213,7 +296,7 @@ enhance my listening experience.
 | gender          | Gender? | Gender of the user (enum or optional string)         |
 | profileImageUrl | String? | URL of the user's profile image (optional)           |
 
-`Player` model:
+### `Player` <!-- omit from toc -->
 
 | Property     | Type    | Description                                  |
 | ------------ | ------- | -------------------------------------------- |
@@ -223,7 +306,7 @@ enhance my listening experience.
 | song         | Song    | Information about the currently playing song |
 | actions      | Actions | Actions that can be performed on the player  |
 
-`Actions` model:
+### `Actions` <!-- omit from toc -->
 
 | Property              | Type | Description                                       |
 | --------------------- | ---- | ------------------------------------------------- |
@@ -238,7 +321,7 @@ enhance my listening experience.
 | togglingRepeatTrack   | Bool | Indicates toggling repeat for the current track   |
 | transferringPlayback  | Bool | Indicates if playback is being transferred        |
 
-`Album` model
+### `Album` <!-- omit from toc -->
 
 | Property    | Type         | Description                                   |
 | ----------- | ------------ | --------------------------------------------- |
@@ -253,29 +336,22 @@ enhance my listening experience.
 | tracks      | Tracks       | Information about the tracks in the album     |
 | popularity  | Int          | Popularity score of the album                 |
 
-`SpotifyImage` model
+### `SpotifyImage` <!-- omit from toc -->
 
 | Property | Type   | Description                         |
 | -------- | ------ | ----------------------------------- |
 | url      | String | URL of the album image              |
-| height   | Int    | Height of the album image in pixels |
-| width    | Int    | Width of the album image in pixels  |
+| height   | Int?   | Height of the album image in pixels |
+| width    | Int?   | Width of the album image in pixels  |
 
-`Tracks` model
-
-| Property | Type    | Description                        |
-| -------- | ------- | ---------------------------------- |
-| next     | String? | URL of the next page of tracks     |
-| previous | String? | URL of the previous page of tracks |
-
-`Artist`model
+### `Artist` <!-- omit from toc -->
 
 | Property | Type   | Description                     |
 | -------- | ------ | ------------------------------- |
 | id       | String | Unique identifier of the artist |
 | name     | String | Name of the artist              |
 
-`Song` model
+### `Song` <!-- omit from toc -->
 
 | Property   | Type     | Description                                    |
 | ---------- | -------- | ---------------------------------------------- |
@@ -285,7 +361,7 @@ enhance my listening experience.
 | imageURL   | String   | URL of the image representing the song         |
 | id         | String   | Unique identifier for the song                 |
 
-`TracksResponse` model
+### `TracksResponse` <!-- omit from toc -->
 
 | Property | Type   | Description                                      |
 | -------- | ------ | ------------------------------------------------ |
@@ -293,37 +369,3 @@ enhance my listening experience.
 | limit    | Int    | Maximum number of items returned in the response |
 | offset   | Int    | Offset for the paginated response                |
 | total    | Int    | Total number of items available                  |
-
-`SpotifyImage` model
-
-| Property | Type   | Description                   |
-| -------- | ------ | ----------------------------- |
-| url      | String | URL of the image              |
-| height   | Int    | Height of the image in pixels |
-| width    | Int    | Width of the image in pixels  |
-
-### Networking
-
-#### Spotify Service
-
-- func getAccessToken() async -> String?
-- func search(text: String) async -> SpotifySearchResponse?
-
-#### Authorization Service
-
-- func login(email: String, password: String) async throws
-- func loginWithGoogle() async throws
-- func createUser(email: String, password: String) async throws
-- func logout()
-- func resetPassword(email: String) async throws
-
-#### Storage Service
-
-- func uploadImage(bucket: StorageBuckets, fileName: String, imageData: Data, fileExtension: ImageFileExtension)
-  async throws -> String
-
-#### UserService
-
-- func getUserMetadata(uid: String) async throws -> User?
-- func updateUserMetadata(uid: String, user: User) async throws
-- func updateProfileImage(uid: String, imageData: Data) async throws

@@ -12,6 +12,10 @@ import Foundation
 /// Firestore collection names and paths.
 enum FirestoreConstants {
     static let UsersCollection = Firestore.firestore().collection("users")
+
+    static func PlaylistsCollection(uid: String) -> CollectionReference {
+        FirestoreConstants.UsersCollection.document(uid).collection("playlists")
+    }
 }
 
 /// Storage bucket names for Firebase Storage.
@@ -26,3 +30,17 @@ let EMAIL_REGEX = #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#
 
 let SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 let SPOTIFY_BASE_API_URL = "https://api.spotify.com/v1"
+let SILENT_TRACK_URI = "spotify:track:7p5bQJB4XsZJEEn6Tb7EaL"
+let MAX_ALLOWED_RECENT_SONGS = 20
+
+let TOP_PLAYLISTS_LIMIT = 6
+let LIKED_SONGS = "Liked Songs"
+let DEFAULT_PLAYLISTS: [Playlist] = [
+    .init(
+        title: LIKED_SONGS,
+        songs: [],
+        imageUrl: "https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1",
+        lastModified: FirebaseFirestore.Timestamp()
+    ),
+]
+let PLACEHOLDER_IMAGE_URL = "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2"

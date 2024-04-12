@@ -63,6 +63,7 @@ struct DefaultImageView: View {
 }
 
 enum ImageBorderRadius: CGFloat {
+    case none = 0.0
     case small = 6.0
     case medium = 8.0
     case large = 16.0
