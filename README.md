@@ -15,7 +15,6 @@ Upon opening the app, users select their mood, and a curated playlist that match
 - **Market:** Individuals who own an iOS device and are willing to stream music.
 - **Habit:** Users are meant to use the app throughout their day.
 - **Scope:** Our goal is to develop an MVP with a short scope of features and work from there. Focused on making the app functional and user-friendly.
--
 
 ## Table of Contents <!-- omit from toc -->
 
@@ -83,8 +82,8 @@ Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` m
 1. Clone the repo: `git clone https://github.com/you-play/YouPlay/`
 2. Download the `GoogleService-Info.plist` and `SpotifyService.plist` from our [Google Drive](https://drive.google.com/drive/u/0/folders/1mpas-2XIVRFXT4UJKt6yppe0XE1tgUjC)
 3. Replace the `CLIENT_ID` and `CLIENT_SECRET` in the `SpotifyService.plist` with your own Spotify credentials
-4. Add the `GoogleService-Info.plist` and `SpotifyService.plist` into `/ios-app/YouPlay/` folder
-5. Build and start the app in `Xcode`
+4. Add the `GoogleService-Info.plist` and `SpotifyService.plist` into `/ios-app/YouPlay/` folder (**Tip:** you can drop the files directly into the `XCode` UI file explorer)
+6. Build and start the app in `Xcode`
 
 ## Project Board
 
