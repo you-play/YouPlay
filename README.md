@@ -74,7 +74,9 @@ After you have done the initial setup, open the app's `Settings` and add the fol
 
 Your settings should be similar to [this.](./assets//docs/spotify_app_dashboard.png)
 
-Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` matches above.
+Lastly, make sure the [App bundle](./assets/docs/bundle_id.png) within `XCode` matches above. 
+
+**Note:** If the bundle ID is NOT available in `XCode`, you can add a suffix (ex. `com.you-play.YouPlay-Sebastian`) and make sure to update your Spotify Dashboard.
 
 ### 2. Run the App Locally <!-- omit from toc -->
 
