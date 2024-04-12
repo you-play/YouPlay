@@ -142,26 +142,39 @@ class UserServiceImpl: UserService {
     /// Sets up a "demo" account with some default playlists.
     @MainActor
     func setupDemoAccount(uid: String) async {
-        let playlists = DEMO_PLAYLISTS
+        guard let fileURL = Bundle.main.url(forResource: "playlists-with-song-ids", withExtension: "json") else {
+            print("DEBUG: JSON file not found to set up demo account")
+            return
+        }
 
-        for (title, metadata) in playlists {
-            let songIds = metadata["songIds"] as! [String]
-            let imageUrl = metadata["imageUrl"] as! String
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let playlists = try JSONDecoder().decode([PlaylistData].self, from: data)
 
-            guard let playlistId = await PlaylistServiceImpl.shared.createPlaylist(
-                uid: uid,
-                name: title,
-                imageUrl: imageUrl
-            ) else {
-                print("DEBUG: unable to set up playlist \(title) for demo account for uid \(uid)")
-                continue
+            for playlist in playlists {
+                guard let playlistId = await PlaylistServiceImpl.shared.createPlaylist(
+                    uid: uid,
+                    name: playlist.title,
+                    imageUrl: playlist.imageUrl
+                ) else {
+                    print("DEBUG: unable to set up playlist \(playlist.title) for demo account for uid \(uid)")
+                    continue
+                }
+
+                await PlaylistServiceImpl.shared.addManySongsToPlaylist(
+                    uid: uid,
+                    playlistId: playlistId,
+                    songIds: playlist.songIds
+                )
             }
-
-            await PlaylistServiceImpl.shared.addManySongsToPlaylist(
-                uid: uid,
-                playlistId: playlistId,
-                songIds: songIds
-            )
+        } catch {
+            print("DEBUG: unable to set up demo account", error)
         }
     }
+}
+
+private struct PlaylistData: Decodable {
+    let title: String
+    let songIds: [String]
+    let imageUrl: String
 }

@@ -18,7 +18,7 @@ Input JSON must be as follows:
 }
 '''
 def main():
-    bearer_token = 'REPLACE_ME'
+    bearer_token = 'REPLACE ME'
     input_file_path = 'playlists.json'
     output_file_path = 'playlists-with-song-ids.json'
 
@@ -26,10 +26,11 @@ def main():
     with open(input_file_path, 'r') as file:
         playlists = json.load(file)
 
-    playlists_with_ids = {}  # playlist_name -> {songs: [list of songs], imageUrl}
+    playlists_with_ids = [] # playlist_name -> {songs: [list of songs], imageUrl}
     for playlist_name, songs in playlists.items():
         print(f"Starting search songs inside of '{playlist_name}")
-        playlists_with_ids[playlist_name] = {
+        playlist = {
+            'title': playlist_name,
             'songIds': [],
             'imageUrl': ''
         }
@@ -40,17 +41,19 @@ def main():
 
             if song_metadata:
                 song_id = song_metadata['id']
-                playlists_with_ids[playlist_name]['songIds'].append(song_id)
+                playlist['songIds'].append(song_id)
 
         # assign an imageUrl randomly from one of the songs
         print(f"Assigning imageUrl to '{playlist_name}'")
-        song_id = random.choice(playlists_with_ids[playlist_name]['songIds'])
+        song_id = random.choice(playlist['songIds'])
 
         if song_id:
-            playlists_with_ids[playlist_name]['imageUrl'] = get_image_url_from_track_title(song_id, bearer_token)
+            playlist['imageUrl'] = get_image_url_from_track_title(song_id, bearer_token)
         else: 
             # stock image
-            playlists_with_ids[playlist_name]['imageUrl'] = 'https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2'
+            playlist['imageUrl'] = 'https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2'
+        
+        playlists_with_ids.append(playlist)
 
     print(f'Writing results to {output_file_path}')
     with open(output_file_path, 'w') as file:
