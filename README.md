@@ -1,6 +1,6 @@
 # YouPlay <!-- omit from toc -->
 
-## Overview
+## Overview <!-- omit from toc -->
 
 ### Description <!-- omit from toc -->
 
@@ -19,7 +19,6 @@ Upon opening the app, users select their mood, and a curated playlist that match
 
 ## Table of Contents <!-- omit from toc -->
 
-- [Overview](#overview)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
 - [Project Board](#project-board)
