@@ -18,4 +18,5 @@ protocol UserService {
     func getRecentSongs(uid: String) async -> [Song]
     func isRecentSong(uid: String, songId: String) async -> Bool
     func clearRecentSongs(uid: String) async
+    func setupDemoAccount(uid: String) async
 }

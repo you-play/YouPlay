@@ -34,6 +34,8 @@
 		9EA18CB12BBA23F700C8E9C3 /* SpotifyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA18CB02BBA23F700C8E9C3 /* SpotifyImage.swift */; };
 		9EA18CB42BBA25F200C8E9C3 /* AlbumImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA18CB32BBA25F200C8E9C3 /* AlbumImageView.swift */; };
 		9EA18CB62BBB94A900C8E9C3 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA18CB52BBB94A900C8E9C3 /* Playlist.swift */; };
+		9EB0A2992BC8E2BD008919AA /* DemoAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0A2982BC8E2BD008919AA /* DemoAccountView.swift */; };
+		9EB0A29B2BC8F8FE008919AA /* playlists-with-song-ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 9EB0A29A2BC8F8FE008919AA /* playlists-with-song-ids.json */; };
 		9EB60BCE2BC3BD15008CCE5B /* CrumbBarPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB60BCD2BC3BD15008CCE5B /* CrumbBarPlayerView.swift */; };
 		9EB60BD22BC3C0D8008CCE5B /* PlaybackPlayerMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB60BD12BC3C0D8008CCE5B /* PlaybackPlayerMenuView.swift */; };
 		9EE375E02BC0D749006F01DE /* SpotifyService.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EE375DF2BC0D749006F01DE /* SpotifyService.plist */; };
@@ -127,6 +129,8 @@
 		9EA18CB02BBA23F700C8E9C3 /* SpotifyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyImage.swift; sourceTree = "<group>"; };
 		9EA18CB32BBA25F200C8E9C3 /* AlbumImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImageView.swift; sourceTree = "<group>"; };
 		9EA18CB52BBB94A900C8E9C3 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		9EB0A2982BC8E2BD008919AA /* DemoAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAccountView.swift; sourceTree = "<group>"; };
+		9EB0A29A2BC8F8FE008919AA /* playlists-with-song-ids.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "playlists-with-song-ids.json"; path = "../../../scripts/playlists-with-song-ids.json"; sourceTree = "<group>"; };
 		9EB60BCD2BC3BD15008CCE5B /* CrumbBarPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrumbBarPlayerView.swift; sourceTree = "<group>"; };
 		9EB60BD12BC3C0D8008CCE5B /* PlaybackPlayerMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPlayerMenuView.swift; sourceTree = "<group>"; };
 		9EE375DF2BC0D749006F01DE /* SpotifyService.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SpotifyService.plist; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 		9E3306A02B9E457800456572 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9EB0A29A2BC8F8FE008919AA /* playlists-with-song-ids.json */,
 				9E6B0A522BB0F4F800836A50 /* NetworkService */,
 				9EE687752BA51BAC00A3B9F2 /* Validation */,
 				9EE687352BA5047A00A3B9F2 /* Constants.swift */,
@@ -408,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				9E3306B82B9E4AAB00456572 /* ProfileView.swift */,
+				9EB0A2982BC8E2BD008919AA /* DemoAccountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -756,6 +762,7 @@
 				9E33069A2B9E454900456572 /* Preview Assets.xcassets in Resources */,
 				9EE375E02BC0D749006F01DE /* SpotifyService.plist in Resources */,
 				9E3306972B9E454900456572 /* Assets.xcassets in Resources */,
+				9EB0A29B2BC8F8FE008919AA /* playlists-with-song-ids.json in Resources */,
 				9EE375E22BC0D755006F01DE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -811,6 +818,7 @@
 				9EE6878D2BA6418E00A3B9F2 /* AuthViewModel.swift in Sources */,
 				9EE6877F2BA63C0500A3B9F2 /* LoginView.swift in Sources */,
 				E7083DBE2BB5033800BF3302 /* Artist.swift in Sources */,
+				9EB0A2992BC8E2BD008919AA /* DemoAccountView.swift in Sources */,
 				9E3306B92B9E4AAB00456572 /* ProfileView.swift in Sources */,
 				372C7BF22BAE755200DCD41E /* Song.swift in Sources */,
 				9EE687982BA6856200A3B9F2 /* StorageServiceImpl.swift in Sources */,

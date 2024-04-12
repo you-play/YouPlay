@@ -138,4 +138,43 @@ class UserServiceImpl: UserService {
             print("DEBUG: unable clear all recents songs for uid \(uid)", error.localizedDescription)
         }
     }
+
+    /// Sets up a "demo" account with some default playlists.
+    @MainActor
+    func setupDemoAccount(uid: String) async {
+        guard let fileURL = Bundle.main.url(forResource: "playlists-with-song-ids", withExtension: "json") else {
+            print("DEBUG: JSON file not found to set up demo account")
+            return
+        }
+
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let playlists = try JSONDecoder().decode([PlaylistData].self, from: data)
+
+            for playlist in playlists {
+                guard let playlistId = await PlaylistServiceImpl.shared.createPlaylist(
+                    uid: uid,
+                    name: playlist.title,
+                    imageUrl: playlist.imageUrl
+                ) else {
+                    print("DEBUG: unable to set up playlist \(playlist.title) for demo account for uid \(uid)")
+                    continue
+                }
+
+                await PlaylistServiceImpl.shared.addManySongsToPlaylist(
+                    uid: uid,
+                    playlistId: playlistId,
+                    songIds: playlist.songIds
+                )
+            }
+        } catch {
+            print("DEBUG: unable to set up demo account", error)
+        }
+    }
+}
+
+private struct PlaylistData: Decodable {
+    let title: String
+    let songIds: [String]
+    let imageUrl: String
 }

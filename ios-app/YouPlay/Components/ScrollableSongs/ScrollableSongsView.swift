@@ -42,6 +42,7 @@ struct SongRowView: View {
     let song: Song
 
     let size = 120.0
+    let metadataHeight = 50.0
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -66,7 +67,7 @@ struct SongRowView: View {
             .foregroundStyle(.gray)
             .lineLimit(1)
         }
-        .frame(width: size)
+        .frame(width: size, height: size + metadataHeight)
     }
 }
 

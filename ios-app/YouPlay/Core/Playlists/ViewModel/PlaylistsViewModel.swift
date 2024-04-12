@@ -48,7 +48,7 @@ class PlaylistsViewModel: ObservableObject {
             return
         }
     
-        await playlistService.createPlaylist(uid: uid, name: name)
+        _ = await playlistService.createPlaylist(uid: uid, name: name, imageUrl: nil)
         // Fetch playlists after creating a new one
         await fetchPlaylists()
     }
