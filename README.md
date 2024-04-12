@@ -40,7 +40,7 @@
 
 ## Project Board
 
-You can find our project board [here.](https://github.com/orgs/you-play/projects/1)
+You can find our project board [here.](https://github.com/orgs/you-play/projects/1/views/2)
 
 ![project board 1](./assets/images/project-board-1.png)
 
