@@ -99,10 +99,19 @@ class PlaylistServiceImpl: PlaylistService {
             print("DEBUG: Cannot add a song that is labeled Liked Songs")
             return nil
         }
-        let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
         
+        let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
         let newPlaylist = Playlist(title: name, songs: [], imageUrl: imageUrl)
+        
         do {
+            let querySnapshot = try await playlistsRef.whereField("title", isEqualTo: name).getDocuments()
+            let playlistId = querySnapshot.documents.first?.documentID
+            
+            if playlistId != nil {
+                print("DEBUG: playlist already exists, retrieving the playlist instead")
+                return playlistId
+            }
+            
             let created = try playlistsRef.addDocument(from: newPlaylist)
             print("DEBUG: Created new playlist \(name) for user \(uid)")
             return created.documentID
