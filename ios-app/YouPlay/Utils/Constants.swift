@@ -43,3 +43,4 @@ let DEFAULT_PLAYLISTS: [Playlist] = [
         lastModified: FirebaseFirestore.Timestamp()
     ),
 ]
+let PLACEHOLDER_IMAGE_URL = "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2"

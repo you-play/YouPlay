@@ -1,6 +1,7 @@
 from collections import defaultdict
 import json
 import requests
+import random
 
 '''
 Retrieves the Spotify track IDs from a JSON file of playlists.
@@ -17,7 +18,7 @@ Input JSON must be as follows:
 }
 '''
 def main():
-    bearer_token = 'REPLACE ME'
+    bearer_token = 'REPLACE_ME'
     input_file_path = 'playlists.json'
     output_file_path = 'playlists-with-song-ids.json'
 
@@ -25,23 +26,38 @@ def main():
     with open(input_file_path, 'r') as file:
         playlists = json.load(file)
 
-    playlists_with_ids = defaultdict(list)  # playlist_title -> list of song ids
+    playlists_with_ids = {}  # playlist_name -> {songs: [list of songs], imageUrl}
     for playlist_name, songs in playlists.items():
         print(f"Starting search songs inside of '{playlist_name}")
+        playlists_with_ids[playlist_name] = {
+            'songIds': [],
+            'imageUrl': ''
+        }
 
         for song_name in songs:
             print(f"Searching for '{song_name}'")
-            track_id = search_spotify_track_id(song_name, bearer_token)
+            song_metadata = get_spotify_song_metadata(song_name, bearer_token)
 
-            if track_id:
-                playlists_with_ids[playlist_name].append(track_id)
+            if song_metadata:
+                song_id = song_metadata['id']
+                playlists_with_ids[playlist_name]['songIds'].append(song_id)
 
-    print(f'Writting results to {output_file_path}')
+        # assign an imageUrl randomly from one of the songs
+        print(f"Assigning imageUrl to '{playlist_name}'")
+        song_id = random.choice(playlists_with_ids[playlist_name]['songIds'])
+
+        if song_id:
+            playlists_with_ids[playlist_name]['imageUrl'] = get_image_url_from_track_title(song_id, bearer_token)
+        else: 
+            # stock image
+            playlists_with_ids[playlist_name]['imageUrl'] = 'https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2'
+
+    print(f'Writing results to {output_file_path}')
     with open(output_file_path, 'w') as file:
         json.dump(playlists_with_ids, file, indent=2)
 
 
-def search_spotify_track_id(song_name: str, bearer_token: str) -> str | None:
+def get_spotify_song_metadata(song_name, bearer_token):
     endpoint = "https://api.spotify.com/v1/search"
     params = {
         "q": song_name, 
@@ -57,9 +73,9 @@ def search_spotify_track_id(song_name: str, bearer_token: str) -> str | None:
         if response.status_code == 200:
             data = response.json()
 
-            if data['tracks']['items']:
-                track_id = data['tracks']['items'][0]['id']
-                return track_id
+            if data:
+                song_metadata = data['tracks']['items'][0]
+                return song_metadata
         else:
             print(f"ERROR: received a '{response.status_code}' HTTP status code while searching for '{song_name}'")
     except Exception as e:
@@ -67,6 +83,27 @@ def search_spotify_track_id(song_name: str, bearer_token: str) -> str | None:
 
     return None
 
+def get_image_url_from_track_title(track_id, bearer_token):
+    endpoint = f"https://api.spotify.com/v1/tracks/{track_id}"
+    headers = {
+        "Authorization": "Bearer " + bearer_token
+    }
+
+    try:
+        response = requests.get(endpoint, headers=headers)
+
+        if response.status_code == 200:
+            data = response.json()
+
+            if data:
+                imageUrl = data['album']['images'][0]['url']
+                return imageUrl
+        else:
+            print(f"ERROR: received a '{response.status_code}' HTTP status code while getting image for track_id '{track_id}'")
+    except Exception as e:
+        print(f"ERROR: unable to find image for track_id '{track_id}'", e)
+
+    return None
 
 if __name__ == "__main__":
     main()
