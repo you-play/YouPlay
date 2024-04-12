@@ -42,7 +42,7 @@
 
 You can find our project board [here.](https://github.com/orgs/you-play/projects/1)
 
-![project board 1](./assets//screenshots/project-board-1.png)
+![project board 1](./assets/images/project-board-1.png)
 
 ## Core Features
 
