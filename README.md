@@ -12,6 +12,7 @@
 
 - [Technologies](#technologies)
 - [Project Board](#project-board)
+- [Demos](#demos)
 - [Core Features](#core-features)
   - [Authentication](#authentication)
   - [Player Controls](#player-controls)
@@ -43,6 +44,10 @@
 You can find our project board [here.](https://github.com/orgs/you-play/projects/1/views/2)
 
 ![project board 1](./assets/images/project-board-1.png)
+
+## Demos
+
+You can find a series of short demos GIFs [here.](https://github.com/you-play/YouPlay/blob/main/planning/Demos.md)
 
 ## Core Features
 
