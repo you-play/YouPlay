@@ -246,7 +246,7 @@ class PlaylistServiceImpl: PlaylistService {
         }
     }
     
-    /// Adds a songId to a playlist. Does not check for duplicates.
+    /// Adds many songIds to a playlist in bulk.
     func addManySongsToPlaylist(uid: String, playlistId: String, songIds: [String]) async {
         let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid).document(playlistId)
         
