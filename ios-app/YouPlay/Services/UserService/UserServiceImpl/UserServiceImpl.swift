@@ -138,4 +138,30 @@ class UserServiceImpl: UserService {
             print("DEBUG: unable clear all recents songs for uid \(uid)", error.localizedDescription)
         }
     }
+
+    /// Sets up a "demo" account with some default playlists.
+    @MainActor
+    func setupDemoAccount(uid: String) async {
+        let playlists = DEMO_PLAYLISTS
+
+        for (title, metadata) in playlists {
+            let songIds = metadata["songIds"] as! [String]
+            let imageUrl = metadata["imageUrl"] as! String
+
+            guard let playlistId = await PlaylistServiceImpl.shared.createPlaylist(
+                uid: uid,
+                name: title,
+                imageUrl: imageUrl
+            ) else {
+                print("DEBUG: unable to set up playlist \(title) for demo account for uid \(uid)")
+                continue
+            }
+
+            await PlaylistServiceImpl.shared.addManySongsToPlaylist(
+                uid: uid,
+                playlistId: playlistId,
+                songIds: songIds
+            )
+        }
+    }
 }

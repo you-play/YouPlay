@@ -93,21 +93,24 @@ class PlaylistServiceImpl: PlaylistService {
         return []
     }
     
-    // Function to create a new playlist for a given user
-    func createPlaylist(uid: String, name: String) async {
+    // Function to create a new playlist for a given user. Returns the Playlist ID of the created playlist.
+    func createPlaylist(uid: String, name: String, imageUrl: String? = nil) async -> String? {
         if name.lowercased() == LIKED_SONGS.lowercased() {
             print("DEBUG: Cannot add a song that is labeled Liked Songs")
-            return
+            return nil
         }
         let playlistsRef = FirestoreConstants.PlaylistsCollection(uid: uid)
         
-        let newPlaylist = Playlist(title: name, songs: [], imageUrl: nil)
+        let newPlaylist = Playlist(title: name, songs: [], imageUrl: imageUrl)
         do {
-            let _ = try playlistsRef.addDocument(from: newPlaylist)
+            let created = try playlistsRef.addDocument(from: newPlaylist)
             print("DEBUG: Created new playlist \(name) for user \(uid)")
+            return created.documentID
         } catch {
             print("DEBUG: Unable to create new playlist for user \(uid)", error.localizedDescription)
         }
+        
+        return nil
     }
     
     // Function to delete a playlist for a given user
@@ -231,6 +234,33 @@ class PlaylistServiceImpl: PlaylistService {
             print("DEBUG: Added song \(song.id) to playlist \(playlistId) for user \(uid)")
         } catch {
             print("DEBUG: Unable to add song \(song.id) to playlist \(playlistId) for user \(uid)", error.localizedDescription)
+        }
+    }
+    
+    /// Adds a songId to a playlist. Does not check for duplicates.
+    func addManySongsToPlaylist(uid: String, playlistId: String, songIds: [String]) async {
+        let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid).document(playlistId)
+        
+        do {
+            var playlist = try await playlistRef.getDocument(as: Playlist.self)
+            var updatedSongs = Set<String>(playlist.songs)
+            var songsAdded = 0
+            
+            for songId in songIds {
+                if !updatedSongs.contains(songId) {
+                    updatedSongs.insert(songId)
+                    songsAdded += 1
+                }
+            }
+            
+            playlist.songs = Array(updatedSongs)
+            playlist.lastModified = Timestamp()
+   
+            let encodedPlaylist = try Firestore.Encoder().encode(playlist)
+            try await playlistRef.setData(encodedPlaylist)
+            print("DEBUG: Added \(songsAdded) songs to playlist \(playlistId) for user \(uid)")
+        } catch {
+            print("DEBUG: Unable to many sonds to playlist \(playlistId) for user \(uid)", error.localizedDescription)
         }
     }
     
