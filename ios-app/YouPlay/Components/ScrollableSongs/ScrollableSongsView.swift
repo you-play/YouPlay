@@ -34,15 +34,15 @@ struct ScrollableSongsView: View {
                 .padding(.horizontal)
             }
         }
-        .frame(maxHeight: 215)
+        .frame(maxHeight: SONG_CARD_SIZE + (2 * SONG_CARD_METADATA_SIZE))
     }
 }
 
 struct SongRowView: View {
     let song: Song
 
-    let size = 120.0
-    let metadataHeight = 50.0
+    let size = SONG_CARD_SIZE
+    let metadataHeight = SONG_CARD_METADATA_SIZE
 
     var body: some View {
         VStack(alignment: .leading) {
