@@ -19,41 +19,70 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                VStack(spacing: 16) {
-                    // top playlist header
-                    LazyVGrid(columns: gridColumns, spacing: 8) {
-                        ForEach(viewModel.topPlaylists) { playlist in
-                            NavigationLink {
-                                PlaylistDetailView(
-                                    playlist: playlist,
-                                    songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
-                                    spotifyController: spotifyController
-                                )
-                            } label: {
-                                PlaylistCardView(playlist: playlist)
+                if viewModel.isLoading {
+                    LoadingView()
+                } else {
+                    VStack(spacing: 16) {
+                        // top playlist header
+                        LazyVGrid(columns: gridColumns, spacing: 8) {
+                            ForEach(viewModel.topPlaylists) { playlist in
+                                NavigationLink {
+                                    PlaylistDetailView(
+                                        playlist: playlist,
+                                        songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
+                                        spotifyController: spotifyController
+                                    )
+                                } label: {
+                                    PlaylistCardView(playlist: playlist)
+                                }
+                                .tint(.white)
                             }
-                            .tint(.white)
+                        }
+                        .padding(.horizontal)
+
+                        ForEach(viewModel.topPlaylists) { playlist in
+                            ScrollableSongsView(
+                                title: playlist.title,
+                                songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
+                                spotifyController: spotifyController
+                            )
                         }
                     }
-                    .padding(.horizontal)
-
-                    ForEach(viewModel.topPlaylists) { playlist in
-                        ScrollableSongsView(
-                            title: playlist.title,
-                            songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
-                            spotifyController: spotifyController
-                        )
-                    }
+                    .padding(.top)
+                    .padding(.bottom, 72)
                 }
-                .padding(.top)
-                .padding(.bottom, 72)
             }
             .refreshable {
-                viewModel.fetchTopPlaylists()
+                Task {
+                    await viewModel.fetchTopPlaylists()
+                }
             }
         }
         .onAppear {
-            viewModel.fetchTopPlaylists()
+            Task {
+                await viewModel.fetchTopPlaylists()
+            }
+        }
+    }
+}
+
+private struct LoadingView: View {
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+                .frame(height: 200)
+
+            // logo
+            Image("YouPlayLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120, height: 120)
+                .padding(.bottom, 32)
+
+            Spacer()
+
+            Color.black.opacity(1)
+            ProgressView()
         }
     }
 }
