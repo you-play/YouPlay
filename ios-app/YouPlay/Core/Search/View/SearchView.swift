@@ -13,8 +13,8 @@ struct SearchView: View {
 
     var body: some View {
         VStack {
+            // search bar
             ZStack {
-                // Background and search icon
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color(.systemGray6))
                     .frame(height: 48)
@@ -53,6 +53,7 @@ struct SearchView: View {
                 }
             }
 
+            // search results
             List {
                 ForEach(viewModel.searchQuery.isEmpty
                     ? viewModel.recentSongs
@@ -95,6 +96,7 @@ struct SearchView: View {
                         systemImage: "music.mic.circle.fill",
                         description: Text("Start typing to find latest and greatest")
                     )
+
                 } else if viewModel.searchResults?.tracks?.total == 0 {
                     ContentUnavailableView.search
                 }

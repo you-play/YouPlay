@@ -32,6 +32,8 @@ let SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 let SPOTIFY_BASE_API_URL = "https://api.spotify.com/v1"
 let SILENT_TRACK_URI = "spotify:track:7p5bQJB4XsZJEEn6Tb7EaL"
 let MAX_ALLOWED_RECENT_SONGS = 20
+let SONG_CARD_SIZE = 120.0
+let SONG_CARD_METADATA_SIZE = 50.0
 
 let TOP_PLAYLISTS_LIMIT = 6
 let LIKED_SONGS = "Liked Songs"
