@@ -4,9 +4,11 @@
 >
 > **Developed by:** [Heather Browning](https://www.linkedin.com/in/bunnymouses/), [Joshua Lopes](https://www.linkedin.com/in/joshua-lopes-aaab05188/), [Sebastian Nunez](https://www.linkedin.com/in/sebastian-nunez-profile/), [Yixin (Fiona) Zhao](https://www.linkedin.com/in/yixin-zhao-/)
 
-![screens 1](./assets/images/screens-1.png)
+![showcase screens 1](./assets/images/screens-1.png)
 
-![screens 2](./assets/images/screens-2.png)
+![showcase screens 2](./assets/images/screens-2.png)
+
+![showcase demo screens 2](./assets/images/screens-3.png)
 
 ## Table of Contents <!-- omit from toc -->
 

@@ -4,15 +4,17 @@ These are some of the demos while development was under way.
 
 ## Demos
 
-### Auth Flow
+### Initial Load in
 
-- Complete auth flow (log in, sign up, logout) using email and password alongside Google OAuth.
+- Users are greeting with loading states
 
-- Users are able to update their profile picture and have it uploaded directly to Firebase Storage.
+![initial loading](../assets/demos/demo-login-loading.gif)
 
-- Password reset available via email.
+### Set up Demo Account
 
-![auth flow demo](../assets/demos/demo-auth-flow.gif)
+- Users are able to set up a demo account
+
+![set up demo account](../assets/demos/demo-set-up-demo-account.gif)
 
 ### Player Crumb-bar
 
@@ -26,14 +28,6 @@ These are some of the demos while development was under way.
 - Users able to search for songs
 
 ![search bar](../assets/demos/demo-search-bar.gif)
-
-### Playlist Management
-
-- Users able to:
-  - Create/delete playlists
-  - Remove songs from a playlist
-
-![playlist management](../assets/demos/demo-playlist-management.gif)
 
 ### Playlist Flow
 
@@ -52,8 +46,26 @@ These are some of the demos while development was under way.
 
 ![recent songs](../assets/demos/demo-recent-songs.gif)
 
+### Playlist Management
+
+- Users able to:
+  - Create/delete playlists
+  - Remove songs from a playlist
+
+![playlist management](../assets/demos/demo-playlist-management.gif)
+
 ### Playlist Search & Filtering
 
 - Users are able to search for a song within a playlist by text
 
 ![playlist search](../assets/demos/demo-search-songs-list.gif)
+
+### Auth Flow
+
+- Complete auth flow (log in, sign up, logout) using email and password alongside Google OAuth.
+
+- Users are able to update their profile picture and have it uploaded directly to Firebase Storage.
+
+- Password reset available via email.
+
+![auth flow demo](../assets/demos/demo-auth-flow.gif)
