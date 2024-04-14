@@ -22,7 +22,11 @@ struct PlaylistDetailView: View {
         if searchText.isEmpty {
             return songs
         } else {
-            return songs.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            return songs
+                .sorted(by: { song1, song2 in
+                    song1.name < song2.name
+                })
+                .filter { $0.name.lowercased().contains(searchText.lowercased()) }
         }
     }
 
@@ -35,9 +39,7 @@ struct PlaylistDetailView: View {
             )
         } else {
             List {
-                ForEach(filteredSongs.sorted(by: { song1, song2 in
-                    song1.name < song2.name
-                })) { song in
+                ForEach(filteredSongs) { song in
                     Button {
                         spotifyController.play(uri: song.uri)
                     } label: {
@@ -94,18 +96,16 @@ struct PlaylistDetailView: View {
         }
 
         for offset in offsets {
-            let song = songs[offset]
+            let song = filteredSongs[offset] // these are the song actually displayed
+
             Task {
                 await PlaylistServiceImpl.shared.removeSongFromPlaylist(uid: userID, playlistId: playlist.id, songId: song.id)
-                self.songs.remove(at: offset)
+
+                // optimistic update
+                if let songIndex = self.songs.firstIndex(where: { $0.id == song.id }) {
+                    self.songs.remove(at: songIndex)
+                }
             }
         }
     }
-
-//    private func fetchSongs() {
-//        Task {
-//            let fetchedSongs = await SpotifyServiceImpl.shared.fetchSongs(byIds: playlist.songs)
-//            songs = fetchedSongs ?? []
-//        }
-//    }
 }
