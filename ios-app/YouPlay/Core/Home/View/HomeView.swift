@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
+    @StateObject var playlistViewModel = PlaylistsViewModel()
     @ObservedObject var spotifyController: SpotifyController
 
     private let gridColumns = [
@@ -20,7 +21,9 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(.vertical) {
                 if viewModel.isLoading {
-                    LoadingView()
+                    HomeLoadingView()
+                } else if viewModel.topPlaylists.isEmpty {
+                    HomeEmptyContentView()
                 } else {
                     VStack(spacing: 16) {
                         // top playlist header
@@ -40,12 +43,19 @@ struct HomeView: View {
                         }
                         .padding(.horizontal)
 
-                        ForEach(viewModel.topPlaylists) { playlist in
-                            ScrollableSongsView(
-                                title: playlist.title,
-                                songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
-                                spotifyController: spotifyController
-                            )
+                        // playlists
+                        if viewModel.isLoadingSongMetadata {
+                            ForEach(1 ... 4, id: \.self) { _ in
+                                SkeletonCardRowView()
+                            }
+                        } else {
+                            ForEach(viewModel.topPlaylists) { playlist in
+                                ScrollableSongsView(
+                                    title: playlist.title,
+                                    songs: viewModel.playlistIdToSongs[playlist.id] ?? [],
+                                    spotifyController: spotifyController
+                                )
+                            }
                         }
                     }
                     .padding(.top)
@@ -54,39 +64,25 @@ struct HomeView: View {
             }
             .refreshable {
                 Task {
-                    await viewModel.fetchTopPlaylists()
+                    await viewModel.fetchTopPlaylists(inBackground: true)
                 }
             }
         }
         .onAppear {
             Task {
-                await viewModel.fetchTopPlaylists()
+                if viewModel.playlistIdToSongs.isEmpty {
+                    await viewModel.fetchTopPlaylists(inBackground: false)
+                } else {
+                    await viewModel.fetchTopPlaylists(inBackground: true)
+                }
             }
         }
     }
 }
 
-private struct LoadingView: View {
-    var body: some View {
-        VStack(spacing: 24) {
-            Spacer()
-                .frame(height: 200)
-
-            // logo
-            Image("YouPlayLogo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 120, height: 120)
-                .padding(.bottom, 32)
-
-            Spacer()
-
-            Color.black.opacity(1)
-            ProgressView()
-        }
-    }
-}
-
 #Preview {
-    HomeView(viewModel: HomeViewModel(), spotifyController: SpotifyController())
+    HomeView(
+        viewModel: HomeViewModel(),
+        spotifyController: SpotifyController()
+    )
 }
