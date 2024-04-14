@@ -12,8 +12,9 @@ import Foundation
 
 class PlaylistServiceImpl: PlaylistService {
     static let shared = PlaylistServiceImpl()
-    
     private init() {}
+    
+    @Published var isLoadingSongMetadata: Bool = false
     
     /// Sets up the default playlists for a given user's id.
     func setupDefaultPlaylists(uid: String) async {
@@ -148,8 +149,10 @@ class PlaylistServiceImpl: PlaylistService {
     }
     
     /// Retrieves the full `Song` metadata for a list of `Playlists` as a mapping: playlistId -> Song[]
+    /// If `inBackground` is enabled, loading states will NOT be activated.
     @MainActor
-    func getPlaylistIdToSongsMap(for playlists: [Playlist]) async -> [String: [Song]] {
+    func getPlaylistIdToSongsMap(for playlists: [Playlist], inBackground: Bool = false) async -> [String: [Song]] {
+        isLoadingSongMetadata = !inBackground
         var playlistIdToSongs: [String: [Song]] = [:]
         
         for playlist in playlists {
@@ -164,6 +167,7 @@ class PlaylistServiceImpl: PlaylistService {
             playlistIdToSongs[playlist.id] = songs
         }
         
+        isLoadingSongMetadata = false
         return playlistIdToSongs
     }
 
