@@ -82,6 +82,14 @@ class RootViewModel: ObservableObject {
         playlists = await PlaylistServiceImpl.shared.getPlaylists(uid: uid)
     }
 
+    func loadPlaylists(playlistId: String) async {
+        guard let uid = currentUser?.uid else {
+            print("DEBUG: unable to fetch playlists without a uid")
+            return
+        }
+        await spotifyController.loadPlaylist(uid: uid, playlistId: playlistId)
+    }
+
     private func setupSubscribers() {
         UserServiceImpl.shared.$currentUser.sink { [weak self] currentUser in
             self?.currentUser = currentUser

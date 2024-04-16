@@ -241,7 +241,6 @@ class PlaylistServiceImpl: PlaylistService {
             if playlist.title != LIKED_SONGS {
                 playlist.imageUrl = song.album.images.first?.url
             }
-            
             let encodedPlaylist = try Firestore.Encoder().encode(playlist)
             try await playlistRef.setData(encodedPlaylist)
             print("DEBUG: Added song \(song.id) to playlist \(playlistId) for user \(uid)")

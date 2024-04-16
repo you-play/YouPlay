@@ -33,10 +33,11 @@ class SpotifyController: NSObject, ObservableObject {
     // playback controls
     @Published var isPaused: Bool = false
     @Published var song: Song? = nil
-
+    @Published var currentPlaylist: [String] = []
     private var playbackRestoreURI = ""
     private var playbackRestoreSeekPosition: Int = 0
     private var songId: String? = nil
+    private var currentIndex: Int = 0
     
     private var connectCancellable: AnyCancellable?
     private var disconnectCancellable: AnyCancellable?
@@ -152,6 +153,66 @@ extension SpotifyController {
             } else {
                 print("DEBUG: Successfully playing track with URI \(uri)", result ?? "")
             }
+        }
+    }
+    
+    /// Skips to the next track.
+    func nextTrack() {
+        appRemote.playerAPI?.skip(toNext: { _, error in
+            if let error = error {
+                print("ERROR: Failed to skip to the next track: \(error.localizedDescription)")
+            } else {
+                print("DEBUG: Skipped to the next track.")
+            }
+        })
+    }
+
+    func nextTrackCustom() {
+        guard !currentPlaylist.isEmpty, currentIndex < currentPlaylist.count - 1 else {
+            print("DEBUG: No next track available")
+            return
+        }
+        
+        currentIndex += 1
+        let nextSongURI = currentPlaylist[currentIndex]
+        play(uri: nextSongURI)
+    }
+    
+    /// Skips to the previous track.
+    func previousTrack() {
+        appRemote.playerAPI?.skip(toPrevious: { _, error in
+            if let error = error {
+                print("ERROR: Failed to skip to the previous track: \(error.localizedDescription)")
+            } else {
+                print("DEBUG: Skipped to the previous track.")
+            }
+        })
+    }
+
+    func prevTrackCustom() {
+        guard !currentPlaylist.isEmpty, currentIndex > 0 else {
+            print("DEBUG: No previous track available")
+            return
+        }
+        
+        currentIndex -= 1
+        let prevSongURI = currentPlaylist[currentIndex]
+        play(uri: prevSongURI)
+    }
+
+    func loadPlaylist(uid: String, playlistId: String) async {
+        let playlistRef = FirestoreConstants.PlaylistsCollection(uid: uid).document(playlistId)
+        do {
+            var playlist = try await playlistRef.getDocument(as: Playlist.self)
+            var songs = (playlist.songs)
+            
+            currentPlaylist = songs
+            currentIndex = 0
+            if !songs.isEmpty {
+                play(uri: songs[currentIndex])
+            }
+        } catch {
+            print("DEBUG: Unable to access  \(playlistId)")
         }
     }
 }

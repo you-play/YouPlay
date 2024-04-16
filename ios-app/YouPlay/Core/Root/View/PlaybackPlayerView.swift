@@ -12,6 +12,7 @@ struct PlaybackPlayerView: View {
 
     @Environment(\.dismiss) var dismiss
 
+    var playlist: Playlist
     var body: some View {
         NavigationStack {
             VStack {
@@ -66,6 +67,7 @@ struct PlaybackPlayerView: View {
                     Button(action: {
                         // TODO: go to prev song
                         print("Previous song")
+                        viewModel.spotifyController.previousTrack()
                     }) {
                         Image(systemName: "backward.end.fill")
                             .foregroundColor(.primary)
@@ -85,6 +87,7 @@ struct PlaybackPlayerView: View {
                     Button(action: {
                         // TODO: skip song
                         print("Next song")
+                        viewModel.spotifyController.nextTrackCustom()
                     }) {
                         Image(systemName: "forward.end.fill")
                             .foregroundColor(.primary)
@@ -100,6 +103,8 @@ struct PlaybackPlayerView: View {
             Task {
                 if let songId = viewModel.song?.id {
                     viewModel.isLiked = await viewModel.isLikedSong(songId: songId)
+
+                    await viewModel.loadPlaylists(playlistId: playlist.id)
                 }
             }
         }
